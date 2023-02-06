@@ -13,8 +13,9 @@ public class Main {
         System.out.println("Em quantas parcelas deseja pagar: ");
         int parcelasParaPagar = scanner.nextInt();
         emprestimo.valorMaisParcela(valorEmprestimo, parcelasParaPagar);
-        System.out.println(emprestimo);
+        System.out.println("Esse é o valor de cada parcela: " + emprestimo.valorPorParcela());
 
+        System.out.println("================================================");
 
         System.out.println("Digite quantas parcelas deseja pagar: ");
         int parcelaPaga = scanner.nextInt();
@@ -24,7 +25,7 @@ public class Main {
         emprestimo.pagandoEmprestimo(valorDePagamento);
 
 
-        System.out.println(emprestimo.emprestimoQuitado(valorDePagamento, parcelaPaga));
+        emprestimo.emprestimoQuitado(valorDePagamento, parcelaPaga);
 
     }
 }
