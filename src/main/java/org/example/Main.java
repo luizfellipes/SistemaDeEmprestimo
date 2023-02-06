@@ -1,13 +1,30 @@
 package org.example;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Emprestimo emprestimo = new Emprestimo("luiz", 33631772,"05469372170", 3000, 10, 0);
 
+        Scanner scanner = new Scanner(System.in);
+        Emprestimo emprestimo = new Emprestimo();
+
+        System.out.println("Digite o valor de empréstimo a ser solicitado: ");
+        float valorEmprestimo = scanner.nextFloat();
+        System.out.println("Em quantas parcelas deseja pagar: ");
+        int parcelasParaPagar = scanner.nextInt();
+        emprestimo.valorMaisParcela(valorEmprestimo, parcelasParaPagar);
         System.out.println(emprestimo);
-        emprestimo.valorPago(2700);
-        emprestimo.pagamentoEmprestimo(9);
-        boolean dividaZero = false;
-        emprestimo.emprestimoQuitado(dividaZero);
+
+
+        System.out.println("Digite quantas parcelas deseja pagar: ");
+        int parcelaPaga = scanner.nextInt();
+        emprestimo.pagandoEmprestimo(parcelaPaga);
+        System.out.println("Digite o valor a ser pago: ");
+        float valorDePagamento = scanner.nextInt();
+        emprestimo.pagandoEmprestimo(valorDePagamento);
+
+
+        System.out.println(emprestimo.emprestimoQuitado(valorDePagamento, parcelaPaga));
+
     }
 }

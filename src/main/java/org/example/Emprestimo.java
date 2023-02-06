@@ -1,17 +1,13 @@
 package org.example;
 
-public class Emprestimo extends Pessoa {
+public class Emprestimo {
     private float valorEmprestimo;
     private int numeroDeParcelas;
     private int numeroDeParcelasPagas;
 
-
-    public Emprestimo(String nome, int telefone, String cpf, float valorEmprestimo, int numeroDeParcelas, int numeroDeParcelasPagas) {
-        super(nome, telefone, cpf);
-        this.valorEmprestimo = valorEmprestimo;
-        this.numeroDeParcelas = numeroDeParcelas;
-        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
+    public Emprestimo() {
     }
+
 
     public float getValorEmprestimo() {
         return valorEmprestimo;
@@ -37,30 +33,44 @@ public class Emprestimo extends Pessoa {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
 
-
-    public void pagamentoEmprestimo(int parcelasPagas) {
-        this.numeroDeParcelas = this.numeroDeParcelas - parcelasPagas;
-        System.out.println("Parcelas quitadas até o momento: " + parcelasPagas);
+    //Métodos
+    public int pagandoEmprestimo(int numeroDeParcelasPagas) {
+        setNumeroDeParcelasPagas(numeroDeParcelasPagas);
+        System.out.println("Total de parcelas : " + getNumeroDeParcelas() + " Total de parcelas pagas: " + getNumeroDeParcelasPagas());
+        return numeroDeParcelasPagas;
     }
 
-    public void valorPago(float totalPago) {
-        this.valorEmprestimo = this.valorEmprestimo - totalPago;
-        System.out.println("Valor quitado até o momento: " + totalPago);
-    }
-
-    public void emprestimoQuitado(boolean dividaZero) {
-        if (this.valorEmprestimo == 0 || this.numeroDeParcelas == 0) {
-            System.out.println("A divida esta quitada !");
-        } else{
-            System.out.println("Ainda há debítos na conta ! " + "Saldo devedor: " + this.valorEmprestimo + " Parcelas Restantes: " + this.numeroDeParcelas);
+    public float pagandoEmprestimo(float valorPago) {
+        float pagamentoRestante = getValorEmprestimo() - valorPago;
+        if (valorPago > getValorEmprestimo() || valorPago < 0) {
+            System.out.println("Impossível realizar pagamento !");
+        } else {
+            System.out.println("Saldo devedor: " + pagamentoRestante);
         }
+        return pagamentoRestante;
     }
 
+    public boolean emprestimoQuitado(float valorPago, int quantidadeDeParcelas) {
+        float valorFinal = pagandoEmprestimo(valorPago);
+        pagandoEmprestimo(quantidadeDeParcelas);
+        int parcelaFinal = pagandoEmprestimo(quantidadeDeParcelas);
+        if (valorFinal == 0 && parcelaFinal == 0) {
+            System.out.println("O emprestimo foi quitado !");
+        } else {
+            System.out.println("Ainda existe um emprestimo de: R$" + valorFinal + ", com x" + parcelaFinal + " parcelas restante !");
+        }
+        return false;
+    }
+
+    public void valorMaisParcela(float valorEmprestimo, int parcela) {
+        setValorEmprestimo(valorEmprestimo);
+        setNumeroDeParcelas(parcela);
+    }
 
     @Override
     public String toString() {
-        return "Emprestimo{" + super.toString() +
-                " valorEmprestimo=" + valorEmprestimo +
+        return "Emprestimo{" +
+                "valorEmprestimo=" + valorEmprestimo +
                 ", numeroDeParcelas=" + numeroDeParcelas +
                 ", numeroDeParcelasPagas=" + numeroDeParcelasPagas +
                 '}';
