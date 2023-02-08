@@ -2,10 +2,10 @@ package org.example;
 
 public class Pessoa {
     private String nome;
-    private int telefone;
+    private String telefone;
     private String cpf;
 
-    public Pessoa(String nome, int telefone, String cpf) {
+    public Pessoa(String nome, String telefone, String cpf) {
         this.nome = nome;
         this.telefone = telefone;
         this.cpf = cpf;
@@ -19,11 +19,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -35,11 +35,13 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
-    @Override
-    public String toString() {
-        return "Dados{" +
-                "nome='" + nome + '\'' +
-                ", telefone=" + telefone +
-                ", cpf='" + cpf + '\'' ;
+
+    public boolean pessoaExiste(boolean pessoa){
+        if(getNome().isEmpty() && getCpf().isEmpty() && getTelefone().isEmpty()){
+            pessoa = false;
+        }
+        return pessoa;
     }
+
+
 }
