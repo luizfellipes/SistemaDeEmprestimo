@@ -38,6 +38,7 @@ public class Pessoa {
 
     public boolean pessoaExiste(boolean pessoa){
         if(getNome().isEmpty() && getCpf().isEmpty() && getTelefone().isEmpty()){
+            System.out.println("Pessoa sem dados cadastrados ! \nNão será possível realizar o emprestimo !");
             pessoa = false;
         }
         return pessoa;
