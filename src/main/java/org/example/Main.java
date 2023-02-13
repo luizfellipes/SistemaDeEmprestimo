@@ -20,7 +20,7 @@ public class Main {
 
 
         if (pessoa.pessoaExiste(true)) {
-            System.out.print("Digite o valor de empréstimo a ser solicitado: R$");
+            System.out.print("Digite o valor de empréstimo a ser solicitado: ");
             float valorEmprestimo = scanner.nextFloat();
             System.out.print("Em quantas parcelas deseja pagar: ");
             int numeroDeParcelas = scanner.nextInt();

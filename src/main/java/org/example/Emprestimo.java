@@ -3,12 +3,13 @@ package org.example;
 public class Emprestimo {
     private float valorEmprestimo;
     private float valorParcela;
+    private float saldoPago;
     private int numeroDeParcelas;
     private int numeroDeParcelasPagas;
 
 
-    public Emprestimo(float valorEmprestimo, int numeroDeParcelas, int numeroDeParcelasPagas) {
-        this.valorEmprestimo = valorEmprestimo;
+    public Emprestimo(float valorParcela, int numeroDeParcelas, int numeroDeParcelasPagas) {
+        this.valorParcela = valorParcela;
         this.numeroDeParcelas = numeroDeParcelas;
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
@@ -25,12 +26,20 @@ public class Emprestimo {
         return valorParcela;
     }
 
-    public void setValorParcela(float valorParcela) {
+    public float setValorParcela(float valorParcela) {
         this.valorParcela = valorParcela;
+        return valorParcela;
     }
-
     public int getNumeroDeParcelas() {
         return this.numeroDeParcelas;
+    }
+
+    public float getSaldoPago() {
+        return saldoPago;
+    }
+
+    public void setSaldoPago(float saldoPago) {
+        this.saldoPago = saldoPago;
     }
 
     public void setNumeroDeParcelas(int numeroDeParcelas) {
@@ -41,43 +50,34 @@ public class Emprestimo {
         return numeroDeParcelasPagas;
     }
 
-    public int setNumeroDeParcelasPagas(int numeroDeParcelasPagas) {
+    public void setNumeroDeParcelasPagas(int numeroDeParcelasPagas) {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
-        return numeroDeParcelasPagas;
     }
 
     //Métodos
-
-    public void pagamento() {
-        System.out.println("Valor da parcela: R$" + valorPorParcela());
-        System.out.println("Esse é valor a ser pago: " + valorPago());
-        setNumeroDeParcelasPagas(getNumeroDeParcelas() - getNumeroDeParcelasPagas());
-        emprestimoQuitado();
-    }
-
     public void emprestimoQuitado() {
-        if (valorPago() == 0 && parcelasPagas() == 0) {
+        float valorPorParcela = setValorParcela(getValorEmprestimo() / getNumeroDeParcelas());
+        System.out.println("Valor da parcela: " + valorPorParcela);
+        float valorPago = getNumeroDeParcelas() * valorPorParcela;
+        System.out.println(valorPago);
+        setSaldoPago(valorPago);
+        if (valorPago == 0 && getNumeroDeParcelasPagas() == 0) {
             System.out.println("Pagamento concluído ! O emprestimo foi quitado !");
-        } else if (valorPago() < 0 || parcelasPagas() < 0) {
+        } else if (valorPago < 0 || getNumeroDeParcelasPagas() < 0) {
             System.out.println("Pagamento inválido. Por favor, selecione uma parcela válida.");
         } else {
-            System.out.println("Ainda existe um emprestimo de: " + valorPago() + ", com x" + parcelasPagas() + " parcelas restante ! " +
+            System.out.println("Ainda existe um emprestimo de: " + getValorParcela() + ", com x" + getNumeroDeParcelasPagas() + " parcelas restante ! " +
                     "\nValor inicial do emprestimo: " + getValorEmprestimo() + ", com x" + getNumeroDeParcelas() + " parcelas.");
         }
     }
 
-    public float valorPago() {
-        return getNumeroDeParcelasPagas() * valorPorParcela();
+    public void pagamento() {
+        parcelasPagas();
+        emprestimoQuitado();
     }
 
-    public float valorPorParcela() {
-        setValorParcela(getValorEmprestimo() / getNumeroDeParcelas());
-        return getValorParcela();
-    }
-
-    public int parcelasPagas(){
-        return setNumeroDeParcelasPagas(getNumeroDeParcelasPagas());
-
+    public void parcelasPagas() {
+        setValorParcela(getNumeroDeParcelas() - getNumeroDeParcelasPagas());
     }
 
 }
