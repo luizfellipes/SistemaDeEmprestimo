@@ -44,5 +44,12 @@ public class Pessoa {
         return pessoa;
     }
 
-
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "nome='" + nome + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", cpf='" + cpf + '\'' +
+                '}';
+    }
 }

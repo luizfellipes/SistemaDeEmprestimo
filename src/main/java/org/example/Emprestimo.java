@@ -55,9 +55,9 @@ public class Emprestimo {
 
     //Métodos
     public void pagamento() {
-        float valorPorParcela = (getValorEmprestimo() / getNumeroDeParcelas());
-        System.out.println("Valor da parcela: R$" + valorPorParcela);
-        float valorPago = getNumeroDeParcelasPagas() * valorPorParcela;
+       setValorParcela(getValorEmprestimo() / getNumeroDeParcelas());
+        System.out.println("Valor da parcela: " + getValorParcela());
+        float valorPago = getNumeroDeParcelasPagas() * getValorParcela();
         setSaldoPago(valorPago);
         System.out.println("Esse é valor a ser pago: " + valorPago);
         setSaldoPago(getValorEmprestimo() - valorPago);
@@ -76,5 +76,15 @@ public class Emprestimo {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Emprestimo{" +
+                "valorEmprestimo=" + valorEmprestimo +
+                ", valorParcela=" + valorParcela +
+                ", saldoPago=" + saldoPago +
+                ", numeroDeParcelas=" + numeroDeParcelas +
+                ", numeroDeParcelasPagas=" + numeroDeParcelasPagas +
+                '}';
+    }
 }
 
