@@ -54,26 +54,26 @@ public class Emprestimo {
     }
 
     //Métodos
-    public void pagamento() {
+    public boolean pagamento(boolean pagamentoRealizado) {
         setValorParcela(getValorEmprestimo() / getNumeroDeParcelas());
         System.out.println("Valor da parcela: " + getValorParcela());
         float valorPago = getNumeroDeParcelasPagas() * getValorParcela();
         setSaldoPago(valorPago);
         System.out.println("Esse é valor a ser pago: " + valorPago);
         setSaldoPago(getValorEmprestimo() - valorPago);
-        emprestimoQuitado();
-    }
-
-    public void emprestimoQuitado() {
-        setNumeroDeParcelasPagas(getNumeroDeParcelas() - getNumeroDeParcelasPagas());
-        if (getSaldoPago() == 0 && getNumeroDeParcelasPagas() == 0) {
+        int parcelaPaga = (getNumeroDeParcelas() - getNumeroDeParcelasPagas());
+        if (getSaldoPago() == 0 && parcelaPaga == 0) {
             System.out.println("Pagamento concluído ! O emprestimo foi quitado !");
-        } else if (getSaldoPago() < 0 || getNumeroDeParcelasPagas() < 0) {
+            pagamentoRealizado = true;
+        } else if (getSaldoPago() < 0 || parcelaPaga < 0) {
             System.out.println("Pagamento inválido. Por favor, selecione uma parcela válida.");
+            pagamentoRealizado = false;
         } else {
             System.out.println("Ainda existe um emprestimo de: " + getSaldoPago() + ", com x" + getNumeroDeParcelasPagas() + " parcelas restante ! " +
                     "\nValor inicial do emprestimo: " + getValorEmprestimo() + ", com x" + getNumeroDeParcelas() + " parcelas.");
+            pagamentoRealizado = true;
         }
+        return pagamentoRealizado;
     }
 
     @Override
@@ -81,10 +81,11 @@ public class Emprestimo {
         return "Emprestimo{" +
                 "valorEmprestimo=" + valorEmprestimo +
                 ", valorParcela=" + valorParcela +
-                ", saldoPago=" + saldoPago +
+                ", saldoDevedor=" + saldoPago +
                 ", numeroDeParcelas=" + numeroDeParcelas +
                 ", numeroDeParcelasPagas=" + numeroDeParcelasPagas +
                 '}';
     }
+
 }
 

@@ -27,10 +27,10 @@ public class Main {
             System.out.print("Digite quantas parcelas deseja pagar: ");
             int parcelaPaga = scanner.nextInt();
             Emprestimo emprestimo = new Emprestimo(valorEmprestimo, numeroDeParcelas, parcelaPaga);
-            emprestimo.pagamento();
-            System.out.println("O emprestimo foi solicitado por: " + pessoa);
-            System.out.println("Com os seguintes valores " + emprestimo);
-
+            if(emprestimo.pagamento(true)){
+                System.out.println("Foi solicitado um empréstimo pela " + pessoa);
+                System.out.println("Com os seguintes valores do " + emprestimo);
+            }
         }
     }
 
