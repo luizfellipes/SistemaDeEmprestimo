@@ -18,6 +18,7 @@ public class Main {
         Pessoa pessoa = new Pessoa(nome, telefone, cpf);
 
 
+
         if (pessoa.pessoaExiste(true)) {
             System.out.print("Digite o valor de empréstimo a ser solicitado: ");
             float valorEmprestimo = scanner.nextFloat();
@@ -26,11 +27,8 @@ public class Main {
             System.out.println("========================================================");
             System.out.print("Digite quantas parcelas deseja pagar: ");
             int parcelaPaga = scanner.nextInt();
-            Emprestimo emprestimo = new Emprestimo(valorEmprestimo, numeroDeParcelas, parcelaPaga);
-            if(emprestimo.pagamento(true)){
-                System.out.println("Foi solicitado um empréstimo pela " + pessoa);
-                System.out.println("Com os seguintes valores do " + emprestimo);
-            }
+            Emprestimo emprestimo = new Emprestimo(valorEmprestimo, numeroDeParcelas, parcelaPaga, pessoa);
+            emprestimo.pagamento();
         }
     }
 

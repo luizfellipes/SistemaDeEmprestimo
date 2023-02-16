@@ -3,14 +3,16 @@ package org.example;
 public class Emprestimo {
     private float valorEmprestimo;
     private float valorParcela;
-    private float saldoPago;
+    private float saldoDevedor;
     private int numeroDeParcelas;
     private int numeroDeParcelasPagas;
+    private Pessoa pessoa;
 
-    public Emprestimo(float valorEmprestimo, int numeroDeParcelas, int parcelaPaga) {
+    public Emprestimo(float valorEmprestimo, int numeroDeParcelas, int numeroDeParcelasPagas, Pessoa pessoa) {
         this.valorEmprestimo = valorEmprestimo;
         this.numeroDeParcelas = numeroDeParcelas;
-        this.numeroDeParcelasPagas = parcelaPaga;
+        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
+        this.pessoa = pessoa;
     }
 
     public float getValorEmprestimo() {
@@ -21,12 +23,12 @@ public class Emprestimo {
         this.valorEmprestimo = valorEmprestimo;
     }
 
-    public float getSaldoPago() {
-        return saldoPago;
+    public float getSaldoDevedor() {
+        return saldoDevedor;
     }
 
-    public void setSaldoPago(float saldoPago) {
-        this.saldoPago = saldoPago;
+    public void setSaldoDevedor(float saldoDevedor) {
+        this.saldoDevedor = saldoDevedor;
     }
 
     public float getValorParcela() {
@@ -53,27 +55,37 @@ public class Emprestimo {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
 
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
     //Métodos
-    public boolean pagamento(boolean pagamentoRealizado) {
+    public void pagamento() {
         setValorParcela(getValorEmprestimo() / getNumeroDeParcelas());
-        System.out.println("Valor da parcela: " + getValorParcela());
         float valorPago = getNumeroDeParcelasPagas() * getValorParcela();
-        setSaldoPago(valorPago);
-        System.out.println("Esse é valor a ser pago: " + valorPago);
-        setSaldoPago(getValorEmprestimo() - valorPago);
-        int parcelaPaga = (getNumeroDeParcelas() - getNumeroDeParcelasPagas());
-        if (getSaldoPago() == 0 && parcelaPaga == 0) {
-            System.out.println("Pagamento concluído ! O emprestimo foi quitado !");
-            pagamentoRealizado = true;
-        } else if (getSaldoPago() < 0 || parcelaPaga < 0) {
+        float saldoRestante = getValorEmprestimo() - valorPago;
+        int parcelasRestantes = getNumeroDeParcelas() - getNumeroDeParcelasPagas();
+        setSaldoDevedor(saldoRestante);
+        if (saldoRestante < 0 || getNumeroDeParcelasPagas() < 0 || getNumeroDeParcelasPagas() > getNumeroDeParcelas()) {
             System.out.println("Pagamento inválido. Por favor, selecione uma parcela válida.");
-            pagamentoRealizado = false;
         } else {
-            System.out.println("Ainda existe um emprestimo de: " + getSaldoPago() + ", com x" + getNumeroDeParcelasPagas() + " parcelas restante ! " +
-                    "\nValor inicial do emprestimo: " + getValorEmprestimo() + ", com x" + getNumeroDeParcelas() + " parcelas.");
-            pagamentoRealizado = true;
+            System.out.println("Valor da parcela: " + getValorParcela() + "\nEsse é valor a ser pago: " + getSaldoDevedor() + "\n"+
+                    "\nAinda existe um emprestimo de: " + saldoRestante + ", com x" + parcelasRestantes + " parcelas restante ! " +
+                    "\nValor inicial do emprestimo: " + getValorEmprestimo() + ", com x" + getNumeroDeParcelas() + " parcelas. \n");
+            dividaQuitada();
         }
-        return pagamentoRealizado;
+    }
+
+    public void dividaQuitada() {
+        if (getSaldoDevedor() == 0) {
+            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + toString() + " \nFoi realizado pela: " + getPessoa().toString());
+        } else {
+            System.out.println("Divida não quitada ! \nO " + toString() + "\nFoi realizado pela: " + getPessoa().toString());
+        }
     }
 
     @Override
@@ -81,7 +93,7 @@ public class Emprestimo {
         return "Emprestimo{" +
                 "valorEmprestimo=" + valorEmprestimo +
                 ", valorParcela=" + valorParcela +
-                ", saldoDevedor=" + saldoPago +
+                ", saldoDevedor=" + saldoDevedor +
                 ", numeroDeParcelas=" + numeroDeParcelas +
                 ", numeroDeParcelasPagas=" + numeroDeParcelasPagas +
                 '}';
