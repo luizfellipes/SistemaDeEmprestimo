@@ -82,9 +82,9 @@ public class Emprestimo {
 
     public void dividaQuitada() {
         if (getSaldoDevedor() == 0) {
-            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + this + " \nFoi realizado pela: " + getPessoa().toString());
+            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + toString() + " \nFoi realizado pela: " + getPessoa().toString());
         } else {
-            System.out.println("Divida não quitada ! \nO " + this + "\nFoi realizado pela: " + getPessoa().toString());
+            System.out.println("Divida não quitada ! \nO " + toString() + "\nFoi realizado pela: " + getPessoa().toString());
         }
     }
 
