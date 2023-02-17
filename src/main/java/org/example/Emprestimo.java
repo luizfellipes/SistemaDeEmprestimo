@@ -73,7 +73,7 @@ public class Emprestimo {
         if (saldoRestante < 0 || getNumeroDeParcelasPagas() < 0 || getNumeroDeParcelasPagas() > getNumeroDeParcelas()) {
             System.out.println("Pagamento inválido. Por favor, selecione uma parcela válida.");
         } else {
-            System.out.println("Valor da parcela: " + getValorParcela() + "\nEsse é valor a ser pago: " + getSaldoDevedor() + "\n"+
+            System.out.println("Valor da parcela: " + getValorParcela() + "\nEsse é valor a ser pago: " + valorPago+ "\n"+
                     "\nAinda existe um emprestimo de: " + saldoRestante + ", com x" + parcelasRestantes + " parcelas restante ! " +
                     "\nValor inicial do emprestimo: " + getValorEmprestimo() + ", com x" + getNumeroDeParcelas() + " parcelas. \n");
             dividaQuitada();
@@ -82,9 +82,9 @@ public class Emprestimo {
 
     public void dividaQuitada() {
         if (getSaldoDevedor() == 0) {
-            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + toString() + " \nFoi realizado pela: " + getPessoa().toString());
+            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + this + " \nFoi realizado pela: " + getPessoa().toString());
         } else {
-            System.out.println("Divida não quitada ! \nO " + toString() + "\nFoi realizado pela: " + getPessoa().toString());
+            System.out.println("Divida não quitada ! \nO " + this + "\nFoi realizado pela: " + getPessoa().toString());
         }
     }
 
