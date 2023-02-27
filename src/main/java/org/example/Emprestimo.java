@@ -1,6 +1,5 @@
 package org.example;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +10,10 @@ public class Emprestimo {
     private float valorDoPagamento;
     private int quantidadeDeMesesParaPagamento;
     private int numeroDeParcelasPagas;
+    private String tipoDeEmprestimo;
 
-    public Emprestimo(float valorDoEmprestimo, float valorDoPagamento, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
-        this.valorDoPagamento = valorDoPagamento;
+    public Emprestimo(Pessoa pessoa, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
+        this.pessoa = pessoa;
         this.valorDoEmprestimo = valorDoEmprestimo;
         this.quantidadeDeMesesParaPagamento = quantidadeDeMesesParaPagamento;
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
@@ -59,6 +59,14 @@ public class Emprestimo {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
 
+    public String getTipoDeEmprestimo() {
+        return tipoDeEmprestimo;
+    }
+
+    public void setTipoDeEmprestimo(String tipoDeEmprestimo) {
+        this.tipoDeEmprestimo = tipoDeEmprestimo;
+    }
+
     List<Emprestimo> emprestimos;
 
     public void solicitacaoDeEmprestimo(Emprestimo emprestimo) {
@@ -69,17 +77,36 @@ public class Emprestimo {
         }
     }
 
+    public void listaDeEmprestimos(){
+        for (Emprestimo emprestimo : emprestimos) {
+            System.out.println(emprestimo);
+        }
+    }
+
     public void pagamento(float pagandoEmprestimo) {
+        float valorParcela = getQuantidadeDeMesesParaPagamento() / getValorDoEmprestimo();
+        float valorPago = valorParcela * getNumeroDeParcelasPagas();
+        if (valorPago < 0 || valorPago > getValorDoEmprestimo() ) {
+            System.out.println("Pagamento invalido !");
+        } else {
+            System.out.println("Pagamento de emprestimo no valor de R$:" + valorPago + "com x:" + getNumeroDeParcelasPagas() + " parcelas");
+            pagamentoQuitado();
+        }
+    }
+
+    public void pagamentoQuitado() {
+        if (getValorDoPagamento() == getValorDoEmprestimo()) {
+            System.out.println("O emprestimo foi quitado !");
+        }
+    }
+
+    public void tipoDeEmprestimo(String tipo) {
 
     }
 
-    public void emprestimoPessoal() {
+    public void jurosPorParcela() {
+
     }
 
-    public void emprestimoConsiginado() {
-    }
-
-    public void emprestimoRotativo() {
-    }
 
 }
