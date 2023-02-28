@@ -8,15 +8,18 @@ public class Emprestimo {
     private Pessoa pessoa;
     private float valorDoEmprestimo;
     private float valorDoPagamento;
+    private float valorDaParcela;
     private int quantidadeDeMesesParaPagamento;
     private int numeroDeParcelasPagas;
     private String tipoDeEmprestimo;
 
-    public Emprestimo(Pessoa pessoa, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
+
+    public Emprestimo(Pessoa pessoa, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas, String tipoDeEmprestimo) {
         this.pessoa = pessoa;
         this.valorDoEmprestimo = valorDoEmprestimo;
         this.quantidadeDeMesesParaPagamento = quantidadeDeMesesParaPagamento;
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
+        this.tipoDeEmprestimo = tipoDeEmprestimo;
     }
 
     public Pessoa getPessoa() {
@@ -41,6 +44,14 @@ public class Emprestimo {
 
     public void setValorDoPagamento(float valorDoPagamento) {
         this.valorDoPagamento = valorDoPagamento;
+    }
+
+    public float getValorDaParcela() {
+        return valorDaParcela;
+    }
+
+    public void setValorDaParcela(float valorDaParcela) {
+        this.valorDaParcela = valorDaParcela;
     }
 
     public int getQuantidadeDeMesesParaPagamento() {
@@ -72,41 +83,47 @@ public class Emprestimo {
     public void solicitacaoDeEmprestimo(Emprestimo emprestimo) {
         if (emprestimos == null) {
             emprestimos = new ArrayList<>();
-        } else {
-            emprestimos.add(emprestimo);
+        }
+        emprestimos.add(emprestimo);
+    }
+
+    public void listaDeEmprestimos() {
+        for (int i = 0; i < emprestimos.size(); i++) {
+            System.out.println(emprestimos.get(i));
         }
     }
 
-    public void listaDeEmprestimos(){
-        for (Emprestimo emprestimo : emprestimos) {
-            System.out.println(emprestimo);
-        }
-    }
-
-    public void pagamento(float pagandoEmprestimo) {
-        float valorParcela = getQuantidadeDeMesesParaPagamento() / getValorDoEmprestimo();
-        float valorPago = valorParcela * getNumeroDeParcelasPagas();
-        if (valorPago < 0 || valorPago > getValorDoEmprestimo() ) {
-            System.out.println("Pagamento invalido !");
+    public void pagamento() {
+        float valorParcela = getValorDoEmprestimo() / getQuantidadeDeMesesParaPagamento();
+        if (getQuantidadeDeMesesParaPagamento() > 5) {
+            float juros = valorParcela * 0.975f;
+            setValorDoPagamento(juros * getNumeroDeParcelasPagas());
         } else {
-            System.out.println("Pagamento de emprestimo no valor de R$:" + valorPago + "com x:" + getNumeroDeParcelasPagas() + " parcelas");
-            pagamentoQuitado();
+            setValorDoPagamento(valorParcela * getNumeroDeParcelasPagas());
         }
+        pagamentoQuitado();
     }
 
     public void pagamentoQuitado() {
-        if (getValorDoPagamento() == getValorDoEmprestimo()) {
+        if (getValorDoPagamento() < 0 || getValorDoPagamento() > getValorDoEmprestimo()) {
+            System.out.println("Pagamento invalido !");
+        } else if (getValorDoPagamento() == getValorDoEmprestimo()) {
             System.out.println("O emprestimo foi quitado !");
+        } else {
+            System.out.println("Pagamento de restante do emprestimo no valor de R$:" + getValorDoPagamento() + " com x:" + getNumeroDeParcelasPagas() + " parcelas");
         }
     }
 
-    public void tipoDeEmprestimo(String tipo) {
 
+    @Override
+    public String toString() {
+        return "Emprestimo{" +
+                "pessoa=" + pessoa +
+                ", valorDoEmprestimo=" + valorDoEmprestimo +
+                ", valorDoPagamento=" + valorDoPagamento +
+                ", quantidadeDeMesesParaPagamento=" + quantidadeDeMesesParaPagamento +
+                ", numeroDeParcelasPagas=" + numeroDeParcelasPagas +
+                ", tipoDeEmprestimo='" + tipoDeEmprestimo + '\'' +
+                '}';
     }
-
-    public void jurosPorParcela() {
-
-    }
-
-
 }

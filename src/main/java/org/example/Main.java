@@ -23,7 +23,9 @@ public class Main {
         System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
         int quantidadeMeses = scanner.nextInt();
         if (quantidadeMeses > 5){
-            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela");
+            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + (valorEmprestimo / quantidadeMeses) * 0.975f);
+        }else{
+            System.out.println("Valor por parcela (Sem juros): " + valorEmprestimo / quantidadeMeses);
         }
         System.out.println("Emprestimo realizado com sucesso: " + " R$:" + valorEmprestimo + " x" + quantidadeMeses);
 
@@ -33,8 +35,10 @@ public class Main {
         if (escolha.equalsIgnoreCase("s")){
             System.out.println("quantas parcelas deseja realizar o pagamento: ");
             int parcelas = scanner.nextInt();
-            Emprestimo emprestimo = new Emprestimo(pessoa, valorEmprestimo, quantidadeMeses, parcelas);
+            Emprestimo emprestimo = new Emprestimo(pessoa, valorEmprestimo, quantidadeMeses, parcelas, tipoEmprestimo);
             emprestimo.solicitacaoDeEmprestimo(emprestimo);
+            emprestimo.pagamento();
+            emprestimo.listaDeEmprestimos();
         }
 
     }
