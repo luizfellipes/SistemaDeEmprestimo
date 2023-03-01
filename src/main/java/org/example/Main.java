@@ -22,13 +22,13 @@ public class Main {
 
 
             System.out.println("Selecione a forma de emprestimo : \n[PESSOAL - CONSIGNADO - ROTATIVO]");
-            String tipoEmprestimo = scanner.nextLine();
+            String tipoEmprestimo = scanner.next();
             System.out.println("Digite o valor que deseja solicitar o emprestimo: ");
             float valorEmprestimo = scanner.nextFloat();
             System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
             int quantidadeMeses = scanner.nextInt();
             if (quantidadeMeses > 5) {
-                System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + (valorEmprestimo / quantidadeMeses) * 0.975f);
+                System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + (valorEmprestimo / quantidadeMeses) * 1.025f);
             } else {
                 System.out.println("Valor por parcela (Sem juros): " + valorEmprestimo / quantidadeMeses);
             }

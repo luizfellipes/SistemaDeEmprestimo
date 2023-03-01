@@ -21,6 +21,7 @@ public class Emprestimo {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
         this.tipoDeEmprestimo = tipoDeEmprestimo;
     }
+
     public Emprestimo() {
     }
 
@@ -98,7 +99,7 @@ public class Emprestimo {
     public void pagamento() {
         float valorParcela = getValorDoEmprestimo() / getQuantidadeDeMesesParaPagamento();
         if (getQuantidadeDeMesesParaPagamento() > 5) {
-            float juros = valorParcela * 0.975f;
+            float juros = valorParcela * 1.025f;
             setValorDoPagamento(juros * getNumeroDeParcelasPagas());
         } else {
             setValorDoPagamento(valorParcela * getNumeroDeParcelasPagas());
@@ -112,8 +113,8 @@ public class Emprestimo {
         } else if (getValorDoPagamento() == getValorDoEmprestimo()) {
             System.out.println("O emprestimo foi quitado !");
         } else {
-            System.out.println("Pagamento restante do emprestimo no valor de R$:" + getValorDoPagamento() + " com x:" + getNumeroDeParcelasPagas() + " parcelas \n" +
-                    "valor inicial do emprestimo R$: " + getValorDoEmprestimo() + " numero de parcelas: " + getQuantidadeDeMesesParaPagamento());
+            System.out.println("Pagamento restante do emprestimo no valor de R$:" + (getValorDoEmprestimo() - getValorDoPagamento()) + " com x:" + (getQuantidadeDeMesesParaPagamento() - getNumeroDeParcelasPagas()) +
+                    "\nparcelas valor inicial do emprestimo R$: " + getValorDoEmprestimo() + " numero de parcelas: " + getQuantidadeDeMesesParaPagamento());
         }
     }
 
