@@ -14,12 +14,19 @@ public class Emprestimo {
     private String tipoDeEmprestimo;
 
 
-    public Emprestimo(Pessoa pessoa, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas, String tipoDeEmprestimo) {
-        this.pessoa = pessoa;
+    public Emprestimo(String tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento) {
+        this.tipoDeEmprestimo = tipoDeEmprestimo;
         this.valorDoEmprestimo = valorDoEmprestimo;
         this.quantidadeDeMesesParaPagamento = quantidadeDeMesesParaPagamento;
+    }
+
+    public Emprestimo(int numeroDeParcelasPagas) {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
-        this.tipoDeEmprestimo = tipoDeEmprestimo;
+
+    }
+
+    public Emprestimo(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     public Emprestimo() {
@@ -117,7 +124,6 @@ public class Emprestimo {
                     "\nparcelas valor inicial do emprestimo R$: " + getValorDoEmprestimo() + " numero de parcelas: " + getQuantidadeDeMesesParaPagamento());
         }
     }
-
 
     @Override
     public String toString() {
