@@ -11,14 +11,16 @@ public class Emprestimo {
     private float valorDaParcela;
     private int quantidadeDeMesesParaPagamento;
     private int numeroDeParcelasPagas;
+    private int id;
     private String tipoDeEmprestimo;
 
 
-    public Emprestimo(Pessoa pessoa, String tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento) {
+    public Emprestimo(Pessoa pessoa, String tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
         this.pessoa = pessoa;
         this.tipoDeEmprestimo = tipoDeEmprestimo;
         this.valorDoEmprestimo = valorDoEmprestimo;
         this.quantidadeDeMesesParaPagamento = quantidadeDeMesesParaPagamento;
+        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
 
     public Emprestimo(int numeroDeParcelasPagas) {
@@ -89,6 +91,7 @@ public class Emprestimo {
         this.tipoDeEmprestimo = tipoDeEmprestimo;
     }
 
+
     List<Emprestimo> emprestimos;
 
     public void listaDeEmprestimos(Emprestimo emprestimo) {
@@ -99,26 +102,21 @@ public class Emprestimo {
     }
 
     public void retornaListaDeEmprestimos() {
-        for (int i = 0; i < emprestimos.size(); i++) {
-            System.out.println(emprestimos.get(i));
+        List<Emprestimo> emprestimosList = this.emprestimos;
+        for (int i = 0; i < emprestimosList.size(); i++) {
+            System.out.println(emprestimosList);
         }
     }
 
-    public void juros(){
-        if (getQuantidadeDeMesesParaPagamento() > 5) {
-            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + (getValorDoEmprestimo() / getQuantidadeDeMesesParaPagamento()) * 1.025f);
-        } else {
-            System.out.println("Valor por parcela (Sem juros): " + getValorDoEmprestimo() / getQuantidadeDeMesesParaPagamento());
-        }
-        System.out.println("Emprestimo realizado com sucesso: " + " R$:" + getValorDoEmprestimo() + " x" + getQuantidadeDeMesesParaPagamento());
-    }
     public void pagamento() {
         float valorParcela = getValorDoEmprestimo() / getQuantidadeDeMesesParaPagamento();
         if (getQuantidadeDeMesesParaPagamento() > 5) {
             float juros = valorParcela * 1.025f;
+            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + juros);
             setValorDoPagamento(juros * getNumeroDeParcelasPagas());
         } else {
             setValorDoPagamento(valorParcela * getNumeroDeParcelasPagas());
+            System.out.println("Valor por parcela (Sem juros): " + (getValorDoPagamento() - getValorDoEmprestimo()));
         }
         pagamentoQuitado();
     }

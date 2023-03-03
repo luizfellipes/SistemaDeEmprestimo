@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Service {
     Scanner scanner = new Scanner(System.in);
+    Emprestimo emprestimo = new Emprestimo();
+
 
     public Pessoa pessoa() {
         System.out.println("Digite seu nome: ");
@@ -30,9 +32,9 @@ public class Service {
         return scanner.nextInt();
     }
 
-    public void pagamento() {
+    public int pagamento() {
         System.out.println("quantas parcelas deseja realizar o pagamento: ");
-        int parcelas = scanner.nextInt();
+        return scanner.nextInt();
     }
 
     public String retornaListaDeEmprestimo() {
@@ -41,7 +43,8 @@ public class Service {
     }
 
     public boolean finalizaPrograma() {
-        System.out.println("Deseja realizar mais alguma operação ?");
+        System.out.println("Sistema de Emprestimo");
+        System.out.println("Deseja realizar um emprestimo ?");
         String continua = scanner.next();
         return continua.equalsIgnoreCase("s");
     }
