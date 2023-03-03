@@ -14,7 +14,8 @@ public class Emprestimo {
     private String tipoDeEmprestimo;
 
 
-    public Emprestimo(String tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento) {
+    public Emprestimo(Pessoa pessoa, String tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento) {
+        this.pessoa = pessoa;
         this.tipoDeEmprestimo = tipoDeEmprestimo;
         this.valorDoEmprestimo = valorDoEmprestimo;
         this.quantidadeDeMesesParaPagamento = quantidadeDeMesesParaPagamento;
@@ -90,19 +91,27 @@ public class Emprestimo {
 
     List<Emprestimo> emprestimos;
 
-    public void solicitacaoDeEmprestimo(Emprestimo emprestimo) {
+    public void listaDeEmprestimos(Emprestimo emprestimo) {
         if (emprestimos == null) {
             emprestimos = new ArrayList<>();
         }
         emprestimos.add(emprestimo);
     }
 
-    public void listaDeEmprestimos() {
+    public void retornaListaDeEmprestimos() {
         for (int i = 0; i < emprestimos.size(); i++) {
             System.out.println(emprestimos.get(i));
         }
     }
 
+    public void juros(){
+        if (getQuantidadeDeMesesParaPagamento() > 5) {
+            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + (getValorDoEmprestimo() / getQuantidadeDeMesesParaPagamento()) * 1.025f);
+        } else {
+            System.out.println("Valor por parcela (Sem juros): " + getValorDoEmprestimo() / getQuantidadeDeMesesParaPagamento());
+        }
+        System.out.println("Emprestimo realizado com sucesso: " + " R$:" + getValorDoEmprestimo() + " x" + getQuantidadeDeMesesParaPagamento());
+    }
     public void pagamento() {
         float valorParcela = getValorDoEmprestimo() / getQuantidadeDeMesesParaPagamento();
         if (getQuantidadeDeMesesParaPagamento() > 5) {
