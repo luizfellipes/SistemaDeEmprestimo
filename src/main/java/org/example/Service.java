@@ -1,6 +1,8 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Service {
     Scanner scanner = new Scanner(System.in);
@@ -17,9 +19,13 @@ public class Service {
         return new Pessoa(nome, telefone, cpf);
     }
 
-    public String tipoEmprestimo() {
-        System.out.println("Selecione a forma de emprestimo : \n[PESSOAL - CONSIGNADO - ROTATIVO]");
-        return scanner.next();
+    public Tipo tipoEmprestimo() {
+        System.out.println("Selecione a forma de emprestimo : \n[P]ESSOAL - [C]ONSIGNADO - [R]OTATIVO");
+        String tipoaq = scanner.next();
+        return Arrays.stream(Tipo.values())
+                .filter(tipo -> tipoaq.equalsIgnoreCase(tipo.name()))
+                .findFirst()
+                .orElse(null);
     }
 
     public float valorEmprestimo() {

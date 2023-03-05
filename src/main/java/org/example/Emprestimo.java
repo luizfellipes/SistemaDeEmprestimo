@@ -12,10 +12,11 @@ public class Emprestimo {
     private int quantidadeDeMesesParaPagamento;
     private int numeroDeParcelasPagas;
     private int id;
-    private String tipoDeEmprestimo;
+    private Tipo tipoDeEmprestimo;
 
 
-    public Emprestimo(Pessoa pessoa, String tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
+
+    public Emprestimo(Pessoa pessoa, Tipo tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
         this.pessoa = pessoa;
         this.tipoDeEmprestimo = tipoDeEmprestimo;
         this.valorDoEmprestimo = valorDoEmprestimo;
@@ -83,16 +84,16 @@ public class Emprestimo {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
 
-    public String getTipoDeEmprestimo() {
+    public Tipo getTipoDeEmprestimo() {
         return tipoDeEmprestimo;
     }
 
-    public void setTipoDeEmprestimo(String tipoDeEmprestimo) {
+    public void setTipoDeEmprestimo(Tipo tipoDeEmprestimo) {
         this.tipoDeEmprestimo = tipoDeEmprestimo;
     }
 
 
-    List<Emprestimo> emprestimos;
+    private List<Emprestimo> emprestimos;
 
     public void listaDeEmprestimos(Emprestimo emprestimo) {
         if (emprestimos == null) {
@@ -102,9 +103,9 @@ public class Emprestimo {
     }
 
     public void retornaListaDeEmprestimos() {
-        List<Emprestimo> emprestimosList = this.emprestimos;
-        for (int i = 0; i < emprestimosList.size(); i++) {
-            System.out.println(emprestimosList);
+
+        for (Emprestimo emprestimo : emprestimos) {
+            System.out.println(emprestimo);
         }
     }
 
@@ -116,7 +117,7 @@ public class Emprestimo {
             setValorDoPagamento(juros * getNumeroDeParcelasPagas());
         } else {
             setValorDoPagamento(valorParcela * getNumeroDeParcelasPagas());
-            System.out.println("Valor por parcela (Sem juros): " + (getValorDoPagamento() - getValorDoEmprestimo()));
+            System.out.println("Valor por parcela (Sem juros): " + (getValorDoEmprestimo() - getValorDoPagamento()));
         }
         pagamentoQuitado();
     }
@@ -140,7 +141,7 @@ public class Emprestimo {
                 ", valorDoPagamento=" + valorDoPagamento +
                 ", quantidadeDeMesesParaPagamento=" + quantidadeDeMesesParaPagamento +
                 ", numeroDeParcelasPagas=" + numeroDeParcelasPagas +
-                ", tipoDeEmprestimo='" + tipoDeEmprestimo + '\'' +
+                ", tipoDeEmprestimo=" + tipoDeEmprestimo +
                 '}';
     }
 }
