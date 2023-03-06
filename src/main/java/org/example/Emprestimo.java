@@ -73,7 +73,11 @@ public class Emprestimo {
         if (saldoRestante < 0 || getNumeroDeParcelasPagas() < 0 || getNumeroDeParcelasPagas() > getNumeroDeParcelas()) {
             System.out.println("Pagamento inválido. Por favor, selecione uma parcela válida.");
         } else {
+<<<<<<< HEAD
             System.out.println("Valor da parcela: " + getValorParcela() + "\nEsse é valor a ser pago: " + getSaldoDevedor() + "\n" +
+=======
+            System.out.println("Valor da parcela: " + getValorParcela() + "\nEsse é valor a ser pago: " + valorPago+ "\n"+
+>>>>>>> 28d3b33f27d1644390b40bbb50ce76fc6daada69
                     "\nAinda existe um emprestimo de: " + saldoRestante + ", com x" + parcelasRestantes + " parcelas restante ! " +
                     "\nValor inicial do emprestimo: " + getValorEmprestimo() + ", com x" + getNumeroDeParcelas() + " parcelas. \n");
             dividaQuitada();
