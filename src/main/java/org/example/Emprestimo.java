@@ -11,9 +11,7 @@ public class Emprestimo {
     private float valorDaParcela;
     private int quantidadeDeMesesParaPagamento;
     private int numeroDeParcelasPagas;
-    private int id;
     private Tipo tipoDeEmprestimo;
-
 
 
     public Emprestimo(Pessoa pessoa, Tipo tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
@@ -24,75 +22,16 @@ public class Emprestimo {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
 
-    public Emprestimo(int numeroDeParcelasPagas) {
-        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
-
-    }
-
-    public Emprestimo(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
     public Emprestimo() {
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
+    public int getNumeroDeParcelasPagas(){
+        return this.numeroDeParcelasPagas;
     }
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public int quantidadeDeMesesParaPagamento(){
+        return this.quantidadeDeMesesParaPagamento;
     }
-
-    public float getValorDoEmprestimo() {
-        return valorDoEmprestimo;
-    }
-
-    public void setValorDoEmprestimo(float valorDoEmprestimo) {
-        this.valorDoEmprestimo = valorDoEmprestimo;
-    }
-
-    public float getValorDoPagamento() {
-        return valorDoPagamento;
-    }
-
-    public void setValorDoPagamento(float valorDoPagamento) {
-        this.valorDoPagamento = valorDoPagamento;
-    }
-
-    public float getValorDaParcela() {
-        return valorDaParcela;
-    }
-
-    public void setValorDaParcela(float valorDaParcela) {
-        this.valorDaParcela = valorDaParcela;
-    }
-
-    public int getQuantidadeDeMesesParaPagamento() {
-        return quantidadeDeMesesParaPagamento;
-    }
-
-    public void setQuantidadeDeMesesParaPagamento(int quantidadeDeMesesParaPagamento) {
-        this.quantidadeDeMesesParaPagamento = quantidadeDeMesesParaPagamento;
-    }
-
-    public int getNumeroDeParcelasPagas() {
-        return numeroDeParcelasPagas;
-    }
-
-    public void setNumeroDeParcelasPagas(int numeroDeParcelasPagas) {
-        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
-    }
-
-    public Tipo getTipoDeEmprestimo() {
-        return tipoDeEmprestimo;
-    }
-
-    public void setTipoDeEmprestimo(Tipo tipoDeEmprestimo) {
-        this.tipoDeEmprestimo = tipoDeEmprestimo;
-    }
-
-
     private List<Emprestimo> emprestimos;
 
     public void listaDeEmprestimos(Emprestimo emprestimo) {
@@ -109,27 +48,28 @@ public class Emprestimo {
         }
     }
 
-    public void pagamento() {
-        float valorParcela = getValorDoEmprestimo() / getQuantidadeDeMesesParaPagamento();
-        if (getQuantidadeDeMesesParaPagamento() > 5) {
-            float juros = valorParcela * 1.025f;
+    public void pagamento(int pagamentoParcela) {
+        numeroDeParcelasPagas += pagamentoParcela;
+        valorDaParcela = valorDoEmprestimo / quantidadeDeMesesParaPagamento;
+        if (quantidadeDeMesesParaPagamento > 5) {
+            float juros = valorDaParcela * 1.025f;
             System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + juros);
-            setValorDoPagamento(juros * getNumeroDeParcelasPagas());
+            valorDoPagamento = (juros * numeroDeParcelasPagas);
         } else {
-            setValorDoPagamento(valorParcela * getNumeroDeParcelasPagas());
-            System.out.println("Valor por parcela (Sem juros): " + (getValorDoEmprestimo() - getValorDoPagamento()));
+            valorDoPagamento = valorDaParcela * numeroDeParcelasPagas;
+            System.out.println("Valor por parcela (Sem juros): " + (valorDoEmprestimo - valorDoPagamento));
         }
         pagamentoQuitado();
     }
 
     public void pagamentoQuitado() {
-        if (getValorDoPagamento() < 0 || getValorDoPagamento() > getValorDoEmprestimo()) {
+        if (valorDoPagamento < 0 || valorDoPagamento > valorDoEmprestimo) {
             System.out.println("Pagamento invalido !");
-        } else if (getValorDoPagamento() == getValorDoEmprestimo()) {
+        } else if (valorDoPagamento == valorDoEmprestimo) {
             System.out.println("O emprestimo foi quitado !");
         } else {
-            System.out.println("Pagamento restante do emprestimo no valor de R$:" + (getValorDoEmprestimo() - getValorDoPagamento()) + " com x:" + (getQuantidadeDeMesesParaPagamento() - getNumeroDeParcelasPagas()) +
-                    "\nparcelas valor inicial do emprestimo R$: " + getValorDoEmprestimo() + " numero de parcelas: " + getQuantidadeDeMesesParaPagamento());
+            System.out.println("Pagamento restante do emprestimo no valor de R$:" + (valorDoEmprestimo - valorDoPagamento) + " com x:" + (quantidadeDeMesesParaPagamento - numeroDeParcelasPagas) +
+                    "\nparcelas valor inicial do emprestimo R$: " + valorDoEmprestimo + " numero de parcelas: " + quantidadeDeMesesParaPagamento);
         }
     }
 

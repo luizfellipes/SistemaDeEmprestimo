@@ -21,9 +21,9 @@ public class Service {
 
     public Tipo tipoEmprestimo() {
         System.out.println("Selecione a forma de emprestimo : \n[P]ESSOAL - [C]ONSIGNADO - [R]OTATIVO");
-        String tipoaq = scanner.next();
+        String tipoEmprestimo = scanner.next();
         return Arrays.stream(Tipo.values())
-                .filter(tipo -> tipoaq.equalsIgnoreCase(tipo.name()))
+                .filter(tipo -> tipoEmprestimo.equalsIgnoreCase(tipo.name()))
                 .findFirst()
                 .orElse(null);
     }
@@ -39,9 +39,29 @@ public class Service {
     }
 
     public int pagamento() {
-        System.out.println("quantas parcelas deseja realizar o pagamento: ");
+        System.out.println("Quantas parcelas deseja pagar inicialmente ?: ");
         return scanner.nextInt();
     }
+
+    public void pagamentoPosterior() {
+        System.out.println("Deseja realizar um pagamento ? [S/N]");
+        String aceite = scanner.next();
+        while (aceite.equals("s")) {
+            System.out.print("Digite quantas parcelas deseja pagar: ");
+            int pagamento = scanner.nextInt();
+            emprestimo.pagamento(pagamento);
+            if (emprestimo.getNumeroDeParcelasPagas() == emprestimo.quantidadeDeMesesParaPagamento()) {
+                aceite = "n";
+            } else {
+                System.out.println("Deseja realizar mais algum pagamento ?");
+                String pagarMais = scanner.next();
+                if (pagarMais.equals("s")) {
+                    aceite = "n";
+                }
+            }
+        }
+    }
+
 
     public String retornaListaDeEmprestimo() {
         System.out.println("Deseja visualizar a lista de emprestimo ?");
