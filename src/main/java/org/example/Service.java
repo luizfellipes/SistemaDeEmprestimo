@@ -2,7 +2,6 @@ package org.example;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class Service {
     Scanner scanner = new Scanner(System.in);
@@ -35,7 +34,13 @@ public class Service {
 
     public int quantidadeMeses() {
         System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
-        return scanner.nextInt();
+        int pagamentoMes = scanner.nextInt();
+        if (pagamentoMes > 5) {
+            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: "+ ((emprestimo.getValorDoEmprestimo() / pagamentoMes )+ 1.025f));
+        } else {
+            System.out.println("Valor por parcela (Sem juros): " + (emprestimo.getValorDoEmprestimo() / pagamentoMes));
+        }
+        return pagamentoMes;
     }
 
     public int pagamento() {
@@ -55,13 +60,12 @@ public class Service {
             } else {
                 System.out.println("Deseja realizar mais algum pagamento ?");
                 String pagarMais = scanner.next();
-                if (pagarMais.equals("s")) {
+                if (pagarMais.equals("n")) {
                     aceite = "n";
                 }
             }
         }
     }
-
 
     public String retornaListaDeEmprestimo() {
         System.out.println("Deseja visualizar a lista de emprestimo ?");

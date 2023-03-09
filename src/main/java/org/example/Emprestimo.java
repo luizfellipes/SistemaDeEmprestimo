@@ -9,6 +9,11 @@ public class Emprestimo {
     private float valorDoEmprestimo;
     private float valorDoPagamento;
     private float valorDaParcela;
+
+    public float getValorDaParcela() {
+        return valorDaParcela;
+    }
+
     private int quantidadeDeMesesParaPagamento;
     private int numeroDeParcelasPagas;
     private Tipo tipoDeEmprestimo;
@@ -25,13 +30,23 @@ public class Emprestimo {
     public Emprestimo() {
     }
 
-    public int getNumeroDeParcelasPagas(){
+    public float getValorDoEmprestimo() {
+        return valorDoEmprestimo;
+    }
+
+    public float getValorDoPagamento() {
+        return valorDoPagamento;
+    }
+
+    public int getNumeroDeParcelasPagas() {
         return this.numeroDeParcelasPagas;
     }
 
-    public int quantidadeDeMesesParaPagamento(){
+    public int quantidadeDeMesesParaPagamento() {
         return this.quantidadeDeMesesParaPagamento;
     }
+
+
     private List<Emprestimo> emprestimos;
 
     public void listaDeEmprestimos(Emprestimo emprestimo) {
@@ -53,11 +68,9 @@ public class Emprestimo {
         valorDaParcela = valorDoEmprestimo / quantidadeDeMesesParaPagamento;
         if (quantidadeDeMesesParaPagamento > 5) {
             float juros = valorDaParcela * 1.025f;
-            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + juros);
             valorDoPagamento = (juros * numeroDeParcelasPagas);
         } else {
             valorDoPagamento = valorDaParcela * numeroDeParcelasPagas;
-            System.out.println("Valor por parcela (Sem juros): " + (valorDoEmprestimo - valorDoPagamento));
         }
         pagamentoQuitado();
     }
