@@ -9,13 +9,17 @@ public class Emprestimo {
     private float valorDoEmprestimo;
     private float valorDoPagamento;
     private float valorDaParcela;
+
+    public float getValorDaParcela() {
+        return valorDaParcela;
+    }
+
     private int quantidadeDeMesesParaPagamento;
     private int numeroDeParcelasPagas;
-    private int id;
-    private String tipoDeEmprestimo;
+    private Tipo tipoDeEmprestimo;
 
 
-    public Emprestimo(Pessoa pessoa, String tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
+    public Emprestimo(Pessoa pessoa, Tipo tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
         this.pessoa = pessoa;
         this.tipoDeEmprestimo = tipoDeEmprestimo;
         this.valorDoEmprestimo = valorDoEmprestimo;
@@ -23,76 +27,27 @@ public class Emprestimo {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
 
-    public Emprestimo(int numeroDeParcelasPagas) {
-        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
-
-    }
-
-    public Emprestimo(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
     public Emprestimo() {
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     public float getValorDoEmprestimo() {
         return valorDoEmprestimo;
     }
 
-    public void setValorDoEmprestimo(float valorDoEmprestimo) {
-        this.valorDoEmprestimo = valorDoEmprestimo;
-    }
-
     public float getValorDoPagamento() {
         return valorDoPagamento;
     }
 
-    public void setValorDoPagamento(float valorDoPagamento) {
-        this.valorDoPagamento = valorDoPagamento;
-    }
-
-    public float getValorDaParcela() {
-        return valorDaParcela;
-    }
-
-    public void setValorDaParcela(float valorDaParcela) {
-        this.valorDaParcela = valorDaParcela;
-    }
-
-    public int getQuantidadeDeMesesParaPagamento() {
-        return quantidadeDeMesesParaPagamento;
-    }
-
-    public void setQuantidadeDeMesesParaPagamento(int quantidadeDeMesesParaPagamento) {
-        this.quantidadeDeMesesParaPagamento = quantidadeDeMesesParaPagamento;
-    }
-
     public int getNumeroDeParcelasPagas() {
-        return numeroDeParcelasPagas;
+        return this.numeroDeParcelasPagas;
     }
 
-    public void setNumeroDeParcelasPagas(int numeroDeParcelasPagas) {
-        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
-    }
-
-    public String getTipoDeEmprestimo() {
-        return tipoDeEmprestimo;
-    }
-
-    public void setTipoDeEmprestimo(String tipoDeEmprestimo) {
-        this.tipoDeEmprestimo = tipoDeEmprestimo;
+    public int quantidadeDeMesesParaPagamento() {
+        return this.quantidadeDeMesesParaPagamento;
     }
 
 
-    List<Emprestimo> emprestimos;
+    private List<Emprestimo> emprestimos;
 
     public void listaDeEmprestimos(Emprestimo emprestimo) {
         if (emprestimos == null) {
@@ -102,33 +57,32 @@ public class Emprestimo {
     }
 
     public void retornaListaDeEmprestimos() {
-        List<Emprestimo> emprestimosList = this.emprestimos;
-        for (int i = 0; i < emprestimosList.size(); i++) {
-            System.out.println(emprestimosList);
+
+        for (Emprestimo emprestimo : emprestimos) {
+            System.out.println(emprestimo);
         }
     }
 
-    public void pagamento() {
-        float valorParcela = getValorDoEmprestimo() / getQuantidadeDeMesesParaPagamento();
-        if (getQuantidadeDeMesesParaPagamento() > 5) {
-            float juros = valorParcela * 1.025f;
-            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + juros);
-            setValorDoPagamento(juros * getNumeroDeParcelasPagas());
+    public void pagamento(int pagamentoParcela) {
+        numeroDeParcelasPagas += pagamentoParcela;
+        valorDaParcela = valorDoEmprestimo / quantidadeDeMesesParaPagamento;
+        if (quantidadeDeMesesParaPagamento > 5) {
+            float juros = valorDaParcela * 1.025f;
+            valorDoPagamento = (juros * numeroDeParcelasPagas);
         } else {
-            setValorDoPagamento(valorParcela * getNumeroDeParcelasPagas());
-            System.out.println("Valor por parcela (Sem juros): " + (getValorDoPagamento() - getValorDoEmprestimo()));
+            valorDoPagamento = valorDaParcela * numeroDeParcelasPagas;
         }
         pagamentoQuitado();
     }
 
     public void pagamentoQuitado() {
-        if (getValorDoPagamento() < 0 || getValorDoPagamento() > getValorDoEmprestimo()) {
+        if (valorDoPagamento < 0 || valorDoPagamento > valorDoEmprestimo) {
             System.out.println("Pagamento invalido !");
-        } else if (getValorDoPagamento() == getValorDoEmprestimo()) {
+        } else if (valorDoPagamento == valorDoEmprestimo) {
             System.out.println("O emprestimo foi quitado !");
         } else {
-            System.out.println("Pagamento restante do emprestimo no valor de R$:" + (getValorDoEmprestimo() - getValorDoPagamento()) + " com x:" + (getQuantidadeDeMesesParaPagamento() - getNumeroDeParcelasPagas()) +
-                    "\nparcelas valor inicial do emprestimo R$: " + getValorDoEmprestimo() + " numero de parcelas: " + getQuantidadeDeMesesParaPagamento());
+            System.out.println("Pagamento restante do emprestimo no valor de R$:" + (valorDoEmprestimo - valorDoPagamento) + " com x:" + (quantidadeDeMesesParaPagamento - numeroDeParcelasPagas) +
+                    "\nparcelas valor inicial do emprestimo R$: " + valorDoEmprestimo + " numero de parcelas: " + quantidadeDeMesesParaPagamento);
         }
     }
 
@@ -140,7 +94,7 @@ public class Emprestimo {
                 ", valorDoPagamento=" + valorDoPagamento +
                 ", quantidadeDeMesesParaPagamento=" + quantidadeDeMesesParaPagamento +
                 ", numeroDeParcelasPagas=" + numeroDeParcelasPagas +
-                ", tipoDeEmprestimo='" + tipoDeEmprestimo + '\'' +
+                ", tipoDeEmprestimo=" + tipoDeEmprestimo +
                 '}';
     }
 }

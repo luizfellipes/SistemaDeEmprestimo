@@ -36,6 +36,15 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
+    public boolean pessoaExiste() {
+        if (nome.isEmpty() && cpf.isEmpty() && telefone.isEmpty()) {
+            System.out.println("Sem cadastro pessoal !");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     @Override
     public String toString() {

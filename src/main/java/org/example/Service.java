@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Service {
@@ -17,9 +18,13 @@ public class Service {
         return new Pessoa(nome, telefone, cpf);
     }
 
-    public String tipoEmprestimo() {
-        System.out.println("Selecione a forma de emprestimo : \n[PESSOAL - CONSIGNADO - ROTATIVO]");
-        return scanner.next();
+    public Tipo tipoEmprestimo() {
+        System.out.println("Selecione a forma de emprestimo : \n[P]ESSOAL - [C]ONSIGNADO - [R]OTATIVO");
+        String tipoEmprestimo = scanner.next();
+        return Arrays.stream(Tipo.values())
+                .filter(tipo -> tipoEmprestimo.equalsIgnoreCase(tipo.name()))
+                .findFirst()
+                .orElse(null);
     }
 
     public float valorEmprestimo() {
@@ -29,12 +34,37 @@ public class Service {
 
     public int quantidadeMeses() {
         System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
-        return scanner.nextInt();
+        int pagamentoMes = scanner.nextInt();
+        if (pagamentoMes > 5) {
+            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: "+ ((emprestimo.getValorDoEmprestimo() / pagamentoMes )+ 1.025f));
+        } else {
+            System.out.println("Valor por parcela (Sem juros): " + (emprestimo.getValorDoEmprestimo() / pagamentoMes));
+        }
+        return pagamentoMes;
     }
 
     public int pagamento() {
-        System.out.println("quantas parcelas deseja realizar o pagamento: ");
+        System.out.println("Quantas parcelas deseja pagar inicialmente ?: ");
         return scanner.nextInt();
+    }
+
+    public void pagamentoPosterior() {
+        System.out.println("Deseja realizar um pagamento ? [S/N]");
+        String aceite = scanner.next();
+        while (aceite.equals("s")) {
+            System.out.print("Digite quantas parcelas deseja pagar: ");
+            int pagamento = scanner.nextInt();
+            emprestimo.pagamento(pagamento);
+            if (emprestimo.getNumeroDeParcelasPagas() == emprestimo.quantidadeDeMesesParaPagamento()) {
+                aceite = "n";
+            } else {
+                System.out.println("Deseja realizar mais algum pagamento ?");
+                String pagarMais = scanner.next();
+                if (pagarMais.equals("n")) {
+                    aceite = "n";
+                }
+            }
+        }
     }
 
     public String retornaListaDeEmprestimo() {
@@ -43,7 +73,6 @@ public class Service {
     }
 
     public boolean finalizaPrograma() {
-        System.out.println("Sistema de Emprestimo");
         System.out.println("Deseja realizar um emprestimo ?");
         String continua = scanner.next();
         return continua.equalsIgnoreCase("s");
