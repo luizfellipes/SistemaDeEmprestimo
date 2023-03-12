@@ -74,7 +74,7 @@ public class Service {
         return scanner.nextInt();
     }
 
-    public void pagamentoPosterior(Emprestimo emprestimo) {
+    public void pagamentoPosterior() {
         System.out.println("Deseja realizar um pagamento ? [S/N]");
         String aceite = scanner.next();
         while (aceite.equals("s")) {
@@ -105,12 +105,10 @@ public class Service {
             System.out.println("Digite o nome do dono do emprestimo: ");
             String dono = scanner.next();
             Emprestimo emprestimoEncontrado = retornaEmprestimos(dono);
-            pagamentoPosterior(emprestimoEncontrado);
         }
     }
 
     public boolean finalizaPrograma() {
-        System.out.println("Sistema de Emprestimo");
         System.out.println("Deseja realizar um emprestimo ?");
         String continua = scanner.next();
         return continua.equalsIgnoreCase("s");
