@@ -5,12 +5,19 @@ public class Main {
 
         Service service = new Service();
         while (service.finalizaPrograma()) {
-          service.emprestimo = new Emprestimo(service.pessoa(), service.tipoEmprestimo(), service.valorEmprestimo(), service.quantidadeMeses(), service.pagamento());
+            service.emprestimo = new Emprestimo(service.pessoa(), service.tipoEmprestimo(), service.valorEmprestimo(), service.quantidadeMeses(), service.pagamento());
+            service.listaDeEmprestimos(service.emprestimo);
+            service.selecionaEmprestimo();
+            if (service.retornaListaDeEmprestimo().equals("s")) {
+                service.retornaListaDeEmprestimos();
             }
-        service.emprestimo.listaDeEmprestimos(service.emprestimo);
-        service.pagamentoPosterior();
-        if (service.retornaListaDeEmprestimo().equals("s")) {
-            service.emprestimo.retornaListaDeEmprestimos();
         }
     }
 }
+
+/*TODO
+Veificar lista
+1) Duplicidade
+2) Listar valores
+3) Verificar pagamento por seleção de pessoas
+*/

@@ -1,19 +1,11 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Emprestimo {
 
     private Pessoa pessoa;
     private float valorDoEmprestimo;
     private float valorDoPagamento;
     private float valorDaParcela;
-
-    public float getValorDaParcela() {
-        return valorDaParcela;
-    }
-
     private int quantidadeDeMesesParaPagamento;
     private int numeroDeParcelasPagas;
     private Tipo tipoDeEmprestimo;
@@ -30,12 +22,15 @@ public class Emprestimo {
     public Emprestimo() {
     }
 
+    public float getValorDaParcela() {
+        return this.valorDaParcela;
+    }
     public float getValorDoEmprestimo() {
-        return valorDoEmprestimo;
+        return this.valorDoEmprestimo;
     }
 
     public float getValorDoPagamento() {
-        return valorDoPagamento;
+        return this.valorDoPagamento;
     }
 
     public int getNumeroDeParcelasPagas() {
@@ -46,21 +41,8 @@ public class Emprestimo {
         return this.quantidadeDeMesesParaPagamento;
     }
 
-
-    private List<Emprestimo> emprestimos;
-
-    public void listaDeEmprestimos(Emprestimo emprestimo) {
-        if (emprestimos == null) {
-            emprestimos = new ArrayList<>();
-        }
-        emprestimos.add(emprestimo);
-    }
-
-    public void retornaListaDeEmprestimos() {
-
-        for (Emprestimo emprestimo : emprestimos) {
-            System.out.println(emprestimo);
-        }
+    public Pessoa getPessoa(){
+        return this.pessoa;
     }
 
     public void pagamento(int pagamentoParcela) {

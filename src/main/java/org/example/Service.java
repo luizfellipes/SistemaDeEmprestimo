@@ -1,11 +1,37 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Service {
     Scanner scanner = new Scanner(System.in);
     Emprestimo emprestimo = new Emprestimo();
+
+    private List<Emprestimo> emprestimos;
+
+    public void listaDeEmprestimos(Emprestimo emprestimo) {
+        if (emprestimos == null) {
+            emprestimos = new ArrayList<>();
+        }
+        emprestimos.add(emprestimo);
+    }
+
+    public void retornaListaDeEmprestimos() {
+        for (Emprestimo Emprestimo : emprestimos) {
+            System.out.println(emprestimo);
+        }
+    }
+
+    public Emprestimo retornaEmprestimos(String nome) {
+        for (Emprestimo Emprestimo : emprestimos) {
+            if (nome.equals(Emprestimo.getPessoa().getNome())) {
+                return Emprestimo;
+            }
+        }
+        return null;
+    }
 
 
     public Pessoa pessoa() {
@@ -44,11 +70,11 @@ public class Service {
     }
 
     public int pagamento() {
-        System.out.println("Quantas parcelas deseja pagar inicialmente ?: ");
+        System.out.println("Quantas parcelas deseja pagar inicialmente ? ");
         return scanner.nextInt();
     }
 
-    public void pagamentoPosterior() {
+    public void pagamentoPosterior(Emprestimo emprestimo) {
         System.out.println("Deseja realizar um pagamento ? [S/N]");
         String aceite = scanner.next();
         while (aceite.equals("s")) {
@@ -70,6 +96,17 @@ public class Service {
     public String retornaListaDeEmprestimo() {
         System.out.println("Deseja visualizar a lista de emprestimo ?");
         return scanner.next();
+    }
+
+    public void selecionaEmprestimo() {
+        System.out.println("Deseja selecionar um emprestimo a lista de emprestimo ?");
+        String selecionar = scanner.next();
+        if (selecionar.equals("s")){
+            System.out.println("Digite o nome do dono do emprestimo: ");
+            String dono = scanner.next();
+            Emprestimo emprestimoEncontrado = retornaEmprestimos(dono);
+            pagamentoPosterior(emprestimoEncontrado);
+        }
     }
 
     public boolean finalizaPrograma() {
