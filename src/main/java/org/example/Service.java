@@ -18,9 +18,13 @@ public class Service {
         emprestimos.add(emprestimo);
     }
 
-    public void retornaListaDeEmprestimos() {
-        for (Emprestimo Emprestimo : emprestimos) {
-            System.out.println(emprestimo);
+    public void retornaListaEmprestimos() {
+        try {
+            for (Emprestimo emprestimo : emprestimos) {
+                System.out.println(emprestimo);
+            }
+        }catch (Exception erroLista){
+            System.out.println("A lista esta vazia !");
         }
     }
 
@@ -62,7 +66,7 @@ public class Service {
         System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
         int pagamentoMes = scanner.nextInt();
         if (pagamentoMes > 5) {
-            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: "+ ((emprestimo.getValorDoEmprestimo() / pagamentoMes )+ 1.025f));
+            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + ((emprestimo.getValorDoEmprestimo() / pagamentoMes) + 1.025f));
         } else {
             System.out.println("Valor por parcela (Sem juros): " + (emprestimo.getValorDoEmprestimo() / pagamentoMes));
         }
@@ -93,18 +97,22 @@ public class Service {
         }
     }
 
-    public String retornaListaDeEmprestimo() {
-        System.out.println("Deseja visualizar a lista de emprestimo ?");
-        return scanner.next();
-    }
-
     public void selecionaEmprestimo() {
         System.out.println("Deseja selecionar um emprestimo a lista de emprestimo ?");
         String selecionar = scanner.next();
-        if (selecionar.equals("s")){
+        if (selecionar.equals("s")) {
             System.out.println("Digite o nome do dono do emprestimo: ");
             String dono = scanner.next();
             Emprestimo emprestimoEncontrado = retornaEmprestimos(dono);
+            System.out.println(emprestimoEncontrado.toString());
+        }
+    }
+
+    public void retornaListaDeEmprestimo() {
+        System.out.println("Deseja visualizar a lista de emprestimo ?");
+        String visualizar = scanner.next();
+        if (visualizar.equals("s")) {
+            retornaListaEmprestimos();
         }
     }
 

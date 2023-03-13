@@ -11,24 +11,26 @@ public class Main {
             int selecao = service.scanner.nextInt();
             switch (selecao) {
                 case 1 -> {
-                    service.emprestimo = new Emprestimo(
+                     Emprestimo emprestimo = new Emprestimo(
                             service.pessoa(),
                             service.tipoEmprestimo(),
                             service.valorEmprestimo(),
                             service.quantidadeMeses(),
                             service.pagamento());
-                    service.listaDeEmprestimos(service.emprestimo);
+                    service.listaDeEmprestimos(emprestimo);
                 }
                 case 2 -> {
                     service.pagamentoPosterior();
                 }
                 case 3 -> {
-                    service.retornaListaDeEmprestimos();
+                    service.retornaListaDeEmprestimo();
+                }
+                case 4 -> {
+                    service.selecionaEmprestimo();
                 }
                 default -> {
                     continua = "n";
                 }
-
             }
         }
     }

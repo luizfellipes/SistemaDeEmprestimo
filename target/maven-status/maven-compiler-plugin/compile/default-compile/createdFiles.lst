@@ -1,8 +1,5 @@
 org\example\Pessoa.class
 org\example\Main.class
-<<<<<<< HEAD
-=======
 org\example\Tipo.class
->>>>>>> 94f6688184c1742027396756a452a496de0274b3
 org\example\Service.class
 org\example\Emprestimo.class
