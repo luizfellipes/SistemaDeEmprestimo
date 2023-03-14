@@ -18,25 +18,23 @@ public class Service {
         emprestimos.add(emprestimo);
     }
 
-    public void retornaListaEmprestimos() {
-        try {
-            for (Emprestimo emprestimo : emprestimos) {
-                System.out.println(emprestimo);
-            }
-        }catch (Exception erroLista){
-            System.out.println("A lista esta vazia !");
-        }
+    public List<Emprestimo> retornaListaEmprestimos() {
+        return this.emprestimos;
     }
 
     public Emprestimo retornaEmprestimos(String nome) {
-        for (Emprestimo Emprestimo : emprestimos) {
-            if (nome.equals(Emprestimo.getPessoa().getNome())) {
-                return Emprestimo;
+        for (Emprestimo emprestimo : emprestimos) {
+            if (nome.equals(emprestimo.getPessoa().getNome())) {
+                return emprestimo;
             }
         }
         return null;
     }
 
+    public void novoEmprestimo() {
+        emprestimo = new Emprestimo(pessoa(), tipoEmprestimo(), valorEmprestimo(), quantidadeMeses(), pagamento());
+        listaDeEmprestimos(emprestimo);
+    }
 
     public Pessoa pessoa() {
         System.out.println("Digite seu nome: ");
@@ -85,7 +83,7 @@ public class Service {
             System.out.print("Digite quantas parcelas deseja pagar: ");
             int pagamento = scanner.nextInt();
             emprestimo.pagamento(pagamento);
-            if (emprestimo.getNumeroDeParcelasPagas() == emprestimo.quantidadeDeMesesParaPagamento()) {
+            if (emprestimo.getNumeroDeParcelasPagas() == emprestimo.quantidadeDeMesesParaPagamento() || emprestimo.getNumeroDeParcelasPagas() > emprestimo.quantidadeDeMesesParaPagamento()) {
                 aceite = "n";
             } else {
                 System.out.println("Deseja realizar mais algum pagamento ?");
@@ -109,10 +107,9 @@ public class Service {
     }
 
     public void retornaListaDeEmprestimo() {
-        System.out.println("Deseja visualizar a lista de emprestimo ?");
-        String visualizar = scanner.next();
-        if (visualizar.equals("s")) {
-            retornaListaEmprestimos();
+        List<Emprestimo> emprestimoList = retornaListaEmprestimos();
+        for (Emprestimo emprestimo : emprestimoList) {
+            System.out.println(emprestimo.toString());
         }
     }
 

@@ -1,23 +1,19 @@
 package org.example;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
+        Service service = new Service();
 
         String continua = "s";
         while (continua.equals("s")) {
-            Service service = new Service();
             System.out.println("Sistema de Emprestimo");
             System.out.println("[1]realizar um emprestimo: \n[2]Pagamentos: \n[3]Lista de Emprestimos: ");
             int selecao = service.scanner.nextInt();
             switch (selecao) {
                 case 1 -> {
-                     Emprestimo emprestimo = new Emprestimo(
-                            service.pessoa(),
-                            service.tipoEmprestimo(),
-                            service.valorEmprestimo(),
-                            service.quantidadeMeses(),
-                            service.pagamento());
-                    service.listaDeEmprestimos(emprestimo);
+                    service.novoEmprestimo();
                 }
                 case 2 -> {
                     service.pagamentoPosterior();
@@ -38,7 +34,6 @@ public class Main {
 
 /*TODO
 Veificar lista
-1) Duplicidade
-2) Listar valores
-3) Verificar pagamento por seleção de pessoas
+1) Listar valores
+2) Verificar pagamento por seleção de pessoas
 */
