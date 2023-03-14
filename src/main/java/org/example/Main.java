@@ -7,9 +7,8 @@ public class Main {
         String continua = "s";
         while (continua.equals("s")) {
             System.out.println("Sistema de Emprestimo");
-            System.out.println("[1]realizar um emprestimo: \n[2]Pagamentos: \n[3]Lista de emprestimos: " +
-                    "\n[4]Seleciona emprestimo \n[5]Menor emprestimo realizado: \n[6]Maior emprestimo realizado" +
-                    "\n[7]Valor total de todos os emprestimos: \n[8]Media dos valores totais de emprestimos realizados: ");
+            System.out.print("[1]realizar um emprestimo: \n[2]Pagamentos: \n[3]Lista de emprestimos: " +
+                    "\n[4]Seleciona emprestimo \n[5]Estatística dos emprestimos \n[6]Finalizar acesso: \nSeleção de opção:");
             int selecao = service.scanner.nextInt();
             switch (selecao) {
                 case 1 -> {
@@ -25,19 +24,25 @@ public class Main {
                     service.selecionaEmprestimo();
                 }
                 case 5 -> {
-                    service.maiorValorDoEmprestimo();
+                    System.out.println("[1]Maior emprestimo realizado: \n[2]Menor emprestimo realizado: \n[3]Valor total de todos os emprestimos: \n[4]Media dos valores totais de emprestimos realizados:");
+                    int opcao = service.scanner.nextInt();
+                    if (opcao == 1) {
+                        service.maiorValorDoEmprestimo();
+                    } else if (opcao == 2) {
+                        service.menorValorDoEmprestimo();
+                    } else if (opcao == 3) {
+                        service.totalEmprestimosRealizados();
+                    } else if (opcao == 4) {
+                        service.mediaValorEmprestimo();
+                    } else {
+                        System.out.println("Opção invalida!");
+                    }
                 }
                 case 6 -> {
-                    service.menorValorDoEmprestimo();
-                }
-                case 7 -> {
-                    service.totalEmprestimosRealizados();
-                }
-                case 8 -> {
-                    service.mediaValorEmprestimo();
+                    continua = "n";
                 }
                 default -> {
-                    continua = "n";
+                    System.err.println("Opção invalida, selecione as opções do menu acima !");
                 }
             }
         }

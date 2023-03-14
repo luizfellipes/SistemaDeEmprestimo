@@ -10,6 +10,7 @@ public class Service {
     Emprestimo emprestimo = new Emprestimo();
 
     private List<Emprestimo> emprestimos;
+
     public List<Emprestimo> retornaListaEmprestimos() {
         return this.emprestimos;
     }
@@ -72,14 +73,13 @@ public class Service {
     }
 
     public int pagamento() {
-        System.out.println("Quantas parcelas deseja pagar inicialmente ? ");
+        System.out.println("Deseja pagar alguma parcela inicialmente ? ");
         return scanner.nextInt();
     }
 
     public void pagamentoPosterior() {
-        System.out.println("Deseja realizar um pagamento ? [S/N]");
-        String aceite = scanner.next();
-        while (aceite.equals("s")) {
+        String aceite = "s";
+        do {
             System.out.print("Digite quantas parcelas deseja pagar: ");
             int pagamento = scanner.nextInt();
             emprestimo.pagamento(pagamento);
@@ -92,7 +92,7 @@ public class Service {
                     aceite = "n";
                 }
             }
-        }
+        } while (aceite.equals("s"));
     }
 
     public void selecionaEmprestimo() {
