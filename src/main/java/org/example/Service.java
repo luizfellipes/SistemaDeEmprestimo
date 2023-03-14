@@ -11,15 +11,15 @@ public class Service {
 
     private List<Emprestimo> emprestimos;
 
+    public List<Emprestimo> retornaListaEmprestimos() {
+        return this.emprestimos;
+    }
+
     public void listaDeEmprestimos(Emprestimo emprestimo) {
         if (emprestimos == null) {
             emprestimos = new ArrayList<>();
         }
         emprestimos.add(emprestimo);
-    }
-
-    public List<Emprestimo> retornaListaEmprestimos() {
-        return this.emprestimos;
     }
 
     public Emprestimo retornaEmprestimos(String nome) {
@@ -29,6 +29,13 @@ public class Service {
             }
         }
         return null;
+    }
+
+    public void retornaListaDeEmprestimo() {
+        List<Emprestimo> emprestimoList = retornaListaEmprestimos();
+        for (Emprestimo emprestimo : emprestimoList) {
+            System.out.println(emprestimo.toString());
+        }
     }
 
     public void novoEmprestimo() {
@@ -106,16 +113,44 @@ public class Service {
         }
     }
 
-    public void retornaListaDeEmprestimo() {
-        List<Emprestimo> emprestimoList = retornaListaEmprestimos();
-        for (Emprestimo emprestimo : emprestimoList) {
-            System.out.println(emprestimo.toString());
+
+    public void maiorValorDoEmprestimo() {
+        Emprestimo maior = emprestimos.get(0);
+        for (Emprestimo emprestimo : emprestimos) {
+            if (emprestimo.getValorDoEmprestimo() > maior.getValorDoEmprestimo()) {
+                maior = emprestimo;
+            }
         }
+        System.out.println("Maior valor de emprestimo: " + maior);
     }
 
-    public boolean finalizaPrograma() {
-        System.out.println("Deseja realizar um emprestimo ?");
-        String continua = scanner.next();
-        return continua.equalsIgnoreCase("s");
+    public void menorValorDoEmprestimo() {
+        Emprestimo menor = emprestimos.get(0);
+        for (Emprestimo emprestimo : emprestimos) {
+            if (emprestimo.getValorDoEmprestimo() < menor.getValorDoEmprestimo()) {
+                menor = emprestimo;
+            }
+        }
+        System.out.println("Menor valor de emprestimo: " + menor);
     }
+
+    public void totalEmprestimosRealizados() {
+        float total = 0;
+        for (Emprestimo emprestimo : emprestimos) {
+            total += emprestimo.getValorDoEmprestimo();
+        }
+        System.out.println("Total de empréstimos realizados: " + total);
+    }
+
+    public void mediaValorEmprestimo() {
+        double total = 0.0;
+        int quantidadeDeEmprestimos = emprestimos.size();
+        for (Emprestimo emprestimo : emprestimos) {
+            total += emprestimo.getValorDoEmprestimo();
+        }
+        double media = total / quantidadeDeEmprestimos;
+        System.out.println("Média de valores de empréstimo: " + media);
+    }
+
+
 }

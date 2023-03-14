@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         Service service = new Service();
@@ -9,7 +7,9 @@ public class Main {
         String continua = "s";
         while (continua.equals("s")) {
             System.out.println("Sistema de Emprestimo");
-            System.out.println("[1]realizar um emprestimo: \n[2]Pagamentos: \n[3]Lista de Emprestimos: ");
+            System.out.println("[1]realizar um emprestimo: \n[2]Pagamentos: \n[3]Lista de emprestimos: " +
+                    "\n[4]Seleciona emprestimo \n[5]Menor emprestimo realizado: \n[6]Maior emprestimo realizado" +
+                    "\n[7]Valor total de todos os emprestimos: \n[8]Media dos valores totais de emprestimos realizados: ");
             int selecao = service.scanner.nextInt();
             switch (selecao) {
                 case 1 -> {
@@ -23,6 +23,18 @@ public class Main {
                 }
                 case 4 -> {
                     service.selecionaEmprestimo();
+                }
+                case 5 -> {
+                    service.maiorValorDoEmprestimo();
+                }
+                case 6 -> {
+                    service.menorValorDoEmprestimo();
+                }
+                case 7 -> {
+                    service.totalEmprestimosRealizados();
+                }
+                case 8 -> {
+                    service.mediaValorEmprestimo();
                 }
                 default -> {
                     continua = "n";
