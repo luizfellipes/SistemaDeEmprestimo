@@ -10,6 +10,8 @@ public class Emprestimo {
     private int numeroDeParcelasPagas;
     private Tipo tipoDeEmprestimo;
 
+    public Emprestimo() {
+    }
 
     public Emprestimo(Pessoa pessoa, Tipo tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
         this.pessoa = pessoa;
@@ -19,18 +21,9 @@ public class Emprestimo {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
 
-    public Emprestimo() {
-    }
 
-    public float getValorDaParcela() {
-        return this.valorDaParcela;
-    }
     public float getValorDoEmprestimo() {
         return this.valorDoEmprestimo;
-    }
-
-    public float getValorDoPagamento() {
-        return this.valorDoPagamento;
     }
 
     public int getNumeroDeParcelasPagas() {
@@ -41,7 +34,7 @@ public class Emprestimo {
         return this.quantidadeDeMesesParaPagamento;
     }
 
-    public Pessoa getPessoa(){
+    public Pessoa getPessoa() {
         return this.pessoa;
     }
 
@@ -50,7 +43,9 @@ public class Emprestimo {
         valorDaParcela = valorDoEmprestimo / quantidadeDeMesesParaPagamento;
         if (quantidadeDeMesesParaPagamento > 5) {
             float juros = valorDaParcela * 1.025f;
+            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + juros);
             valorDoPagamento = (juros * numeroDeParcelasPagas);
+            System.out.println("Valor por parcela (Sem juros): " + valorDoPagamento);
         } else {
             valorDoPagamento = valorDaParcela * numeroDeParcelasPagas;
         }

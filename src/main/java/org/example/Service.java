@@ -10,7 +10,6 @@ public class Service {
     Emprestimo emprestimo = new Emprestimo();
 
     private List<Emprestimo> emprestimos;
-
     public List<Emprestimo> retornaListaEmprestimos() {
         return this.emprestimos;
     }
@@ -69,13 +68,7 @@ public class Service {
 
     public int quantidadeMeses() {
         System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
-        int pagamentoMes = scanner.nextInt();
-        if (pagamentoMes > 5) {
-            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + ((emprestimo.getValorDoEmprestimo() / pagamentoMes) + 1.025f));
-        } else {
-            System.out.println("Valor por parcela (Sem juros): " + (emprestimo.getValorDoEmprestimo() / pagamentoMes));
-        }
-        return pagamentoMes;
+        return scanner.nextInt();
     }
 
     public int pagamento() {
@@ -113,7 +106,6 @@ public class Service {
         }
     }
 
-
     public void maiorValorDoEmprestimo() {
         Emprestimo maior = emprestimos.get(0);
         for (Emprestimo emprestimo : emprestimos) {
@@ -143,14 +135,12 @@ public class Service {
     }
 
     public void mediaValorEmprestimo() {
-        double total = 0.0;
+        float total = 0;
         int quantidadeDeEmprestimos = emprestimos.size();
         for (Emprestimo emprestimo : emprestimos) {
             total += emprestimo.getValorDoEmprestimo();
         }
-        double media = total / quantidadeDeEmprestimos;
+        float media = total / quantidadeDeEmprestimos;
         System.out.println("Média de valores de empréstimo: " + media);
     }
-
-
 }

@@ -46,6 +46,5 @@ public class Main {
 
 /*TODO
 Veificar lista
-1) Listar valores
-2) Verificar pagamento por seleção de pessoas
+1) Verificar pagamento por seleção de pessoas
 */
