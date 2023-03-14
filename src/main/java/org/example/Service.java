@@ -78,12 +78,16 @@ public class Service {
     }
 
     public void pagamentoPosterior() {
+        System.out.println("Digite o nome do dono do emprestimo: ");
+        String dono = scanner.next();
+        Emprestimo emprestimoEncontrado = retornaEmprestimos(dono);
+        System.out.println(emprestimoEncontrado.toString());
         String aceite = "s";
         do {
             System.out.print("Digite quantas parcelas deseja pagar: ");
             int pagamento = scanner.nextInt();
-            emprestimo.pagamento(pagamento);
-            if (emprestimo.getNumeroDeParcelasPagas() == emprestimo.quantidadeDeMesesParaPagamento() || emprestimo.getNumeroDeParcelasPagas() > emprestimo.quantidadeDeMesesParaPagamento()) {
+            emprestimoEncontrado.setNumeroDeParcelasPagas(emprestimo.pagamento(pagamento));
+            if (emprestimoEncontrado.getNumeroDeParcelasPagas() == emprestimoEncontrado.quantidadeDeMesesParaPagamento() || emprestimoEncontrado.getNumeroDeParcelasPagas() > emprestimoEncontrado.quantidadeDeMesesParaPagamento()) {
                 aceite = "n";
             } else {
                 System.out.println("Deseja realizar mais algum pagamento ?");
@@ -93,17 +97,6 @@ public class Service {
                 }
             }
         } while (aceite.equals("s"));
-    }
-
-    public void selecionaEmprestimo() {
-        System.out.println("Deseja selecionar um emprestimo a lista de emprestimo ?");
-        String selecionar = scanner.next();
-        if (selecionar.equals("s")) {
-            System.out.println("Digite o nome do dono do emprestimo: ");
-            String dono = scanner.next();
-            Emprestimo emprestimoEncontrado = retornaEmprestimos(dono);
-            System.out.println(emprestimoEncontrado.toString());
-        }
     }
 
     public void maiorValorDoEmprestimo() {

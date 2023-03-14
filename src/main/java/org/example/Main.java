@@ -8,7 +8,7 @@ public class Main {
         while (continua.equals("s")) {
             System.out.println("Sistema de Emprestimo");
             System.out.print("[1]realizar um emprestimo: \n[2]Pagamentos: \n[3]Lista de emprestimos: " +
-                    "\n[4]Seleciona emprestimo \n[5]Estatística dos emprestimos \n[6]Finalizar acesso: \nSeleção de opção:");
+                    "\n[4]Estatística dos emprestimos \n[5]Finalizar acesso: \nSeleção de opção: ");
             int selecao = service.scanner.nextInt();
             switch (selecao) {
                 case 1 -> {
@@ -21,9 +21,6 @@ public class Main {
                     service.retornaListaDeEmprestimo();
                 }
                 case 4 -> {
-                    service.selecionaEmprestimo();
-                }
-                case 5 -> {
                     System.out.println("[1]Maior emprestimo realizado: \n[2]Menor emprestimo realizado: \n[3]Valor total de todos os emprestimos: \n[4]Media dos valores totais de emprestimos realizados:");
                     int opcao = service.scanner.nextInt();
                     if (opcao == 1) {
@@ -38,7 +35,7 @@ public class Main {
                         System.out.println("Opção invalida!");
                     }
                 }
-                case 6 -> {
+                case 5 -> {
                     continua = "n";
                 }
                 default -> {
@@ -49,7 +46,3 @@ public class Main {
     }
 }
 
-/*TODO
-Veificar lista
-1) Verificar pagamento por seleção de pessoas
-*/
