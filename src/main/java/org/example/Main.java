@@ -11,15 +11,9 @@ public class Main {
                     "\n[4]Estatística dos emprestimos \n[5]Finalizar acesso: \nSeleção de opção: ");
             int selecao = service.scanner.nextInt();
             switch (selecao) {
-                case 1 -> {
-                    service.novoEmprestimo();
-                }
-                case 2 -> {
-                    service.pagamentoPosterior();
-                }
-                case 3 -> {
-                    service.retornaListaDeEmprestimo();
-                }
+                case 1 -> service.novoEmprestimo();
+                case 2 -> service.pagamentoPosterior();
+                case 3 -> service.ListaDeEmprestimo();
                 case 4 -> {
                     System.out.println("[1]Maior emprestimo realizado: \n[2]Menor emprestimo realizado: \n[3]Valor total de todos os emprestimos: \n[4]Media dos valores totais de emprestimos realizados:");
                     int opcao = service.scanner.nextInt();
@@ -35,14 +29,9 @@ public class Main {
                         System.out.println("Opção invalida!");
                     }
                 }
-                case 5 -> {
-                    continua = "n";
-                }
-                default -> {
-                    System.err.println("Opção invalida, selecione as opções do menu acima !");
-                }
+                case 5 -> continua = "n";
+                default -> System.err.println("Opção invalida, selecione as opções do menu acima !");
             }
         }
     }
 }
-

@@ -11,11 +11,11 @@ public class Service {
 
     private List<Emprestimo> emprestimos;
 
-    public List<Emprestimo> retornaListaEmprestimos() {
+    public List<Emprestimo> ListaEmprestimos() {
         return this.emprestimos;
     }
 
-    public void listaDeEmprestimos(Emprestimo emprestimo) {
+    public void novoEmpretimo(Emprestimo emprestimo) {
         if (emprestimos == null) {
             emprestimos = new ArrayList<>();
         }
@@ -31,8 +31,8 @@ public class Service {
         return null;
     }
 
-    public void retornaListaDeEmprestimo() {
-        List<Emprestimo> emprestimoList = retornaListaEmprestimos();
+    public void ListaDeEmprestimo() {
+        List<Emprestimo> emprestimoList = ListaEmprestimos();
         for (Emprestimo emprestimo : emprestimoList) {
             System.out.println(emprestimo.toString());
         }
@@ -40,7 +40,7 @@ public class Service {
 
     public void novoEmprestimo() {
         emprestimo = new Emprestimo(pessoa(), tipoEmprestimo(), valorEmprestimo(), quantidadeMeses(), pagamento());
-        listaDeEmprestimos(emprestimo);
+        novoEmpretimo(emprestimo);
     }
 
     public Pessoa pessoa() {
@@ -63,24 +63,21 @@ public class Service {
     }
 
     public float valorEmprestimo() {
-        float valor;
         do {
             System.out.println("Digite o valor que deseja solicitar o emprestimo: ");
-            valor = scanner.nextFloat();
+            float valor = scanner.nextFloat();
             if (valor <= 0) {
                 System.out.println("Valor de emprestimo invalido ! \nSolicite um valor maior que 0 ...");
             } else {
                 return valor;
             }
-        }
-        while (true);
+        } while (true);
     }
 
     public int quantidadeMeses() {
-        int quantidade;
         do {
             System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
-            quantidade = scanner.nextInt();
+            int quantidade = scanner.nextInt();
             if (quantidade <= 0) {
                 System.out.println("Parcela inválida !! \nSelecione uma parcela maior que 0...");
             } else {
@@ -90,16 +87,15 @@ public class Service {
     }
 
     public int pagamento() {
-        int pagamento;
         do {
             System.out.println("Quantas parcelas deseja pagar incialmente ? ");
-            pagamento = scanner.nextInt();
-            if (pagamento < 0 || pagamento > emprestimo.getQuantidadeDeMesesParaPagamento()){
+            int pagamento = scanner.nextInt();
+            if (pagamento < 0 || pagamento > emprestimo.getQuantidadeDeMesesParaPagamento()) {
                 System.out.println("Pagamento inválido, selecione uma parcela valida ! ");
-            }else {
+            } else {
                 return pagamento;
             }
-        }while (true);
+        } while (true);
     }
 
     public void pagamentoPosterior() {

@@ -1,6 +1,5 @@
 package org.example;
 
 public enum Tipo  {
-    PESSOAL, CONSIGNADO, ROTATIVO;
-
+    PESSOAL, CONSIGNADO, ROTATIVO
 }
