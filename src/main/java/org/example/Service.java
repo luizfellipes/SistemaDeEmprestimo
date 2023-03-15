@@ -63,18 +63,43 @@ public class Service {
     }
 
     public float valorEmprestimo() {
-        System.out.println("Digite o valor que deseja solicitar o emprestimo: ");
-        return scanner.nextFloat();
+        float valor;
+        do {
+            System.out.println("Digite o valor que deseja solicitar o emprestimo: ");
+            valor = scanner.nextFloat();
+            if (valor <= 0) {
+                System.out.println("Valor de emprestimo invalido ! \nSolicite um valor maior que 0 ...");
+            } else {
+                return valor;
+            }
+        }
+        while (true);
     }
 
     public int quantidadeMeses() {
-        System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
-        return scanner.nextInt();
+        int quantidade;
+        do {
+            System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
+            quantidade = scanner.nextInt();
+            if (quantidade <= 0) {
+                System.out.println("Parcela inválida !! \nSelecione uma parcela maior que 0...");
+            } else {
+                return quantidade;
+            }
+        } while (true);
     }
 
     public int pagamento() {
-        System.out.println("Deseja pagar alguma parcela inicialmente ? ");
-        return scanner.nextInt();
+        int pagamento;
+        do {
+            System.out.println("Quantas parcelas deseja pagar incialmente ? ");
+            pagamento = scanner.nextInt();
+            if (pagamento < 0 || pagamento > emprestimo.getQuantidadeDeMesesParaPagamento()){
+                System.out.println("Pagamento inválido, selecione uma parcela valida ! ");
+            }else {
+                return pagamento;
+            }
+        }while (true);
     }
 
     public void pagamentoPosterior() {

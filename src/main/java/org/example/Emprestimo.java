@@ -29,10 +29,9 @@ public class Emprestimo {
     public int getNumeroDeParcelasPagas() {
         return this.numeroDeParcelasPagas;
     }
+    public int getQuantidadeDeMesesParaPagamento(){return this.quantidadeDeMesesParaPagamento;}
 
-    public int setNumeroDeParcelasPagas(int pagamento){
-        return this.numeroDeParcelasPagas;
-    }
+    public int setNumeroDeParcelasPagas(int pagamento){return this.numeroDeParcelasPagas;}
 
     public int quantidadeDeMesesParaPagamento() {
         return this.quantidadeDeMesesParaPagamento;
