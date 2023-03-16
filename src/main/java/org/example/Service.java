@@ -78,6 +78,9 @@ public class Service {
         do {
             System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
             int quantidade = scanner.nextInt();
+            if (quantidade > 5){
+                System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela");
+            }
             if (quantidade <= 0) {
                 System.out.println("Parcela inválida !! \nSelecione uma parcela maior que 0...");
             } else {
@@ -99,25 +102,33 @@ public class Service {
     }
 
     public void pagamentoPosterior() {
-        System.out.println("Digite o nome do dono do emprestimo: ");
-        String dono = scanner.next();
-        Emprestimo emprestimoEncontrado = retornaEmprestimos(dono);
-        System.out.println(emprestimoEncontrado.toString());
-        String aceite = "s";
-        do {
-            System.out.print("Digite quantas parcelas deseja pagar: ");
-            int pagamento = scanner.nextInt();
-            emprestimoEncontrado.setNumeroDeParcelasPagas(emprestimo.pagamento(pagamento));
-            if (emprestimoEncontrado.getNumeroDeParcelasPagas() == emprestimoEncontrado.quantidadeDeMesesParaPagamento() || emprestimoEncontrado.getNumeroDeParcelasPagas() > emprestimoEncontrado.quantidadeDeMesesParaPagamento()) {
-                aceite = "n";
-            } else {
-                System.out.println("Deseja realizar mais algum pagamento ?");
-                String pagarMais = scanner.next();
-                if (pagarMais.equals("n")) {
-                    aceite = "n";
+        try {
+            System.out.println("Digite o nome do dono do emprestimo: ");
+            String dono = scanner.next();
+            Emprestimo emprestimoEncontrado = retornaEmprestimos(dono);
+            System.out.println(emprestimoEncontrado.toString());
+            String aceite = "s";
+            do {
+                System.out.print("Digite quantas parcelas deseja pagar: ");
+                int pagamento = scanner.nextInt();
+                if (pagamento > 0 && pagamento <= emprestimo.getQuantidadeDeMesesParaPagamento()) {
+                    emprestimoEncontrado.setNumeroDeParcelasPagas(emprestimo.pagamento(pagamento));
+                    if (emprestimoEncontrado.getNumeroDeParcelasPagas() == emprestimoEncontrado.quantidadeDeMesesParaPagamento()) {
+                        aceite = "n";
+                    } else {
+                        System.out.println("Deseja realizar mais algum pagamento ?");
+                        String pagarMais = scanner.next();
+                        if (pagarMais.equals("n")) {
+                            aceite = "n";
+                        }
+                    }
+                }else {
+                    System.out.println("Pagamento invalido !\nSelecione uma parcela valida: x" + emprestimo.getQuantidadeDeMesesParaPagamento());
                 }
-            }
-        } while (aceite.equals("s"));
+            } while (aceite.equals("s"));
+        } catch (Exception donoNaoEncontrado) {
+            System.out.println("Dono do emprestimo não encontrado");
+        }
     }
 
     public void maiorValorDoEmprestimo() {
