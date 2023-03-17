@@ -78,7 +78,7 @@ public class Service {
         do {
             System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
             int quantidade = scanner.nextInt();
-            if (quantidade > 5){
+            if (quantidade > 5) {
                 System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela");
             }
             if (quantidade <= 0) {
@@ -108,24 +108,23 @@ public class Service {
             Emprestimo emprestimoEncontrado = retornaEmprestimos(dono);
             System.out.println(emprestimoEncontrado.toString());
             String aceite = "s";
-            do {
+            while (aceite.equals("s") && emprestimoEncontrado.getQuantidadeDeMesesParaPagamento() != emprestimoEncontrado.getNumeroDeParcelasPagas()) {
                 System.out.print("Digite quantas parcelas deseja pagar: ");
                 int pagamento = scanner.nextInt();
-                if (pagamento > 0 && pagamento <= emprestimo.getQuantidadeDeMesesParaPagamento()) {
+                if (pagamento > 0 && pagamento <= emprestimoEncontrado.getQuantidadeDeMesesParaPagamento()) {
                     emprestimoEncontrado.setNumeroDeParcelasPagas(emprestimo.pagamento(pagamento));
                     if (emprestimoEncontrado.getNumeroDeParcelasPagas() == emprestimoEncontrado.quantidadeDeMesesParaPagamento()) {
                         aceite = "n";
                     } else {
-                        System.out.println("Deseja realizar mais algum pagamento ?");
-                        String pagarMais = scanner.next();
-                        if (pagarMais.equals("n")) {
+                        System.out.println("Deseja realizar mais algum pagamento?");
+                        if (scanner.next().equals("n")) {
                             aceite = "n";
                         }
                     }
-                }else {
-                    System.out.println("Pagamento invalido !\nSelecione uma parcela valida: x" + emprestimo.getQuantidadeDeMesesParaPagamento());
+                } else {
+                    System.out.println("Pagamento inválido! Selecione uma parcela válida: x" + emprestimoEncontrado.getQuantidadeDeMesesParaPagamento());
                 }
-            } while (aceite.equals("s"));
+            }
         } catch (Exception donoNaoEncontrado) {
             System.out.println("Dono do emprestimo não encontrado");
         }
