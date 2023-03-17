@@ -22,20 +22,11 @@ public class Emprestimo {
 
 
 
-    public float getValorDoEmprestimo() {
-        return this.valorDoEmprestimo;
-    }
-
-    public int getNumeroDeParcelasPagas() {
-        return this.numeroDeParcelasPagas;
-    }
-    public int getQuantidadeDeMesesParaPagamento(){return this.quantidadeDeMesesParaPagamento;}
-
+    public float getValorDoEmprestimo() {return this.valorDoEmprestimo;}
+    public int getNumeroDeParcelasPagas() {return this.numeroDeParcelasPagas;}
+    public int getQuantidadeDeMesesParaPagamento() {return this.quantidadeDeMesesParaPagamento;}
     public void setNumeroDeParcelasPagas(int numeroDeParcelasPagas) {this.numeroDeParcelasPagas = numeroDeParcelasPagas;}
 
-    public int quantidadeDeMesesParaPagamento() {
-        return this.quantidadeDeMesesParaPagamento;
-    }
 
     public Pessoa getPessoa() {
         return this.pessoa;

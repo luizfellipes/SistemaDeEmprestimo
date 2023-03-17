@@ -11,7 +11,7 @@ public class Main {
                     "\n[4]Estatística dos emprestimos \n[5]Finalizar acesso: \nSeleção de opção: ");
             int selecao = service.scanner.nextInt();
             switch (selecao) {
-                case 1 -> service.novoEmprestimo();
+                case 1 -> service.novaSolicitacaoEmprestimo();
                 case 2 -> service.pagamentoPosterior();
                 case 3 -> service.ListaDeEmprestimo();
                 case 4 -> {
