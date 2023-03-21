@@ -54,7 +54,7 @@ public class Service {
     }
 
     public Tipo tipoEmprestimo() {
-        System.out.println("Selecione a forma de emprestimo : \n[P]ESSOAL - [C]ONSIGNADO - [R]OTATIVO");
+        System.out.println("Selecione a forma de emprestimo : \n[PESSOAL] - [CONSIGNADO] - [ROTATIVO]");
         String tipoEmprestimo = scanner.next();
         return Arrays.stream(Tipo.values())
                 .filter(tipo -> tipoEmprestimo.equalsIgnoreCase(tipo.name()))
@@ -93,6 +93,7 @@ public class Service {
         do {
             System.out.println("Quantas parcelas deseja pagar incialmente ? ");
             int pagamento = scanner.nextInt();
+            emprestimo.pagamento(pagamento);
             if (pagamento >= 0 || pagamento <= emprestimo.getQuantidadeDeMesesParaPagamento()) {
                 return pagamento;
             } else {
@@ -106,24 +107,21 @@ public class Service {
             System.out.println("Digite o nome do dono do emprestimo: ");
             String dono = scanner.next();
             Emprestimo emprestimoEncontrado = retornaEmprestimos(dono);
-            System.out.println(emprestimoEncontrado.toString());
             String aceite = "s";
             while (aceite.equals("s") && emprestimoEncontrado.getQuantidadeDeMesesParaPagamento() != emprestimoEncontrado.getNumeroDeParcelasPagas()) {
+                System.out.println(emprestimoEncontrado);
                 System.out.print("Digite quantas parcelas deseja pagar: ");
                 int pagamento = scanner.nextInt();
-                if (pagamento > 0 && pagamento <= emprestimoEncontrado.getQuantidadeDeMesesParaPagamento()) {
-                    emprestimoEncontrado.setNumeroDeParcelasPagas(emprestimo.pagamento(pagamento));
-                    if (emprestimoEncontrado.getNumeroDeParcelasPagas() == emprestimoEncontrado.getQuantidadeDeMesesParaPagamento()) {
-                        aceite = "n";
-                    } else {
-                        System.out.println("Deseja realizar mais algum pagamento?");
-                        if (scanner.next().equals("n")) {
-                            aceite = "n";
-                        }
-                    }
+                emprestimoEncontrado.setNumeroDeParcelasPagas(emprestimo.pagamento(pagamento));
+                if (emprestimoEncontrado.getNumeroDeParcelasPagas() == emprestimoEncontrado.getQuantidadeDeMesesParaPagamento()) {
+                    aceite = "n";
                 } else {
-                    System.err.println("Pagamento inválido! Selecione uma parcela válida: x" + emprestimoEncontrado.getQuantidadeDeMesesParaPagamento());
+                    System.out.println("Deseja realizar mais algum pagamento?");
+                    if (scanner.next().equals("n")) {
+                        aceite = "n";
+                    }
                 }
+
             }
         } catch (Exception donoNaoEncontrado) {
             System.err.println("Dono do emprestimo não encontrado");

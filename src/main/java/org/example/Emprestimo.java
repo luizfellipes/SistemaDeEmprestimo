@@ -5,6 +5,7 @@ public class Emprestimo {
     private Pessoa pessoa;
     private float valorDoEmprestimo;
     private float valorDoPagamento;
+    private float valorDaParcela;
     private int quantidadeDeMesesParaPagamento;
     private int numeroDeParcelasPagas;
     private Tipo tipoDeEmprestimo;
@@ -21,36 +22,44 @@ public class Emprestimo {
     }
 
 
+    public float getValorDoEmprestimo() {
+        return this.valorDoEmprestimo;
+    }
 
-    public float getValorDoEmprestimo() {return this.valorDoEmprestimo;}
-    public int getNumeroDeParcelasPagas() {return this.numeroDeParcelasPagas;}
-    public int getQuantidadeDeMesesParaPagamento() {return this.quantidadeDeMesesParaPagamento;}
-    public void setNumeroDeParcelasPagas(int numeroDeParcelasPagas) {this.numeroDeParcelasPagas = numeroDeParcelasPagas;}
+    public int getNumeroDeParcelasPagas() {
+        return this.numeroDeParcelasPagas;
+    }
 
+    public int getQuantidadeDeMesesParaPagamento() {
+        return this.quantidadeDeMesesParaPagamento;
+    }
+
+    public void setNumeroDeParcelasPagas(int numeroDeParcelasPagas) {
+        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
+    }
 
     public Pessoa getPessoa() {
         return this.pessoa;
     }
 
+
     public int pagamento(int pagamentoParcela) {
         numeroDeParcelasPagas += pagamentoParcela;
-        float valorDaParcela = valorDoEmprestimo / quantidadeDeMesesParaPagamento;
+        valorDaParcela = valorDoEmprestimo / quantidadeDeMesesParaPagamento;
         if (quantidadeDeMesesParaPagamento > 5) {
             float juros = valorDaParcela * 1.025f;
-            System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela, valor da parcela: " + juros);
             valorDoPagamento = (juros * numeroDeParcelasPagas);
-            System.out.println("Valor por parcela (Sem juros): " + valorDoPagamento);
         } else {
             valorDoPagamento = valorDaParcela * numeroDeParcelasPagas;
         }
         pagamentoQuitado();
-        return pagamentoParcela;
+        return numeroDeParcelasPagas;
     }
 
     public void pagamentoQuitado() {
-        if (valorDoPagamento < 0 || valorDoPagamento > valorDoEmprestimo) {
+        if (valorDoPagamento < 0 || numeroDeParcelasPagas > quantidadeDeMesesParaPagamento) {
             System.out.println("Pagamento invalido !");
-        } else if (valorDoPagamento == valorDoEmprestimo) {
+        } else if (numeroDeParcelasPagas == quantidadeDeMesesParaPagamento) {
             System.out.println("O emprestimo foi quitado !");
         } else {
             System.out.println("Pagamento restante do emprestimo no valor de R$:" + (valorDoEmprestimo - valorDoPagamento) + " com x:" + (quantidadeDeMesesParaPagamento - numeroDeParcelasPagas) +
