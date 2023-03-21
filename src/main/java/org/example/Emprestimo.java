@@ -21,28 +21,27 @@ public class Emprestimo {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
 
-
     public float getValorDoEmprestimo() {
         return this.valorDoEmprestimo;
     }
-
     public int getNumeroDeParcelasPagas() {
         return this.numeroDeParcelasPagas;
     }
-
     public int getQuantidadeDeMesesParaPagamento() {
         return this.quantidadeDeMesesParaPagamento;
     }
-
     public void setNumeroDeParcelasPagas(int numeroDeParcelasPagas) {
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
     }
-
+    public void setQuantidadeDeMesesParaPagamento(int quantidadeDeMesesParaPagamento){
+        this.quantidadeDeMesesParaPagamento = quantidadeDeMesesParaPagamento;
+    }
     public Pessoa getPessoa() {
         return this.pessoa;
     }
 
 
+    //Metódos
     public int pagamento(int pagamentoParcela) {
         numeroDeParcelasPagas += pagamentoParcela;
         valorDaParcela = valorDoEmprestimo / quantidadeDeMesesParaPagamento;

@@ -9,21 +9,21 @@ public class Service {
     Scanner scanner = new Scanner(System.in);
     Emprestimo emprestimo = new Emprestimo();
 
-    private List<Emprestimo> emprestimos;
+    private List<Emprestimo> listEmprestimo;
 
     public List<Emprestimo> ListaEmprestimos() {
-        return this.emprestimos;
+        return this.listEmprestimo;
     }
 
     public void novoEmpretimo(Emprestimo emprestimo) {
-        if (emprestimos == null) {
-            emprestimos = new ArrayList<>();
+        if (listEmprestimo == null) {
+            listEmprestimo = new ArrayList<>();
         }
-        emprestimos.add(emprestimo);
+        listEmprestimo.add(emprestimo);
     }
 
     public Emprestimo retornaEmprestimos(String nome) {
-        for (Emprestimo emprestimo : emprestimos) {
+        for (Emprestimo emprestimo : listEmprestimo) {
             if (nome.equals(emprestimo.getPessoa().getNome())) {
                 return emprestimo;
             }
@@ -93,8 +93,8 @@ public class Service {
         do {
             System.out.println("Quantas parcelas deseja pagar incialmente ? ");
             int pagamento = scanner.nextInt();
-            emprestimo.pagamento(pagamento);
             if (pagamento >= 0 || pagamento <= emprestimo.getQuantidadeDeMesesParaPagamento()) {
+                emprestimo.pagamento(pagamento);
                 return pagamento;
             } else {
                 System.out.println("Pagamento inválido, selecione uma parcela valida ! ");
@@ -129,8 +129,8 @@ public class Service {
     }
 
     public void maiorValorDoEmprestimo() {
-        Emprestimo maior = emprestimos.get(0);
-        for (Emprestimo emprestimo : emprestimos) {
+        Emprestimo maior = listEmprestimo.get(0);
+        for (Emprestimo emprestimo : listEmprestimo) {
             if (emprestimo.getValorDoEmprestimo() > maior.getValorDoEmprestimo()) {
                 maior = emprestimo;
             }
@@ -139,8 +139,8 @@ public class Service {
     }
 
     public void menorValorDoEmprestimo() {
-        Emprestimo menor = emprestimos.get(0);
-        for (Emprestimo emprestimo : emprestimos) {
+        Emprestimo menor = listEmprestimo.get(0);
+        for (Emprestimo emprestimo : listEmprestimo) {
             if (emprestimo.getValorDoEmprestimo() < menor.getValorDoEmprestimo()) {
                 menor = emprestimo;
             }
@@ -150,7 +150,7 @@ public class Service {
 
     public void totalEmprestimosRealizados() {
         float total = 0;
-        for (Emprestimo emprestimo : emprestimos) {
+        for (Emprestimo emprestimo : listEmprestimo) {
             total += emprestimo.getValorDoEmprestimo();
         }
         System.out.println("Total de empréstimos realizados: " + total);
@@ -158,8 +158,8 @@ public class Service {
 
     public void mediaValorEmprestimo() {
         float total = 0;
-        int quantidadeDeEmprestimos = emprestimos.size();
-        for (Emprestimo emprestimo : emprestimos) {
+        int quantidadeDeEmprestimos = listEmprestimo.size();
+        for (Emprestimo emprestimo : listEmprestimo) {
             total += emprestimo.getValorDoEmprestimo();
         }
         float media = total / quantidadeDeEmprestimos;
