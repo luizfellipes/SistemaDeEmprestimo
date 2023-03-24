@@ -9,17 +9,21 @@ public class Service {
     Scanner scanner = new Scanner(System.in);
     Emprestimo emprestimo = new Emprestimo();
 
-    private List<Emprestimo> listEmprestimo;
 
-    public List<Emprestimo> ListaEmprestimos() {
-        return this.listEmprestimo;
-    }
+    private List<Emprestimo> listEmprestimo;
 
     public void novoEmpretimo(Emprestimo emprestimo) {
         if (listEmprestimo == null) {
             listEmprestimo = new ArrayList<>();
         }
         listEmprestimo.add(emprestimo);
+    }
+
+    public void ListaDeEmprestimo() {
+        List<Emprestimo> emprestimoList = this.listEmprestimo;
+        for (Emprestimo emprestimo : emprestimoList) {
+            System.out.println(emprestimo.toString());
+        }
     }
 
     public Emprestimo retornaEmprestimos(String nome) {
@@ -31,16 +35,8 @@ public class Service {
         return null;
     }
 
-    public void ListaDeEmprestimo() {
-        List<Emprestimo> emprestimoList = ListaEmprestimos();
-        for (Emprestimo emprestimo : emprestimoList) {
-            System.out.println(emprestimo.toString());
-        }
-    }
-
     public void novaSolicitacaoEmprestimo() {
-        emprestimo = new Emprestimo(pessoa(), tipoEmprestimo(), valorEmprestimo(), quantidadeMeses(), pagamentoInicial());
-        novoEmpretimo(emprestimo);
+        novoEmpretimo(emprestimo = new Emprestimo(pessoa(), tipoEmprestimo(), valorEmprestimo(), quantidadeMeses(), pagamentoInicial()));
     }
 
     public Pessoa pessoa() {
@@ -93,9 +89,8 @@ public class Service {
         do {
             System.out.println("Quantas parcelas deseja pagar incialmente ? ");
             int pagamento = scanner.nextInt();
-            if (pagamento >= 0 || pagamento <= emprestimo.getQuantidadeDeMesesParaPagamento()) {
-                emprestimo.pagamento(pagamento);
-                return pagamento;
+            if (pagamento >= 0) {
+                return emprestimo.pagamento(pagamento);
             } else {
                 System.out.println("Pagamento inválido, selecione uma parcela valida ! ");
             }
@@ -121,7 +116,6 @@ public class Service {
                         aceite = "n";
                     }
                 }
-
             }
         } catch (Exception donoNaoEncontrado) {
             System.err.println("Dono do emprestimo não encontrado");
