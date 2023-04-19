@@ -59,42 +59,42 @@ public class Service {
     }
 
     public float valorEmprestimo() {
-        do {
+        float valor = 0;
+        while (valor <= 0) {
             System.out.println("Digite o valor que deseja solicitar o emprestimo: ");
-            float valor = scanner.nextFloat();
+            valor = scanner.nextFloat();
             if (valor <= 0) {
                 System.out.println("Valor de emprestimo invalido ! \nSolicite um valor maior que 0 ...");
-            } else {
-                return valor;
             }
-        } while (true);
+        }
+        return valor;
     }
 
+
     public int quantidadeMeses() {
-        do {
+        int quantidade = 0;
+        while (quantidade <= 0) {
             System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
-            int quantidade = scanner.nextInt();
+            quantidade = scanner.nextInt();
             if (quantidade > 5) {
                 System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela");
-            }
-            if (quantidade <= 0) {
+            } else if (quantidade <= 0) {
                 System.out.println("Parcela inválida !! \nSelecione uma parcela maior que 0...");
-            } else {
-                return quantidade;
             }
-        } while (true);
+        }
+        return quantidade;
     }
 
     public int pagamentoInicial() {
-        do {
+        int pagamento = -1;
+        while (pagamento < 0 ) {
             System.out.println("Quantas parcelas deseja pagar incialmente ? ");
-            int pagamento = scanner.nextInt();
-            if (pagamento >= 0) {
-                return emprestimo.pagamento(pagamento);
-            } else {
+            pagamento = scanner.nextInt();
+            if (pagamento < 0) {
                 System.out.println("Pagamento inválido, selecione uma parcela valida ! ");
             }
-        } while (true);
+        }
+        return pagamento;
     }
 
     public void pagamentoPosterior() {
@@ -123,9 +123,9 @@ public class Service {
     }
 
     public void maiorValorDoEmprestimo() {
-        Emprestimo maior = listEmprestimo.get(0);
+        Emprestimo maior = null;
         for (Emprestimo emprestimo : listEmprestimo) {
-            if (emprestimo.getValorDoEmprestimo() > maior.getValorDoEmprestimo()) {
+            if (maior == null || emprestimo.getValorDoEmprestimo() > maior.getValorDoEmprestimo()) {
                 maior = emprestimo;
             }
         }
@@ -133,9 +133,9 @@ public class Service {
     }
 
     public void menorValorDoEmprestimo() {
-        Emprestimo menor = listEmprestimo.get(0);
+        Emprestimo menor = null;
         for (Emprestimo emprestimo : listEmprestimo) {
-            if (emprestimo.getValorDoEmprestimo() < menor.getValorDoEmprestimo()) {
+            if (menor == null || emprestimo.getValorDoEmprestimo() < menor.getValorDoEmprestimo()) {
                 menor = emprestimo;
             }
         }
