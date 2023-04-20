@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Service {
     Scanner scanner = new Scanner(System.in);
@@ -87,10 +84,10 @@ public class Service {
 
     public int pagamentoInicial() {
         int pagamento = -1;
-        while (pagamento < 0 ) {
+        while (pagamento < 0) {
             System.out.println("Quantas parcelas deseja pagar incialmente ? ");
             pagamento = scanner.nextInt();
-            if (pagamento < 0) {
+            if (pagamento < 0 ) {
                 System.out.println("Pagamento inválido, selecione uma parcela valida ! ");
             }
         }
@@ -107,7 +104,7 @@ public class Service {
                 System.out.println(emprestimoEncontrado);
                 System.out.print("Digite quantas parcelas deseja pagar: ");
                 int pagamento = scanner.nextInt();
-                emprestimoEncontrado.setNumeroDeParcelasPagas(emprestimo.pagamento(pagamento));
+                emprestimoEncontrado.pagamento(pagamento);
                 if (emprestimoEncontrado.getNumeroDeParcelasPagas() == emprestimoEncontrado.getQuantidadeDeMesesParaPagamento()) {
                     aceite = "n";
                 } else {
@@ -123,22 +120,12 @@ public class Service {
     }
 
     public void maiorValorDoEmprestimo() {
-        Emprestimo maior = null;
-        for (Emprestimo emprestimo : listEmprestimo) {
-            if (maior == null || emprestimo.getValorDoEmprestimo() > maior.getValorDoEmprestimo()) {
-                maior = emprestimo;
-            }
-        }
-        System.out.println("Maior valor de emprestimo: " + maior);
+        Emprestimo maior = listEmprestimo.stream().max(Comparator.comparing(Emprestimo::getValorDoEmprestimo)).orElse(null);
+        System.out.println("Maior valor de empréstimo: " + maior);
     }
 
     public void menorValorDoEmprestimo() {
-        Emprestimo menor = null;
-        for (Emprestimo emprestimo : listEmprestimo) {
-            if (menor == null || emprestimo.getValorDoEmprestimo() < menor.getValorDoEmprestimo()) {
-                menor = emprestimo;
-            }
-        }
+        Emprestimo menor = listEmprestimo.stream().min(Comparator.comparing(Emprestimo::getValorDoEmprestimo)).orElse(null);
         System.out.println("Menor valor de emprestimo: " + menor);
     }
 

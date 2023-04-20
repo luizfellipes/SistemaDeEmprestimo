@@ -33,10 +33,6 @@ public class Emprestimo {
         return this.quantidadeDeMesesParaPagamento;
     }
 
-    public void setNumeroDeParcelasPagas(int numeroDeParcelasPagas) {
-        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
-    }
-
     public Pessoa getPessoa() {
         return this.pessoa;
     }
@@ -55,6 +51,7 @@ public class Emprestimo {
         pagamentoQuitado();
         return numeroDeParcelasPagas;
     }
+
 
     public void pagamentoQuitado() {
         if (valorDoPagamento < 0 || numeroDeParcelasPagas > quantidadeDeMesesParaPagamento) {
