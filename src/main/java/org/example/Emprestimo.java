@@ -13,21 +13,23 @@ public class Emprestimo {
     public Emprestimo() {
     }
 
-    public Emprestimo(Pessoa pessoa, Tipo tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas) {
+    public Emprestimo(Pessoa pessoa, Tipo tipoDeEmprestimo, float valorDoEmprestimo, int quantidadeDeMesesParaPagamento, int numeroDeParcelasPagas, float valorDoPagamento) {
         this.pessoa = pessoa;
         this.tipoDeEmprestimo = tipoDeEmprestimo;
         this.valorDoEmprestimo = valorDoEmprestimo;
         this.quantidadeDeMesesParaPagamento = quantidadeDeMesesParaPagamento;
         this.numeroDeParcelasPagas = numeroDeParcelasPagas;
+        this.valorDoPagamento = valorDoPagamento;
     }
 
     public float getValorDoEmprestimo() {
         return this.valorDoEmprestimo;
     }
 
-    public int getNumeroDeParcelasPagas() {
+     public int getNumeroDeParcelasPagas() {
         return this.numeroDeParcelasPagas;
     }
+
 
     public int getQuantidadeDeMesesParaPagamento() {
         return this.quantidadeDeMesesParaPagamento;
@@ -39,7 +41,7 @@ public class Emprestimo {
 
 
     //Metódos
-    public int pagamento(int pagamentoParcela) {
+    public void pagamento(int pagamentoParcela) {
         numeroDeParcelasPagas += pagamentoParcela;
         valorDaParcela = valorDoEmprestimo / quantidadeDeMesesParaPagamento;
         if (quantidadeDeMesesParaPagamento > 5) {
@@ -49,7 +51,6 @@ public class Emprestimo {
             valorDoPagamento = valorDaParcela * numeroDeParcelasPagas;
         }
         pagamentoQuitado();
-        return numeroDeParcelasPagas;
     }
 
 
