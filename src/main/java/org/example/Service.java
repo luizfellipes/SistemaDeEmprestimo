@@ -6,9 +6,9 @@ public class Service {
     Scanner scanner = new Scanner(System.in);
     Emprestimo emprestimo = new Emprestimo();
 
-
     private List<Emprestimo> listEmprestimo;
 
+    //Adiciona um novo emprestimo
     public void novoEmpretimo(Emprestimo emprestimo) {
         if (listEmprestimo == null) {
             listEmprestimo = new ArrayList<>();
@@ -16,6 +16,7 @@ public class Service {
         listEmprestimo.add(emprestimo);
     }
 
+    //retorna todos os emprestimos da lista
     public void ListaDeEmprestimo() {
         List<Emprestimo> emprestimoList = this.listEmprestimo;
         for (Emprestimo emprestimo : emprestimoList) {
@@ -23,6 +24,7 @@ public class Service {
         }
     }
 
+    //Retorna os elementos da lista
     public Emprestimo retornaEmprestimos(String nome) {
         for (Emprestimo emprestimo : listEmprestimo) {
             if (nome.equals(emprestimo.getPessoa().getNome())) {
@@ -32,58 +34,18 @@ public class Service {
         return null;
     }
 
+    //Inicia o emprestimo
     public void novaSolicitacaoEmprestimo() {
-        //cadastra uma nova pessoa
         Pessoa pessoa = pessoa();
-
-        //seleciona o tipo de emprestimo
         Tipo tipoEmprestimo = tipoEmprestimo();
-
-        //Valor do Emprestimo
-        float valorEmprestimo = 0;
-        while (valorEmprestimo <= 0) {
-            System.out.println("Digite o valor que deseja solicitar o emprestimo: ");
-            valorEmprestimo = scanner.nextFloat();
-            if (valorEmprestimo <= 0) {
-                System.out.println("Valor de emprestimo invalido ! \nSolicite um valor maior que 0 ...");
-            }
-        }
-
-        //Quantidade de meses a serem pagas
-        int quantidadeMeses = 0;
-        while (quantidadeMeses <= 0) {
-            System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
-            quantidadeMeses = scanner.nextInt();
-            if (quantidadeMeses > 5) {
-                System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela");
-            } else if (quantidadeMeses <= 0) {
-                System.out.println("Parcela inválida !! \nSelecione uma parcela maior que 0...");
-            }
-        }
-
-        //pagamento inicial
-        int pagamentoInicial = -1;
-        while (pagamentoInicial < 0 || pagamentoInicial > quantidadeMeses ) {
-            System.out.println("Quantas parcelas deseja pagar incialmente ? ");
-            pagamentoInicial = scanner.nextInt();
-            if (pagamentoInicial < 0 ) {
-                System.out.println("Pagamento inválido, selecione uma parcela valida ! ");
-            }
-        }
-
-        //valor do pagamento realizado
-        float valorDoPagamento;
-        float valorDaParcela = valorEmprestimo / quantidadeMeses;
-        if (quantidadeMeses > 5){
-            float juros = valorDaParcela * 1.025f;
-            valorDoPagamento = pagamentoInicial * juros;
-        }else{
-            valorDoPagamento = valorDaParcela * pagamentoInicial;
-        }
-
-        novoEmpretimo(emprestimo = new Emprestimo(pessoa, tipoEmprestimo, valorEmprestimo, quantidadeMeses, pagamentoInicial, valorDoPagamento));
+        float valorEmprestimo = valorEmprestimo();
+        int quantidadeMeses = quantidadeMeses();
+        int pagamentoInicial = pagamentoInicial(quantidadeMeses);
+        float valorPagamento = valorPagamento(valorEmprestimo, quantidadeMeses, pagamentoInicial);
+        novoEmpretimo(emprestimo = new Emprestimo(pessoa, tipoEmprestimo, valorEmprestimo, quantidadeMeses, pagamentoInicial, valorPagamento));
     }
 
+    //Cria uma nova pessoa
     public Pessoa pessoa() {
         System.out.println("Digite seu nome: ");
         String nome = scanner.next();
@@ -94,6 +56,7 @@ public class Service {
         return new Pessoa(nome, telefone, cpf);
     }
 
+    //Seleciona o tipo de emprestimo
     public Tipo tipoEmprestimo() {
         System.out.println("Selecione a forma de emprestimo : \n[PESSOAL] - [CONSIGNADO] - [ROTATIVO]");
         String tipoEmprestimo = scanner.next();
@@ -103,6 +66,60 @@ public class Service {
                 .orElse(null);
     }
 
+    //Seleciona o valor do emprestimo
+    public float valorEmprestimo() {
+        float valor = 0;
+        while (valor <= 0) {
+            System.out.println("Digite o valor que deseja solicitar o emprestimo: ");
+            valor = scanner.nextFloat();
+            if (valor <= 0) {
+                System.out.println("Valor de emprestimo invalido ! \nSolicite um valor maior que 0 ...");
+            }
+        }
+        return valor;
+    }
+
+
+    //Seleciona a quantidade de meses a pagar (parcelas)
+    public int quantidadeMeses() {
+        int quantidade = 0;
+        while (quantidade <= 0) {
+            System.out.println("Selecione a quantidade de parcelas mês que deseja a pagar: ");
+            quantidade = scanner.nextInt();
+            if (quantidade > 5) {
+                System.out.println("Acima de 5 parcelas hávera um juros de 2,5 por parcela");
+            } else if (quantidade <= 0) {
+                System.out.println("Parcela inválida !! \nSelecione uma parcela maior que 0...");
+            }
+        }
+        return quantidade;
+    }
+
+    //Realiza um pagamento, caso o contratante deseja pagar alguma parcela adiantada
+    public int pagamentoInicial(int quantidadeMeses) {
+        int pagamento = -1;
+        while (pagamento < 0 || pagamento > quantidadeMeses) {
+            System.out.println("Quantas parcelas deseja pagar incialmente ? ");
+            pagamento = scanner.nextInt();
+            if (pagamento < 0 || pagamento > quantidadeMeses) {
+                System.out.println("Pagamento inválido, selecione uma parcela valida ! ");
+            }
+        }
+        return pagamento;
+    }
+
+    //Gera o valor do pagamento feito pelo pagamentoIncial()
+    public float valorPagamento(float valorEmprestimo, int quantidadeMeses, int pagamentoInicial) {
+        float valorDaParcela = valorEmprestimo / quantidadeMeses;
+        if (quantidadeMeses > 5) {
+            float juros = valorDaParcela * 1.025f;
+            return pagamentoInicial * juros;
+        } else {
+            return valorDaParcela * pagamentoInicial;
+        }
+    }
+
+    //Realiza um pagamento depois do emprestimo concluido
     public void pagamentoPosterior() {
         try {
             System.out.println("Digite o nome do dono do emprestimo: ");
@@ -128,23 +145,35 @@ public class Service {
         }
     }
 
+    //Busca o maior valor de emprestimo feito
     public void maiorValorDoEmprestimo() {
         Emprestimo maior = listEmprestimo.stream().max(Comparator.comparing(Emprestimo::getValorDoEmprestimo)).orElse(null);
         System.out.println("Maior valor de empréstimo: " + maior);
     }
 
+    //Busca o menor valor de emprestimo feito
     public void menorValorDoEmprestimo() {
         Emprestimo menor = listEmprestimo.stream().min(Comparator.comparing(Emprestimo::getValorDoEmprestimo)).orElse(null);
         System.out.println("Menor valor de emprestimo: " + menor);
     }
 
+    //Busca o total dos valores dos emprestimos feitos
     public void totalEmprestimosRealizados() {
-        double total = listEmprestimo.stream().mapToDouble(Emprestimo::getValorDoEmprestimo).sum();
+        float total = 0;
+        for (Emprestimo emprestimo : listEmprestimo) {
+            total += emprestimo.getValorDoEmprestimo();
+        }
         System.out.println("Total de empréstimos realizados: " + total);
     }
 
+    //Busca as medias de todos os valores de emprestimos feitos
     public void mediaValorEmprestimo() {
-        double media = listEmprestimo.stream().mapToDouble(Emprestimo::getValorDoEmprestimo).average().orElse(0.0);
+        float total = 0;
+        int quantidadeDeEmprestimos = listEmprestimo.size();
+        for (Emprestimo emprestimo : listEmprestimo) {
+            total += emprestimo.getValorDoEmprestimo();
+        }
+        float media = total / quantidadeDeEmprestimos;
         System.out.println("Média de valores de empréstimo: " + media);
     }
 
