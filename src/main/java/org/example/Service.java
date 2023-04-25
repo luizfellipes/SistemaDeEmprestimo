@@ -115,7 +115,7 @@ public class Service {
             float juros = valorDaParcela * 1.025f;
             return pagamentoInicial * juros;
         } else {
-            return valorDaParcela * pagamentoInicial;
+            return pagamentoInicial * valorDaParcela;
         }
     }
 
@@ -159,21 +159,13 @@ public class Service {
 
     //Busca o total dos valores dos emprestimos feitos
     public void totalEmprestimosRealizados() {
-        float total = 0;
-        for (Emprestimo emprestimo : listEmprestimo) {
-            total += emprestimo.getValorDoEmprestimo();
-        }
+        double total = listEmprestimo.stream().mapToDouble(Emprestimo::getValorDoEmprestimo).sum();
         System.out.println("Total de empréstimos realizados: " + total);
     }
 
     //Busca as medias de todos os valores de emprestimos feitos
     public void mediaValorEmprestimo() {
-        float total = 0;
-        int quantidadeDeEmprestimos = listEmprestimo.size();
-        for (Emprestimo emprestimo : listEmprestimo) {
-            total += emprestimo.getValorDoEmprestimo();
-        }
-        float media = total / quantidadeDeEmprestimos;
+        double media = listEmprestimo.stream().mapToDouble(Emprestimo::getValorDoEmprestimo).average().orElse(0.0);
         System.out.println("Média de valores de empréstimo: " + media);
     }
 
