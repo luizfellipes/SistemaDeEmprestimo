@@ -125,19 +125,14 @@ public class Service {
             System.out.println("Digite o nome do dono do emprestimo: ");
             String dono = scanner.next();
             Emprestimo emprestimoEncontrado = retornaEmprestimos(dono);
-            String aceite = "s";
-            while (aceite.equals("s") && emprestimoEncontrado.getQuantidadeDeMesesParaPagamento() != emprestimoEncontrado.getNumeroDeParcelasPagas()) {
+            while (emprestimoEncontrado.getQuantidadeDeMesesParaPagamento() < emprestimoEncontrado.getNumeroDeParcelasPagas()) {
                 System.out.println(emprestimoEncontrado);
                 System.out.print("Digite quantas parcelas deseja pagar: ");
                 int pagamento = scanner.nextInt();
-                emprestimoEncontrado.pagamento(pagamento);
-                if (emprestimoEncontrado.getNumeroDeParcelasPagas() == emprestimoEncontrado.getQuantidadeDeMesesParaPagamento()) {
-                    aceite = "n";
-                } else {
-                    System.out.println("Deseja realizar mais algum pagamento?");
-                    if (scanner.next().equals("n")) {
-                        aceite = "n";
-                    }
+                if (pagamento < emprestimoEncontrado.getNumeroDeParcelasPagas())  emprestimoEncontrado.pagamento(pagamento);
+                System.out.println("Deseja realizar mais algum pagamento?");
+                if (scanner.next().equals("n")) {
+                    break;
                 }
             }
         } catch (Exception donoNaoEncontrado) {

@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SistemaDeEmprestimo2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SistemaDeEmprestimo2_jar</output-path>
+    <root id="archive" name="SistemaDeEmprestimo2.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="SistemaDeEmprestimo2" />
+    </root>
+  </artifact>
+</component>

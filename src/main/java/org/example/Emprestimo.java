@@ -26,7 +26,7 @@ public class Emprestimo {
         return this.valorDoEmprestimo;
     }
 
-     public int getNumeroDeParcelasPagas() {
+    public int getNumeroDeParcelasPagas() {
         return this.numeroDeParcelasPagas;
     }
 
@@ -60,8 +60,9 @@ public class Emprestimo {
         } else if (numeroDeParcelasPagas == quantidadeDeMesesParaPagamento) {
             System.out.println("O emprestimo foi quitado !");
         } else {
-            System.out.println("Pagamento restante do emprestimo no valor de R$:" + (valorDoEmprestimo - valorDoPagamento) + " com x:" + (quantidadeDeMesesParaPagamento - numeroDeParcelasPagas) +
-                    "\nparcelas valor inicial do emprestimo R$: " + valorDoEmprestimo + " numero de parcelas: " + quantidadeDeMesesParaPagamento);
+            System.out.println("Pagamento total até o momento: " + valorDoPagamento + " com X:" + numeroDeParcelasPagas +
+                    "\nPagamento restante do emprestimo no valor de R$:" + (valorDoEmprestimo - valorDoPagamento) + " com X:" + (quantidadeDeMesesParaPagamento - numeroDeParcelasPagas) +
+                    "\nParcelas valor inicial do emprestimo R$: " + valorDoEmprestimo + " com X: " + quantidadeDeMesesParaPagamento);
         }
     }
 
