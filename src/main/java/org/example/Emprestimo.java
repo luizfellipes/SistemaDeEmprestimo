@@ -43,9 +43,13 @@ public class Emprestimo {
         }
     }
 
-    public void realizarPagamento(int numParcelasPagas) {
+    public void realizarPagamento(int numParcelasPagas, int numeroDeParcelas) {
+       if(numParcelasPagas > 0 || numParcelasPagas < numeroDeParcelas){
         this.numeroDeParcelasPagas += numParcelasPagas;
-        System.out.println(numParcelasPagas + " parcelas pagas.");
+        System.out.println(numParcelasPagas + " parcelas pagas.");}
+       else {
+           System.out.println("Não foi possivel realizar o pagamento !");
+       }
     }
 
     public float getValorTotalPago() {
