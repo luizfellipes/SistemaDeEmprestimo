@@ -9,5 +9,8 @@
         <module name="SistemaDeEmprestimo" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SistemaDeEmprestimo2" target="18" />
+    </bytecodeTargetLevel>
   </component>
 </project>

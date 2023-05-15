@@ -2,102 +2,93 @@ package org.example;
 
 public class Emprestimo {
     private float valorEmprestimo;
-    private float valorParcela;
-    private float saldoDevedor;
     private int numeroDeParcelas;
     private int numeroDeParcelasPagas;
     private Pessoa pessoa;
 
     public Emprestimo(float valorEmprestimo, int numeroDeParcelas, int numeroDeParcelasPagas, Pessoa pessoa) {
-        this.valorEmprestimo = valorEmprestimo;
-        this.numeroDeParcelas = numeroDeParcelas;
-        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
-        this.pessoa = pessoa;
+        verificaValorEmprestimo(valorEmprestimo);
+        verificaNumeroParcelas(numeroDeParcelas);
+        verificaNumeroParcelasPagas(numeroDeParcelas, numeroDeParcelasPagas);
+        verificaPessoa(pessoa);
     }
 
-    public float getValorEmprestimo() {
-        return this.valorEmprestimo;
-    }
-
-    public void setValorEmprestimo(float valorEmprestimo) {
-        this.valorEmprestimo = valorEmprestimo;
-    }
-
-    public float getSaldoDevedor() {
-        return saldoDevedor;
-    }
-
-    public void setSaldoDevedor(float saldoDevedor) {
-        this.saldoDevedor = saldoDevedor;
-    }
-
-    public float getValorParcela() {
-        return valorParcela;
-    }
-
-    public void setValorParcela(float valorParcela) {
-        this.valorParcela = valorParcela;
-    }
-
-    public int getNumeroDeParcelas() {
-        return this.numeroDeParcelas;
-    }
-
-    public void setNumeroDeParcelas(int numeroDeParcelas) {
-        this.numeroDeParcelas = numeroDeParcelas;
-    }
-
-    public int getNumeroDeParcelasPagas() {
-        return numeroDeParcelasPagas;
-    }
-
-    public void setNumeroDeParcelasPagas(int numeroDeParcelasPagas) {
-        this.numeroDeParcelasPagas = numeroDeParcelasPagas;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
 
     //Métodos
-    public void pagamento() {
-        setValorParcela(getValorEmprestimo() / getNumeroDeParcelas());
-        float valorPago = getNumeroDeParcelasPagas() * getValorParcela();
-        float saldoRestante = getValorEmprestimo() - valorPago;
-        int parcelasRestantes = getNumeroDeParcelas() - getNumeroDeParcelasPagas();
-        setSaldoDevedor(saldoRestante);
-        if (saldoRestante < 0 || getNumeroDeParcelasPagas() < 0 || getNumeroDeParcelasPagas() > getNumeroDeParcelas()) {
+    private void verificaPessoa(Pessoa pessoa) {
+        if (pessoa.pessoaExiste(pessoa)) {
+            this.pessoa = pessoa;
+        }
+    }
+
+    private void verificaValorEmprestimo(float valorEmprestimo) {
+        if (valorEmprestimo > 0) {
+            this.valorEmprestimo = valorEmprestimo;
+        } else {
+            System.out.println("Selecione um valor maior que 0...");
+        }
+    }
+
+    private void verificaNumeroParcelas(int numeroDeParcelas) {
+        if (numeroDeParcelas > 0) {
+            this.numeroDeParcelas = numeroDeParcelas;
+        } else {
+            System.out.println("Numero de parcelas invalida, selecione uma parcela maior que 0...");
+        }
+    }
+
+    private void verificaNumeroParcelasPagas(int numeroDeParcelas, int numeroDeParcelasPagas) {
+        if (numeroDeParcelasPagas >= 0 && numeroDeParcelasPagas < numeroDeParcelas) {
+            this.numeroDeParcelasPagas = numeroDeParcelasPagas;
+        }
+    }
+
+    public void realizarPagamento(int numParcelasPagas) {
+        this.numeroDeParcelasPagas += numParcelasPagas;
+        System.out.println(numParcelasPagas + " parcelas pagas.");
+    }
+
+    public float getValorTotalPago() {
+        return numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
+    }
+
+    public void verificarQuitado() {
+        if (numeroDeParcelasPagas == numeroDeParcelas) {
+            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + this + " \nFoi realizado pela: " + pessoa.toString());
+        } else {
+            System.out.println("Divida não quitada ! \nO " + this + "\nFoi realizado pela: " + pessoa.toString());
+        }
+    }
+
+
+    /*public void pagamento() {
+        valorParcela = valorEmprestimo / numeroDeParcelas;
+        float valorPago = numeroDeParcelasPagas * valorParcela;
+        float saldoRestante = valorEmprestimo - valorPago;
+        int parcelasRestantes = numeroDeParcelas - numeroDeParcelasPagas;
+        saldoDevedor = saldoRestante;
+        if (saldoRestante < 0 || numeroDeParcelasPagas < 0 || numeroDeParcelasPagas > numeroDeParcelas) {
             System.out.println("Pagamento inválido. Por favor, selecione uma parcela válida.");
         } else {
-<<<<<<< HEAD
-            System.out.println("Valor da parcela: " + getValorParcela() + "\nEsse é valor a ser pago: " + getSaldoDevedor() + "\n" +
-=======
-            System.out.println("Valor da parcela: " + getValorParcela() + "\nEsse é valor a ser pago: " + valorPago+ "\n"+
->>>>>>> 28d3b33f27d1644390b40bbb50ce76fc6daada69
+            System.out.println("Valor da parcela: " + valorParcela + "\nEsse é valor a ser pago: " + valorPago + "\n" +
                     "\nAinda existe um emprestimo de: " + saldoRestante + ", com x" + parcelasRestantes + " parcelas restante ! " +
-                    "\nValor inicial do emprestimo: " + getValorEmprestimo() + ", com x" + getNumeroDeParcelas() + " parcelas. \n");
+                    "\nValor inicial do emprestimo: " + valorEmprestimo + ", com x" + numeroDeParcelas + " parcelas. \n");
             dividaQuitada();
         }
     }
 
     public void dividaQuitada() {
-        if (getSaldoDevedor() == 0) {
-            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + toString() + " \nFoi realizado pela: " + getPessoa().toString());
+        if (saldoDevedor == 0) {
+            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + this + " \nFoi realizado pela: " + pessoa.toString());
         } else {
-            System.out.println("Divida não quitada ! \nO " + toString() + "\nFoi realizado pela: " + getPessoa().toString());
+            System.out.println("Divida não quitada ! \nO " + this + "\nFoi realizado pela: " + pessoa.toString());
         }
-    }
+    }*/
 
     @Override
     public String toString() {
         return "Emprestimo{" +
                 "valorEmprestimo=" + valorEmprestimo +
-                ", valorParcela=" + valorParcela +
-                ", saldoDevedor=" + saldoDevedor +
                 ", numeroDeParcelas=" + numeroDeParcelas +
                 ", numeroDeParcelasPagas=" + numeroDeParcelasPagas +
                 '}';
