@@ -10,7 +10,7 @@ public class Main {
 
         System.out.println(emprestimo);
 
-        emprestimo.realizarPagamento(2);
+        emprestimo.realizarPagamento(5);
 
         System.out.println("Valor total pago: R$" + emprestimo.getValorTotalPago());
 
