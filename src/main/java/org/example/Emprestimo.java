@@ -43,17 +43,19 @@ public class Emprestimo {
         }
     }
 
-    public void realizarPagamento(int numParcelasPagas) {
-        if (numParcelasPagas > 0 && numParcelasPagas <= numeroDeParcelas) {
-            this.numeroDeParcelasPagas += numParcelasPagas;
-            System.out.println(numParcelasPagas + " parcelas pagas.");
+    public void realizarPagamento(int numeroDeParcelasPagas) {
+        if (numeroDeParcelasPagas >= 0 && this.numeroDeParcelasPagas + numeroDeParcelasPagas <= this.numeroDeParcelas) {
+            this.numeroDeParcelasPagas += numeroDeParcelasPagas;
+            System.out.println(this.numeroDeParcelasPagas + " parcelas pagas.");
         } else {
             System.out.println("Não foi possivel realizar o pagamento !");
+
         }
     }
 
-    public float getValorTotalPago() {
-        return numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
+    public void getValorTotalPago() {
+        float total = numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
+        System.out.println("Valor total pago: R$" + total + "\nSaldo Devedor: R$" + (valorEmprestimo - total));
     }
 
     public void verificarQuitado() {
