@@ -1,37 +1,79 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Service service = new Service();
 
-        String continua = "s";
-        while (continua.equals("s")) {
-            System.out.println("Sistema de Emprestimo");
-            System.out.print("[1]realizar um emprestimo: \n[2]Pagamentos: \n[3]Lista de emprestimos: " +
-                    "\n[4]Estatística dos emprestimos \n[5]Finalizar acesso: \nSeleção de opção: ");
-            int selecao = service.scanner.nextInt();
-            switch (selecao) {
-                case 1 -> service.novaSolicitacaoEmprestimo();
-                case 2 -> service.pagamentoPosterior();
-                case 3 -> service.ListaDeEmprestimo();
-                case 4 -> {
-                    System.out.println("[1]Maior emprestimo realizado: \n[2]Menor emprestimo realizado: \n[3]Valor total de todos os emprestimos: \n[4]Media dos valores totais de emprestimos realizados:");
-                    int opcao = service.scanner.nextInt();
-                    if (opcao == 1) {
-                        service.maiorValorDoEmprestimo();
-                    } else if (opcao == 2) {
-                        service.menorValorDoEmprestimo();
-                    } else if (opcao == 3) {
-                        service.totalEmprestimosRealizados();
-                    } else if (opcao == 4) {
-                        service.mediaValorEmprestimo();
-                    } else {
-                        System.out.println("Opção invalida!");
-                    }
-                }
-                case 5 -> continua = "n";
-                default -> System.err.println("Opção invalida, selecione as opções do menu acima !");
-            }
+        Pessoa pessoa = new Pessoa("Fulano", "123456789", "123.456.789-00");
+        Emprestimo emprestimo = new Emprestimo(10000, 4, 2, pessoa, Tipo.PESSOAL);
+        System.out.println(emprestimo);
+        emprestimo.realizarPagamento(2);
+        emprestimo.ValorTotalPago();
+        emprestimo.verificarQuitado();
+
+
+        System.out.println();
+
+        Pessoa pessoa1 = new Pessoa("Cicrano", "123456780", "123.456.789-01");
+        Emprestimo emprestimo1 = new Emprestimo(1000, 10, 4, pessoa1, Tipo.ROTATIVO);
+        System.out.println(emprestimo1);
+        emprestimo1.realizarPagamento(6);
+        emprestimo1.ValorTotalPago();
+        emprestimo1.verificarQuitado();
+
+
+        novoEmpretimo(emprestimo);
+        novoEmpretimo(emprestimo1);
+
+        maiorValorDoEmprestimo();
+        menorValorDoEmprestimo();
+        totalEmprestimosRealizados();
+        mediaValorEmprestimo();
+
+    }
+
+    public static List<Emprestimo> listEmprestimo;
+    public static void novoEmpretimo(Emprestimo emprestimo) {
+        if (listEmprestimo == null) {
+            listEmprestimo = new ArrayList<>();
+        }
+        listEmprestimo.add(emprestimo);
+    }
+
+    //retorna todos os emprestimos da lista
+    public static void ListaDeEmprestimo() {
+        List<Emprestimo> emprestimoList = listEmprestimo;
+        for (Emprestimo emprestimo : emprestimoList) {
+            System.out.println(emprestimo.toString());
         }
     }
+
+    //Busca o maior valor de emprestimo feito
+    public static void maiorValorDoEmprestimo() {
+        Emprestimo maior = Main.listEmprestimo.stream().max(Comparator.comparing(Emprestimo::getValorEmprestimo)).orElse(null);
+        System.out.println("Maior valor de empréstimo: " + maior);
+    }
+
+    //Busca o menor valor de emprestimo feito
+    public static void menorValorDoEmprestimo() {
+        Emprestimo menor = Main.listEmprestimo.stream().min(Comparator.comparing(Emprestimo::getValorEmprestimo)).orElse(null);
+        System.out.println("Menor valor de emprestimo: " + menor);
+    }
+
+    //Busca o total dos valores dos emprestimos feitos
+    public static void totalEmprestimosRealizados() {
+        double total = Main.listEmprestimo.stream().mapToDouble(Emprestimo::getValorEmprestimo).sum();
+        System.out.println("Total de empréstimos realizados: " + total);
+    }
+
+    //Busca as medias de todos os valores de emprestimos feitos
+    public static void mediaValorEmprestimo() {
+        double media = Main.listEmprestimo.stream().mapToDouble(Emprestimo::getValorEmprestimo).average().orElse(0.0);
+        System.out.println("Média de valores de empréstimo: " + media);
+    }
+
 }

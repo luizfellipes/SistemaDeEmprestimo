@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="SistemaDeEmprestimo2" />
-        <module name="SistemaDeEmprestimo" />
       </profile>
     </annotationProcessing>
   </component>
