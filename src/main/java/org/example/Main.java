@@ -26,8 +26,8 @@ public class Main {
         emprestimo1.verificarQuitado();
 
 
-        novoEmpretimo(emprestimo);
-        novoEmpretimo(emprestimo1);
+        listEmprestimo.add(emprestimo);
+        listEmprestimo.add(emprestimo1);
 
         maiorValorDoEmprestimo();
         menorValorDoEmprestimo();
@@ -36,21 +36,8 @@ public class Main {
 
     }
 
-    public static List<Emprestimo> listEmprestimo;
-    public static void novoEmpretimo(Emprestimo emprestimo) {
-        if (listEmprestimo == null) {
-            listEmprestimo = new ArrayList<>();
-        }
-        listEmprestimo.add(emprestimo);
-    }
-
-    //retorna todos os emprestimos da lista
-    public static void ListaDeEmprestimo() {
-        List<Emprestimo> emprestimoList = listEmprestimo;
-        for (Emprestimo emprestimo : emprestimoList) {
-            System.out.println(emprestimo.toString());
-        }
-    }
+    //Lista de Emprestimos
+    public static List<Emprestimo> listEmprestimo = new ArrayList<>(); ;
 
     //Busca o maior valor de emprestimo feito
     public static void maiorValorDoEmprestimo() {
