@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        Pessoa pessoa = new Pessoa("Fulano", "123456789", "123.456.789-00");
+        PessoaFisica pessoa = new PessoaFisica("Fulano", "123456789", "123.456.789-00", "a16sf551s6");
         Emprestimo emprestimo = new Emprestimo(10000, 4, 2, pessoa, Tipo.PESSOAL);
         System.out.println(emprestimo);
         emprestimo.realizarPagamento(2);
@@ -18,7 +18,7 @@ public class Main {
 
         System.out.println();
 
-        Pessoa pessoa1 = new Pessoa("Cicrano", "123456780", "123.456.789-01");
+        PessoaJuridica pessoa1 = new PessoaJuridica("Cicrano", "123456780", "123.456.789-01", "s214214");
         Emprestimo emprestimo1 = new Emprestimo(1000, 10, 4, pessoa1, Tipo.ROTATIVO);
         System.out.println(emprestimo1);
         emprestimo1.realizarPagamento(6);
@@ -26,8 +26,8 @@ public class Main {
         emprestimo1.verificarQuitado();
 
 
-        novoEmpretimo(emprestimo);
-        novoEmpretimo(emprestimo1);
+        listEmprestimo.add(emprestimo);
+        listEmprestimo.add(emprestimo1);
 
         maiorValorDoEmprestimo();
         menorValorDoEmprestimo();
@@ -36,21 +36,9 @@ public class Main {
 
     }
 
-    public static List<Emprestimo> listEmprestimo;
-    public static void novoEmpretimo(Emprestimo emprestimo) {
-        if (listEmprestimo == null) {
-            listEmprestimo = new ArrayList<>();
-        }
-        listEmprestimo.add(emprestimo);
-    }
+    //Lista de Emprestimos
+    public static List<Emprestimo> listEmprestimo = new ArrayList<>();
 
-    //retorna todos os emprestimos da lista
-    public static void ListaDeEmprestimo() {
-        List<Emprestimo> emprestimoList = listEmprestimo;
-        for (Emprestimo emprestimo : emprestimoList) {
-            System.out.println(emprestimo.toString());
-        }
-    }
 
     //Busca o maior valor de emprestimo feito
     public static void maiorValorDoEmprestimo() {
