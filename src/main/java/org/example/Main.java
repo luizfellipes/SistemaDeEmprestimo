@@ -3,12 +3,12 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        PessoaFisica pessoa = new PessoaFisica("Fulano", "123456789", "123.456.789-00", "a16sf551s6");
+        Pessoa pessoa = new Pessoa("Fulano", "123456789", "123.456.789-00");
         Emprestimo emprestimo = new Emprestimo(10000, 4, 2, pessoa, Tipo.PESSOAL);
         System.out.println(emprestimo);
         emprestimo.realizarPagamento(2);
@@ -18,7 +18,7 @@ public class Main {
 
         System.out.println();
 
-        PessoaJuridica pessoa1 = new PessoaJuridica("Cicrano", "123456780", "123.456.789-01", "s214214");
+        Pessoa pessoa1 = new Pessoa("Cicrano", "123456780", "123.456.789-01");
         Emprestimo emprestimo1 = new Emprestimo(1000, 10, 4, pessoa1, Tipo.ROTATIVO);
         System.out.println(emprestimo1);
         emprestimo1.realizarPagamento(6);
@@ -37,7 +37,7 @@ public class Main {
     }
 
     //Lista de Emprestimos
-    public static List<Emprestimo> listEmprestimo = new ArrayList<>();
+    public static List<Emprestimo> listEmprestimo = new ArrayList<>(); ;
 
     //Busca o maior valor de emprestimo feito
     public static void maiorValorDoEmprestimo() {

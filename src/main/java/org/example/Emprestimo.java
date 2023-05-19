@@ -71,18 +71,13 @@ public class Emprestimo {
 
     public void ValorTotalPago() {
         float total = (numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas));
-        float valorComJuros = total * 1.025f;
-        if (pessoa instanceof PessoaFisica) {
-            valorComJuros *= 1.10f;
-            total *= 1.10f;
-        } else if (pessoa instanceof PessoaJuridica) {
-            valorComJuros *= 1.05f;
-            total *= 1.05f;
+        if (numeroDeParcelas > 5) {
+            float valorComJuros = total * 1.025f;
+            System.out.println("Valor total pago: R$" + valorComJuros + "\nSaldo Devedor: R$" + ((valorEmprestimo * 1.025f) - valorComJuros));
+        } else {
+            System.out.println("Valor total pago: R$" + total + "\nSaldo Devedor: R$" + (valorEmprestimo - total));
         }
-        System.out.println("Valor total pago: R$" + (numeroDeParcelas > 5 ? valorComJuros : total) +
-                "\nSaldo Devedor: R$" + (numeroDeParcelas > 5 ? (valorEmprestimo * 1.025f) - valorComJuros : valorEmprestimo - total));
     }
-
 
     public void verificarQuitado() {
         if (numeroDeParcelasPagas == numeroDeParcelas) {
@@ -92,13 +87,13 @@ public class Emprestimo {
         }
     }
 
+
     @Override
     public String toString() {
         return "Emprestimo{" +
                 "valorEmprestimo=" + valorEmprestimo +
                 ", numeroDeParcelas=" + numeroDeParcelas +
                 ", numeroDeParcelasPagas=" + numeroDeParcelasPagas +
-                ", pessoa=" + pessoa +
                 ", tipo=" + tipo +
                 '}';
     }

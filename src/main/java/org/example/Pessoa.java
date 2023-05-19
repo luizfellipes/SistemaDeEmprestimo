@@ -1,17 +1,20 @@
 package org.example;
 
 public class Pessoa {
-    protected String nome;
-    protected String telefone;
+    private String nome;
+    private String telefone;
+    private String cpf;
 
-    public Pessoa(String nome, String telefone) {
+
+    public Pessoa(String nome, String telefone, String cpf) {
         this.nome = nome;
         this.telefone = telefone;
+        this.cpf = cpf;
     }
 
 
     public boolean pessoaExiste(Pessoa pessoa) {
-        if (pessoa.nome.isEmpty() && pessoa.telefone.isEmpty()) {
+        if (nome.isEmpty() && cpf.isEmpty() && telefone.isEmpty()) {
             System.out.println("Pessoa sem dados cadastrados ! \nNão será possível realizar o emprestimo !");
         }
         return true;
@@ -23,6 +26,7 @@ public class Pessoa {
         return "Pessoa{" +
                 "nome='" + nome + '\'' +
                 ", telefone='" + telefone + '\'' +
+                ", cpf='" + cpf + '\'' +
                 '}';
     }
 }
