@@ -39,7 +39,6 @@ public class Main {
     //Lista de Emprestimos
     public static List<Emprestimo> listEmprestimo = new ArrayList<>();
 
-
     //Busca o maior valor de emprestimo feito
     public static void maiorValorDoEmprestimo() {
         Emprestimo maior = Main.listEmprestimo.stream().max(Comparator.comparing(Emprestimo::getValorEmprestimo)).orElse(null);
