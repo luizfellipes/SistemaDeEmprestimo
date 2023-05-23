@@ -31,7 +31,7 @@ public class Emprestimo {
         if (valorEmprestimo > 0) {
             this.valorEmprestimo = valorEmprestimo;
         } else {
-            System.out.println("Selecione um valor maior que 0...");
+            System.out.println("Selecione um valor de emprestimo maior que 0...");
         }
     }
 
@@ -39,7 +39,7 @@ public class Emprestimo {
         if (numeroDeParcelas > 0) {
             this.numeroDeParcelas = numeroDeParcelas;
         } else {
-            System.out.println("Numero de parcelas invalida, selecione uma parcela maior que 0...");
+            System.out.println("Numero de parcelas inválida, selecione uma parcela maior que 0...");
         }
     }
 
@@ -53,7 +53,7 @@ public class Emprestimo {
         if (tipo == Tipo.ROTATIVO || tipo == Tipo.PESSOAL || tipo == Tipo.CONSIGNADO) {
             this.tipo = tipo;
         } else {
-            System.out.println("Tipo de emprestimo invalido");
+            System.out.println("Tipo de emprestimo inválido");
         }
     }
 
@@ -63,22 +63,17 @@ public class Emprestimo {
             this.numeroDeParcelasPagas += numeroDeParcelasPagas;
             System.out.println(this.numeroDeParcelasPagas + " parcelas pagas.");
         } else {
-            System.out.println("Não foi possivel realizar o pagamento !");
+            System.out.println("Não foi possível realizar o pagamento !");
         }
     }
 
     public void ValorTotalPago() {
-        float total = (numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas));
-        float valorComJuros = total * 1.025f;
-        float jurosPessoa = 0;
-        if (pessoa instanceof PessoaFisica) {
-            jurosPessoa = 1.10f;
-        } else if (pessoa instanceof PessoaJuridica) {
-            jurosPessoa = 1.05f;
-        }
-        System.out.println("Valor total pago: R$" + (numeroDeParcelas > 5 ? (valorComJuros * jurosPessoa) : (total * jurosPessoa)) +
-                "\nSaldo Devedor: R$" + (numeroDeParcelas > 5 ? Math.max((valorEmprestimo - valorComJuros) * jurosPessoa, 0) :
-                Math.max((valorEmprestimo - total) * jurosPessoa, 0)));
+        float total = numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
+        float jurosPessoa = pessoa instanceof PessoaFisica ? 1.10f : 1.05f;
+        float valorTotalPago = numeroDeParcelas > 5 ? total * 1.025f * jurosPessoa : total * jurosPessoa;
+        float saldoDevedor = numeroDeParcelas > 5 ? Math.max((valorEmprestimo - total * 1.025f) * jurosPessoa, 0) :
+                Math.max((valorEmprestimo - total) * jurosPessoa, 0);
+        System.out.println("Valor total pago: R$" + valorTotalPago + "\nSaldo Devedor: R$" + saldoDevedor);
     }
 
     public void verificarQuitado() {

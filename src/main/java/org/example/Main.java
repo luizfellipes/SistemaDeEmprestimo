@@ -9,9 +9,9 @@ public class Main {
     public static void main(String[] args) {
 
         PessoaFisica pessoa = new PessoaFisica("Fulano", "123456789", "123.456.789-00", "a16sf551s6");
-        Emprestimo emprestimo = new Emprestimo(10000, 4, 2, pessoa, Tipo.PESSOAL);
+        Emprestimo emprestimo = new Emprestimo(-10000, 4, 2, pessoa, Tipo.PESSOAL);
         System.out.println(emprestimo);
-        emprestimo.realizarPagamento(2);
+        emprestimo.realizarPagamento(-1);
         emprestimo.ValorTotalPago();
         emprestimo.verificarQuitado();
 
