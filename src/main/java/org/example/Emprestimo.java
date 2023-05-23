@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.Comparator;
-
 public class Emprestimo {
     private float valorEmprestimo;
     private int numeroDeParcelas;
@@ -72,23 +70,22 @@ public class Emprestimo {
     public void ValorTotalPago() {
         float total = (numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas));
         float valorComJuros = total * 1.025f;
+        float jurosPessoa = 0;
         if (pessoa instanceof PessoaFisica) {
-            valorComJuros *= 1.10f;
-            total *= 1.10f;
+            jurosPessoa = 1.10f;
         } else if (pessoa instanceof PessoaJuridica) {
-            valorComJuros *= 1.05f;
-            total *= 1.05f;
+            jurosPessoa = 1.05f;
         }
-        System.out.println("Valor total pago: R$" + (numeroDeParcelas > 5 ? valorComJuros : total) +
-                "\nSaldo Devedor: R$" + (numeroDeParcelas > 5 ? (valorEmprestimo * 1.025f) - valorComJuros : valorEmprestimo - total));
+        System.out.println("Valor total pago: R$" + (numeroDeParcelas > 5 ? (valorComJuros * jurosPessoa) : (total * jurosPessoa)) +
+                "\nSaldo Devedor: R$" + (numeroDeParcelas > 5 ? Math.max((valorEmprestimo - valorComJuros) * jurosPessoa, 0) :
+                Math.max((valorEmprestimo - total) * jurosPessoa, 0)));
     }
-
 
     public void verificarQuitado() {
         if (numeroDeParcelasPagas == numeroDeParcelas) {
-            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + this + " \nFoi realizado pela: " + pessoa.toString());
+            System.out.println("Pagamento concluído ! O emprestimo foi quitado!");
         } else {
-            System.out.println("Divida não quitada ! \nO " + this + "\nFoi realizado pela: " + pessoa.toString());
+            System.out.println("Divida não quitada !");
         }
     }
 
