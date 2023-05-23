@@ -29,6 +29,8 @@ public class Main {
         listEmprestimo.add(emprestimo);
         listEmprestimo.add(emprestimo1);
 
+        System.out.println("\n");
+
         maiorValorDoEmprestimo();
         menorValorDoEmprestimo();
         totalEmprestimosRealizados();

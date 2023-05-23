@@ -81,9 +81,9 @@ public class Emprestimo {
 
     public void verificarQuitado() {
         if (numeroDeParcelasPagas == numeroDeParcelas) {
-            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + this + " \nFoi realizado pela: " + pessoa.toString());
+            System.out.println("Pagamento concluído ! O emprestimo foi quitado! ");
         } else {
-            System.out.println("Divida não quitada ! \nO " + this + "\nFoi realizado pela: " + pessoa.toString());
+            System.out.println("Divida não quitada ! ");
         }
     }
 
@@ -94,6 +94,7 @@ public class Emprestimo {
                 "valorEmprestimo=" + valorEmprestimo +
                 ", numeroDeParcelas=" + numeroDeParcelas +
                 ", numeroDeParcelasPagas=" + numeroDeParcelasPagas +
+                ", pessoa=" + pessoa +
                 ", tipo=" + tipo +
                 '}';
     }
