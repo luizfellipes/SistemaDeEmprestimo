@@ -34,7 +34,6 @@ public class Main {
         menorValorDoEmprestimo();
         totalEmprestimosRealizados();
         mediaValorEmprestimo();
-
     }
 
     //Lista de Emprestimos
