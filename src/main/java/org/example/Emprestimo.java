@@ -69,7 +69,7 @@ public class Emprestimo {
 
     public void ValorTotalPago() {
         float total = numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
-        float jurosPessoa = pessoa instanceof PessoaFisica ? 1.10f : 1.05f;
+        float jurosPessoa = pessoa.taxaJuros();
         float valorTotalPago = numeroDeParcelas > 5 ? total * 1.025f * jurosPessoa : total * jurosPessoa;
         float saldoDevedor = numeroDeParcelas > 5 ? Math.max((valorEmprestimo - total * 1.025f) * jurosPessoa, 0) :
                 Math.max((valorEmprestimo - total) * jurosPessoa, 0);

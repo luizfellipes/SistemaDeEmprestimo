@@ -1,6 +1,6 @@
 package org.example;
 
-public class PessoaFisica extends Pessoa{
+public class PessoaFisica extends Pessoa {
     private String CPF;
     private String tituloEleitor;
 
@@ -10,6 +10,12 @@ public class PessoaFisica extends Pessoa{
         this.tituloEleitor = tituloEleitor;
     }
 
+    private static final float taxaJuros = 1.10f;
+
+    @Override
+    public float taxaJuros() {
+        return taxaJuros;
+    }
 
     @Override
     public String toString() {

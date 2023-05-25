@@ -1,8 +1,8 @@
 package org.example;
 
-public class Pessoa {
-    protected String nome;
-    protected String telefone;
+public abstract class Pessoa {
+    protected final String nome;
+    protected final String telefone;
 
     public Pessoa(String nome, String telefone) {
         this.nome = nome;
@@ -15,6 +15,9 @@ public class Pessoa {
         }
         return true;
     }
+
+
+    public abstract float taxaJuros();
 
     @Override
     public String toString() {
