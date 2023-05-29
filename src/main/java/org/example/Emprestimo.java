@@ -23,6 +23,10 @@ public class Emprestimo {
         return pessoa;
     }
 
+    public Tipo getTipo() {
+        return tipo;
+    }
+
     //Métodos de verificação
     private void verificaPessoa(Pessoa pessoa) {
         if (pessoa.pessoaExiste(pessoa)) {

@@ -9,38 +9,22 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         PessoaFisica pessoa = new PessoaFisica("Fulano", "123456789", "123.456.789-00", "a16sf551s6");
-        Emprestimo emprestimo = new Emprestimo(10000, 4, 2, pessoa, Tipo.PESSOAL);
-        criaEmprestimo(emprestimo);
-        System.out.println(emprestimo);
-        emprestimo.realizarPagamento(1);
-        emprestimo.ValorTotalPago();
-        emprestimo.verificarQuitado();
-        System.out.println();
+        criaEmprestimo(new Emprestimo(10000, 4, 2, pessoa, Tipo.PESSOAL));
 
         PessoaJuridica pessoa1 = new PessoaJuridica("Cicrano", "123456780", "12.345.678/0001-90", "s214214");
-        criaEmprestimo(emprestimo = new Emprestimo(5000, 10, 4, pessoa1, Tipo.ROTATIVO));
-        System.out.println(emprestimo);
-        emprestimo.ValorTotalPago();
-        emprestimo.verificarQuitado();
-        System.out.println();
-
+        criaEmprestimo(new Emprestimo(5000, 10, 4, pessoa1, Tipo.ROTATIVO));
 
         Aposentado pessoa2 = new Aposentado("Beltrano", "123456712", "123.010.789-01", "s2142232314", "05/02/2023");
-        criaEmprestimo(emprestimo = new Emprestimo(1000, 10, 3, pessoa2, Tipo.CONSIGNADO));
-        System.out.println(emprestimo);
-        emprestimo.realizarPagamento(6);
-        emprestimo.ValorTotalPago();
-        emprestimo.verificarQuitado();
+        criaEmprestimo(new Emprestimo(1000, 10, 3, pessoa2, Tipo.CONSIGNADO));
 
 
-        System.out.println("\n");
+        buscaEmprestimo(10000, Tipo.PESSOAL, "Fulano");
+        System.out.println("\n-----------------------------------------------------");
+
         maiorValorDoEmprestimo();
         menorValorDoEmprestimo();
         totalEmprestimosRealizados();
         mediaValorEmprestimo();
-
-
-        System.out.println(buscaEmprestimo("Beltrano"));
     }
 
     //Lista de Emprestimos
@@ -49,18 +33,22 @@ public class Main {
     public static void criaEmprestimo(Emprestimo emprestimo) {
         if (listEmprestimo == null) {
             listEmprestimo = new ArrayList<>();
+            listEmprestimo.add(emprestimo);
         } else {
             listEmprestimo.add(emprestimo);
         }
     }
 
-    public static Emprestimo buscaEmprestimo(String pessoa) {
+    public static void buscaEmprestimo(float valorEmprestimo, Tipo tipo, String pessoa) throws Exception {
         for (Emprestimo emprestimo : listEmprestimo) {
-            if (emprestimo.getPessoa().getNome().equals(pessoa)) {
-                return emprestimo;
+            if (emprestimo.getPessoa().getNome().equals(pessoa) && emprestimo.getValorEmprestimo() == valorEmprestimo && emprestimo.getTipo() == tipo) {
+                System.out.println(emprestimo);
+                emprestimo.realizarPagamento(2);
+                emprestimo.ValorTotalPago();
+                emprestimo.verificarQuitado();
+                return;
             }
         }
-        return null;
     }
 
     //Busca o maior valor de emprestimo feito
