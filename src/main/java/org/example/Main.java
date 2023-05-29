@@ -9,22 +9,31 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         PessoaFisica pessoa = new PessoaFisica("Fulano", "123456789", "123.456.789-00", "a16sf551s6");
-        criaEmprestimo(new Emprestimo(10000, 4, 2, pessoa, Tipo.PESSOAL));
+        Emprestimo emprestimo = new Emprestimo(10000, 4, 2, pessoa, Tipo.PESSOAL);
+        criaEmprestimo(emprestimo);
 
         PessoaJuridica pessoa1 = new PessoaJuridica("Cicrano", "123456780", "12.345.678/0001-90", "s214214");
-        criaEmprestimo(new Emprestimo(5000, 10, 4, pessoa1, Tipo.ROTATIVO));
+        Emprestimo emprestimo1 = new Emprestimo(5000, 10, 4, pessoa1, Tipo.ROTATIVO);
+        criaEmprestimo(emprestimo1);
 
         Aposentado pessoa2 = new Aposentado("Beltrano", "123456712", "123.010.789-01", "s2142232314", "05/02/2023");
-        criaEmprestimo(new Emprestimo(1000, 10, 3, pessoa2, Tipo.CONSIGNADO));
+        Emprestimo emprestimo2 = new Emprestimo(1000, 10, 3, pessoa2, Tipo.CONSIGNADO);
+        criaEmprestimo(emprestimo2);
 
+
+
+        buscaEmprestimo(emprestimo2);
+        System.out.println("\n-----------------------------------------------------");
 
         buscaEmprestimo(10000, Tipo.PESSOAL, "Fulano");
         System.out.println("\n-----------------------------------------------------");
 
+        removerEmprestimo(emprestimo1);
         maiorValorDoEmprestimo();
         menorValorDoEmprestimo();
         totalEmprestimosRealizados();
         mediaValorEmprestimo();
+
     }
 
     //Lista de Emprestimos
@@ -39,14 +48,26 @@ public class Main {
         }
     }
 
+    public static void removerEmprestimo(Emprestimo emprestimo) {
+        listEmprestimo.remove(emprestimo);
+    }
+
     public static void buscaEmprestimo(float valorEmprestimo, Tipo tipo, String pessoa) throws Exception {
         for (Emprestimo emprestimo : listEmprestimo) {
             if (emprestimo.getPessoa().getNome().equals(pessoa) && emprestimo.getValorEmprestimo() == valorEmprestimo && emprestimo.getTipo() == tipo) {
                 System.out.println(emprestimo);
-                emprestimo.realizarPagamento(2);
+                emprestimo.realizarPagamento(1);
                 emprestimo.ValorTotalPago();
                 emprestimo.verificarQuitado();
                 return;
+            }
+        }
+    }
+
+    public static void buscaEmprestimo(Emprestimo emprestimo) {
+        for (Emprestimo emprestimo1 : listEmprestimo){
+            if(emprestimo1.equals(emprestimo)){
+                System.out.println(emprestimo);
             }
         }
     }
