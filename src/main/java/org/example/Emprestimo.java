@@ -19,6 +19,9 @@ public class Emprestimo {
         return valorEmprestimo;
     }
 
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
 
     //Métodos de verificação
     private void verificaPessoa(Pessoa pessoa) {
@@ -76,9 +79,9 @@ public class Emprestimo {
         System.out.println("Valor total pago: R$" + valorTotalPago + "\nSaldo Devedor: R$" + saldoDevedor);
     }
 
-    public void verificarQuitado() {
+    public void verificarQuitado() throws Exception {
         if (numeroDeParcelasPagas == numeroDeParcelas) {
-            System.out.println("Pagamento concluído ! O emprestimo foi quitado!");
+            throw new Exception("Pagamento concluído ! O emprestimo foi quitado!");
         } else {
             System.out.println("Divida não quitada !");
         }

@@ -6,8 +6,17 @@ public class PessoaFisica extends Pessoa {
 
     public PessoaFisica(String nome, String telefone, String CPF, String tituloEleitor) {
         super(nome, telefone);
-        this.CPF = CPF;
+        validaCpf(CPF);
         this.tituloEleitor = tituloEleitor;
+    }
+
+    public void validaCpf(String CPF) {
+        CPF = CPF.replaceAll("\\D+", "");
+        if (CPF.length() == 11) {
+            this.CPF = CPF;
+        } else {
+            throw new RuntimeException("Cpf Invalido");
+        }
     }
 
     private static final float taxaJuros = 1.10f;
