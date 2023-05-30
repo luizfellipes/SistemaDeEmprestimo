@@ -51,7 +51,7 @@ public class Emprestimo {
     }
 
     private void verificaNumeroParcelasPagas(int numeroDeParcelas, int numeroDeParcelasPagas) {
-        if (numeroDeParcelasPagas >= 0 && numeroDeParcelasPagas < numeroDeParcelas) {
+        if (numeroDeParcelasPagas >= 0 && numeroDeParcelasPagas <= numeroDeParcelas) {
             this.numeroDeParcelasPagas = numeroDeParcelasPagas;
         }
     }
@@ -66,7 +66,7 @@ public class Emprestimo {
 
     //Metodos Emprestimo
     public void realizarPagamento(int numeroDeParcelasPagas) {
-        if (numeroDeParcelasPagas >= 0 && this.numeroDeParcelasPagas + numeroDeParcelasPagas <= this.numeroDeParcelas) {
+        if (numeroDeParcelasPagas >= 0 && numeroDeParcelasPagas <= this.numeroDeParcelas) {
             this.numeroDeParcelasPagas += numeroDeParcelasPagas;
             System.out.println(this.numeroDeParcelasPagas + " parcelas pagas.");
         } else {
@@ -84,9 +84,11 @@ public class Emprestimo {
     }
 
     public void verificarQuitado() throws Exception {
-        if (numeroDeParcelasPagas == numeroDeParcelas) {
-            throw new Exception("Pagamento concluído ! O emprestimo foi quitado!");
-        } else {
+        if (this.numeroDeParcelasPagas == this.numeroDeParcelas) {
+            System.out.println("Pagamento concluído ! O emprestimo foi quitado!");
+        } else if(this.numeroDeParcelasPagas > this.numeroDeParcelas){
+            throw new Exception("Erro ao realizar um pagamento ! O emprestimo foi quitado!");
+        }else {
             System.out.println("Divida não quitada !");
         }
     }
