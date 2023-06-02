@@ -86,9 +86,9 @@ public class Emprestimo {
     public void verificarQuitado() throws Exception {
         if (this.numeroDeParcelasPagas == this.numeroDeParcelas) {
             System.out.println("Pagamento concluído ! O emprestimo foi quitado!");
-        } else if(this.numeroDeParcelasPagas > this.numeroDeParcelas){
+        } else if (this.numeroDeParcelasPagas > this.numeroDeParcelas) {
             throw new Exception("Erro ao realizar um pagamento ! O emprestimo foi quitado!");
-        }else {
+        } else {
             System.out.println("Divida não quitada !");
         }
     }
