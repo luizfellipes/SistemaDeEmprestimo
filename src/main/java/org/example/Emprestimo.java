@@ -6,27 +6,30 @@ public class Emprestimo {
     private int numeroDeParcelasPagas;
     private Pessoa pessoa;
 
-    public Emprestimo(float valorEmprestimo, int numeroDeParcelas, int numeroDeParcelasPagas, Pessoa pessoa) {
+    public Emprestimo(float valorEmprestimo, int numeroDeParcelas, int numeroDeParcelasPagas, Pessoa pessoa) throws Exception {
         verificaValorEmprestimo(valorEmprestimo);
         verificaNumeroParcelas(numeroDeParcelas);
-        verificaNumeroParcelasPagas(numeroDeParcelas, numeroDeParcelasPagas);
+        verificaNumeroParcelasPagas(numeroDeParcelasPagas);
         verificaPessoa(pessoa);
     }
 
 
     //Métodos
     private void verificaPessoa(Pessoa pessoa) {
-        if (pessoa.pessoaExiste(pessoa)) {
+        if (pessoa.pessoaExiste()) {
             this.pessoa = pessoa;
+        }else {
+            throw new NullPointerException("Dados da pessoa incorretos !");
         }
     }
 
-    private void verificaValorEmprestimo(float valorEmprestimo) {
+    private void verificaValorEmprestimo(float valorEmprestimo) throws Exception {
         if (valorEmprestimo > 0) {
             this.valorEmprestimo = valorEmprestimo;
         } else {
-            System.out.println("Selecione um valor maior que 0...");
+            throw new Exception("Selecione um valor maior que 0...");
         }
+
     }
 
     private void verificaNumeroParcelas(int numeroDeParcelas) {
@@ -37,7 +40,7 @@ public class Emprestimo {
         }
     }
 
-    private void verificaNumeroParcelasPagas(int numeroDeParcelas, int numeroDeParcelasPagas) {
+    private void verificaNumeroParcelasPagas(int numeroDeParcelasPagas) {
         if (numeroDeParcelasPagas >= 0 && numeroDeParcelasPagas < numeroDeParcelas) {
             this.numeroDeParcelasPagas = numeroDeParcelasPagas;
         }
@@ -59,7 +62,7 @@ public class Emprestimo {
     }
 
     public void verificarQuitado() {
-        if (numeroDeParcelasPagas == numeroDeParcelas) {
+        if (numeroDeParcelas > 0 && numeroDeParcelasPagas > 0 && numeroDeParcelasPagas == numeroDeParcelas) {
             System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + this + " \nFoi realizado pela: " + pessoa.toString());
         } else {
             System.out.println("Divida não quitada ! \nO " + this + "\nFoi realizado pela: " + pessoa.toString());
@@ -67,29 +70,6 @@ public class Emprestimo {
     }
 
 
-    /*public void pagamento() {
-        valorParcela = valorEmprestimo / numeroDeParcelas;
-        float valorPago = numeroDeParcelasPagas * valorParcela;
-        float saldoRestante = valorEmprestimo - valorPago;
-        int parcelasRestantes = numeroDeParcelas - numeroDeParcelasPagas;
-        saldoDevedor = saldoRestante;
-        if (saldoRestante < 0 || numeroDeParcelasPagas < 0 || numeroDeParcelasPagas > numeroDeParcelas) {
-            System.out.println("Pagamento inválido. Por favor, selecione uma parcela válida.");
-        } else {
-            System.out.println("Valor da parcela: " + valorParcela + "\nEsse é valor a ser pago: " + valorPago + "\n" +
-                    "\nAinda existe um emprestimo de: " + saldoRestante + ", com x" + parcelasRestantes + " parcelas restante ! " +
-                    "\nValor inicial do emprestimo: " + valorEmprestimo + ", com x" + numeroDeParcelas + " parcelas. \n");
-            dividaQuitada();
-        }
-    }
-
-    public void dividaQuitada() {
-        if (saldoDevedor == 0) {
-            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + this + " \nFoi realizado pela: " + pessoa.toString());
-        } else {
-            System.out.println("Divida não quitada ! \nO " + this + "\nFoi realizado pela: " + pessoa.toString());
-        }
-    }*/
 
     @Override
     public String toString() {
