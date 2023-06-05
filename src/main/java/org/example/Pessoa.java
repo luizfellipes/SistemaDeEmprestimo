@@ -13,11 +13,34 @@ public class Pessoa {
     }
 
 
-    public boolean pessoaExiste(Pessoa pessoa) {
-        if (nome.isEmpty() && cpf.isEmpty() && telefone.isEmpty()) {
+    public String getNome() {
+        return nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+
+    public boolean pessoaExiste() {
+        if (campoNulo(nome) || campoNulo(cpf) || campoNulo(telefone)) {
             System.out.println("Pessoa sem dados cadastrados ! \nNão será possível realizar o emprestimo !");
+            return false;
         }
         return true;
+    }
+
+    public boolean campoNulo(Object campo) {
+        if (campo == null) {
+            return true;
+        } else if (campo instanceof String) {
+            return ((String) campo).isEmpty();
+        }
+        return false;
     }
 
 

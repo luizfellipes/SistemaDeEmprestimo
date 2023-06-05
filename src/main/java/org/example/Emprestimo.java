@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.Comparator;
 
 public class Emprestimo {
     private float valorEmprestimo;
@@ -9,10 +8,10 @@ public class Emprestimo {
     private Pessoa pessoa;
     private Tipo tipo;
 
-    public Emprestimo(float valorEmprestimo, int numeroDeParcelas, int numeroDeParcelasPagas, Pessoa pessoa, Tipo tipo) {
+    public Emprestimo(float valorEmprestimo, int numeroDeParcelas, int numeroDeParcelasPagas, Pessoa pessoa, Tipo tipo) throws Exception {
         verificaValorEmprestimo(valorEmprestimo);
         verificaNumeroParcelas(numeroDeParcelas);
-        verificaNumeroParcelasPagas(numeroDeParcelas, numeroDeParcelasPagas);
+        verificaNumeroParcelasPagas(numeroDeParcelasPagas);
         verificaPessoa(pessoa);
         verificaTipoDeEmprestimo(tipo);
     }
@@ -21,31 +20,32 @@ public class Emprestimo {
         return valorEmprestimo;
     }
 
-
-    //Métodos de verificação
+    //Métodos
     private void verificaPessoa(Pessoa pessoa) {
-        if (pessoa.pessoaExiste(pessoa)) {
+        if (pessoa.pessoaExiste()) {
             this.pessoa = pessoa;
+        } else {
+            throw new NullPointerException("Dados da pessoa incorretos !");
         }
     }
 
-    private void verificaValorEmprestimo(float valorEmprestimo) {
+    private void verificaValorEmprestimo(float valorEmprestimo) throws Exception {
         if (valorEmprestimo > 0) {
             this.valorEmprestimo = valorEmprestimo;
         } else {
-            System.out.println("Selecione um valor maior que 0...");
+            throw new Exception("Selecione um valor maior que 0...");
         }
     }
 
-    private void verificaNumeroParcelas(int numeroDeParcelas) {
+    private void verificaNumeroParcelas(int numeroDeParcelas) throws Exception {
         if (numeroDeParcelas > 0) {
             this.numeroDeParcelas = numeroDeParcelas;
         } else {
-            System.out.println("Numero de parcelas invalida, selecione uma parcela maior que 0...");
+            throw new Exception("Numero de parcelas invalida, selecione uma parcela maior que 0...");
         }
     }
 
-    private void verificaNumeroParcelasPagas(int numeroDeParcelas, int numeroDeParcelasPagas) {
+    private void verificaNumeroParcelasPagas(int numeroDeParcelasPagas) {
         if (numeroDeParcelasPagas >= 0 && numeroDeParcelasPagas < numeroDeParcelas) {
             this.numeroDeParcelasPagas = numeroDeParcelasPagas;
         }
@@ -59,10 +59,10 @@ public class Emprestimo {
         }
     }
 
-    //Metodos Emprestimo
-    public void realizarPagamento(int numeroDeParcelasPagas) {
-        if (numeroDeParcelasPagas >= 0 && this.numeroDeParcelasPagas + numeroDeParcelasPagas <= this.numeroDeParcelas) {
-            this.numeroDeParcelasPagas += numeroDeParcelasPagas;
+    //Metodos da instancia
+    public void realizarPagamento(int numeroDeParcelasPagasDepois) {
+        if (numeroDeParcelasPagasDepois >= 0 && this.numeroDeParcelasPagas + numeroDeParcelasPagasDepois <= this.numeroDeParcelas) {
+            this.numeroDeParcelasPagas += numeroDeParcelasPagasDepois;
             System.out.println(this.numeroDeParcelasPagas + " parcelas pagas.");
         } else {
             System.out.println("Não foi possivel realizar o pagamento !");
@@ -70,23 +70,24 @@ public class Emprestimo {
     }
 
     public void ValorTotalPago() {
-        float total = (numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas));
+        float totalPago = (numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas));
         if (numeroDeParcelas > 5) {
-            float valorComJuros = total * 1.025f;
-            System.out.println("Valor total pago: R$" + valorComJuros + "\nSaldo Devedor: R$" + ((valorEmprestimo * 1.025f) - valorComJuros));
+            float juros = 2.5f;
+            float valorComJuros = juros * totalPago / 100 + totalPago;
+            System.out.println("Valor total pago: R$" + valorComJuros + "\nSaldo Devedor: R$" + ((valorEmprestimo - totalPago) * juros));
         } else {
-            System.out.println("Valor total pago: R$" + total + "\nSaldo Devedor: R$" + (valorEmprestimo - total));
+            System.out.println("Valor total pago: R$" + totalPago + "\nSaldo Devedor: R$" + (valorEmprestimo - totalPago));
         }
     }
+
 
     public void verificarQuitado() {
-        if (numeroDeParcelasPagas == numeroDeParcelas) {
-            System.out.println("Pagamento concluído ! O emprestimo foi quitado! ");
+        if (numeroDeParcelas > 0 && numeroDeParcelasPagas > 0 && numeroDeParcelasPagas == numeroDeParcelas) {
+            System.out.println("Pagamento concluído ! O emprestimo foi quitado! \nO " + this + " \nFoi realizado pela: " + pessoa.toString());
         } else {
-            System.out.println("Divida não quitada ! ");
+            System.out.println("Divida não quitada ! \nO " + this + "\nFoi realizado pela: " + pessoa.toString());
         }
     }
-
 
     @Override
     public String toString() {
