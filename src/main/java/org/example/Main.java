@@ -6,22 +6,22 @@ import java.util.List;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        PessoaFisica pessoa = new PessoaFisica("Fulano", "123456789", "123.456.789-00", "a16sf551s6");
-        Emprestimo emprestimo = new Emprestimo(-10000, 4, 2, pessoa, Tipo.PESSOAL);
+        Pessoa pessoa = new PessoaFisica("Fulano", "123456789", "65161651515", "a16sf551s6");
+        Emprestimo emprestimo = new Emprestimo(10000, 10, 3, pessoa, Tipo.PESSOAL);
         System.out.println(emprestimo);
-        emprestimo.realizarPagamento(-1);
+        emprestimo.realizarPagamento(7);
         emprestimo.ValorTotalPago();
         emprestimo.verificarQuitado();
 
 
         System.out.println();
 
-        PessoaJuridica pessoa1 = new PessoaJuridica("Cicrano", "123456780", "123.456.789-01", "s214214");
-        Emprestimo emprestimo1 = new Emprestimo(1000, 10, 4, pessoa1, Tipo.ROTATIVO);
+        Pessoa pessoa1 = new PessoaJuridica("Cicrano", "123456780", "123.456.789-01", "s214214");
+        Emprestimo emprestimo1 = new Emprestimo(1000, 10, 0, pessoa1, Tipo.ROTATIVO);
         System.out.println(emprestimo1);
-        emprestimo1.realizarPagamento(6);
+        emprestimo1.realizarPagamento(2);
         emprestimo1.ValorTotalPago();
         emprestimo1.verificarQuitado();
 
