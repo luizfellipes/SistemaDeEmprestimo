@@ -8,7 +8,7 @@ public class Pessoa {
     }
 
     public boolean pessoaExiste() {
-        if (campoNulo(nome)  || campoNulo(telefone)) {
+        if (campoNulo(nome) || campoNulo(telefone)) {
             System.out.println("Pessoa sem dados cadastrados ! \nNão será possível realizar o emprestimo !");
             return false;
         }

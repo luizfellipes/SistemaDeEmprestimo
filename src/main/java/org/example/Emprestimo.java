@@ -8,6 +8,9 @@ public class Emprestimo {
     private Pessoa pessoa;
     private Tipo tipo;
 
+    public Emprestimo() {
+    }
+
     public Emprestimo(float valorEmprestimo, int numeroDeParcelas, int numeroDeParcelasPagas, Pessoa pessoa, Tipo tipo) throws Exception {
         verificaValorEmprestimo(valorEmprestimo);
         verificaNumeroParcelas(numeroDeParcelas);
@@ -21,52 +24,58 @@ public class Emprestimo {
     }
 
     //Métodos de verificação
-    private void verificaPessoa(Pessoa pessoa) {
+    public Pessoa verificaPessoa(Pessoa pessoa) {
         if (pessoa.pessoaExiste()) {
             this.pessoa = pessoa;
         } else {
             throw new NullPointerException("Dados da pessoa incorretos !");
         }
+        return pessoa;
     }
 
-    private void verificaValorEmprestimo(float valorEmprestimo) throws Exception {
+    public float verificaValorEmprestimo(float valorEmprestimo) throws Exception {
         if (valorEmprestimo > 0) {
             this.valorEmprestimo = valorEmprestimo;
         } else {
             throw new Exception("Selecione um valor maior que 0...");
         }
+        return valorEmprestimo;
     }
 
-    private void verificaNumeroParcelas(int numeroDeParcelas) throws Exception {
+    public int verificaNumeroParcelas(int numeroDeParcelas) throws Exception {
         if (numeroDeParcelas > 0) {
             this.numeroDeParcelas = numeroDeParcelas;
         } else {
             throw new Exception("Numero de parcelas invalida, selecione uma parcela maior que 0...");
         }
+        return numeroDeParcelas;
     }
 
-    private void verificaNumeroParcelasPagas(int numeroDeParcelasPagas) {
+    public int verificaNumeroParcelasPagas(int numeroDeParcelasPagas) {
         if (numeroDeParcelasPagas >= 0 && numeroDeParcelasPagas < numeroDeParcelas) {
             this.numeroDeParcelasPagas = numeroDeParcelasPagas;
         }
+        return numeroDeParcelasPagas;
     }
 
-    private void verificaTipoDeEmprestimo(Tipo tipo) {
+    public Tipo verificaTipoDeEmprestimo(Tipo tipo) {
         if (tipo == Tipo.ROTATIVO || tipo == Tipo.PESSOAL || tipo == Tipo.CONSIGNADO) {
             this.tipo = tipo;
         } else {
             System.out.println("Tipo de emprestimo invalido");
         }
+        return tipo;
     }
 
     //Metodos Emprestimo
-    public void realizarPagamento(int numeroDeParcelasPagas) {
+    public int realizarPagamento(int numeroDeParcelasPagas) {
         if (numeroDeParcelasPagas >= 0 && this.numeroDeParcelasPagas + numeroDeParcelasPagas <= this.numeroDeParcelas) {
             this.numeroDeParcelasPagas += numeroDeParcelasPagas;
             System.out.println(this.numeroDeParcelasPagas + " parcelas pagas.");
         } else {
             System.out.println("Não foi possível realizar o pagamento !");
         }
+        return numeroDeParcelasPagas;
     }
 
     public void ValorTotalPago() {
@@ -77,6 +86,7 @@ public class Emprestimo {
         float saldoDevedor = numeroDeParcelasPagas > 5 ? ((valorEmprestimo - totalJaPago) * valorComJuros) : (valorEmprestimo - totalJaPago) + jurosPessoa;
         System.out.println("Valor total pago: R$" + valorTotalPago + "\nSaldo Devedor: R$" + saldoDevedor);
     }
+
 
     public void verificarQuitado() {
         if (numeroDeParcelas > 0 && numeroDeParcelasPagas > 0 && numeroDeParcelasPagas == numeroDeParcelas) {
