@@ -1,5 +1,8 @@
-org\example\Pessoa.class
 org\example\Main.class
 org\example\Tipo.class
-org\example\Service.class
+org\example\PessoaFisica.class
+org\example\Pessoa.class
+org\example\Aposentado.class
+org\example\PessoaJuridica.class
 org\example\Emprestimo.class
+org\example\TesteEmprestimo.class

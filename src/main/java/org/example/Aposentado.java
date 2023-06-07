@@ -8,7 +8,7 @@ public class Aposentado extends PessoaFisica {
         this.dataDaAposentadoria = dataDaAposentadoria;
     }
 
-    private static final float taxaJuros = 1.03f;
+    private static final float taxaJuros = 3f;
 
     @Override
     public float taxaJuros() {
