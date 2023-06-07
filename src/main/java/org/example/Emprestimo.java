@@ -58,7 +58,8 @@ public class Emprestimo {
 
     public void getValorTotalPago() {
         float total = numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
-        System.out.println("Valor total pago: R$" + total + "\nSaldo Devedor: R$" + (valorEmprestimo - total));
+        float saldoDevedor = valorEmprestimo - total;
+        System.out.println("Valor total pago: R$" + total + "\nSaldo Devedor: R$" + saldoDevedor);
     }
 
     public void verificarQuitado() {
