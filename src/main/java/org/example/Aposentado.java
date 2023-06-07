@@ -1,14 +1,14 @@
 package org.example;
 
 public class Aposentado extends PessoaFisica {
-    String dataDaAposentadoria;
+    private String dataDaAposentadoria;
 
-    public Aposentado(String nome, String telefone, String CPF, String tituloEleitor, String dataDaAposentadoria) {
-        super(nome, telefone, CPF, tituloEleitor);
+    public Aposentado(String nome, String telefone, String cpf, String tituloEleitor, String dataDaAposentadoria) {
+        super(nome, telefone, cpf, tituloEleitor);
         this.dataDaAposentadoria = dataDaAposentadoria;
     }
 
-    private static final float taxaJuros = 1.03f;
+    private static final float taxaJuros = 3f;
 
     @Override
     public float taxaJuros() {

@@ -1,27 +1,35 @@
 package org.example;
 
 public abstract class Pessoa {
-    protected final String nome;
-    protected final String telefone;
+    protected String nome;
+    protected String telefone;
 
-    public Pessoa(String nome, String telefone) {
-        this.nome = nome;
-        this.telefone = telefone;
+    public Pessoa() {
     }
 
     public String getNome() {
         return nome;
     }
 
-    public boolean pessoaExiste(Pessoa pessoa) {
-        if (pessoa.nome.isEmpty() && pessoa.telefone.isEmpty()) {
+    public boolean pessoaExiste() {
+        if (campoNulo(nome) || campoNulo(telefone)) {
             System.out.println("Pessoa sem dados cadastrados ! \nNão será possível realizar o emprestimo !");
+            return false;
         }
         return true;
     }
 
-
     public abstract float taxaJuros();
+
+    public boolean campoNulo(Object campo) {
+        if (campo == null) {
+            return true;
+        } else if (campo instanceof String) {
+            return ((String) campo).isEmpty();
+        }
+        return false;
+    }
+
 
     @Override
     public String toString() {
