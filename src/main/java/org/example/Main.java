@@ -10,7 +10,7 @@ public class Main {
 
         Pessoa pessoa = new Pessoa("Fulano", "123456789", "123.456.789-00");
         Emprestimo emprestimo = new Emprestimo(10000, 4, 2, pessoa, Tipo.PESSOAL);
-        emprestimo.realizarPagamento(2);
+        emprestimo.realizarPagamento(1);
         emprestimo.ValorTotalPago();
         emprestimo.verificarQuitado();
 
@@ -18,7 +18,7 @@ public class Main {
 
         Pessoa pessoa1 = new Pessoa("Cicrano", "123456780", "123.456.789-01");
         Emprestimo emprestimo1 = new Emprestimo(1000, 10, 4, pessoa1, Tipo.ROTATIVO);
-        emprestimo1.realizarPagamento(6);
+        emprestimo1.realizarPagamento(5);
         emprestimo1.ValorTotalPago();
         emprestimo1.verificarQuitado();
 

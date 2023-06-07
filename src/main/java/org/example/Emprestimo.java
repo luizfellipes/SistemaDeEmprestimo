@@ -71,12 +71,14 @@ public class Emprestimo {
 
     public void ValorTotalPago() {
         float totalPago = (numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas));
+        float saldoDevedor = valorEmprestimo - totalPago;
         if (numeroDeParcelas > 5) {
             float juros = 2.5f;
             float valorComJuros = juros * totalPago / 100 + totalPago;
-            System.out.println("Valor total pago: R$" + valorComJuros + "\nSaldo Devedor: R$" + ((valorEmprestimo - totalPago) * juros));
+            saldoDevedor = (valorEmprestimo - totalPago) * juros;
+            System.out.println("Valor total pago: R$" + valorComJuros + "\nSaldo Devedor: R$" + saldoDevedor);
         } else {
-            System.out.println("Valor total pago: R$" + totalPago + "\nSaldo Devedor: R$" + (valorEmprestimo - totalPago));
+            System.out.println("Valor total pago: R$" + totalPago + "\nSaldo Devedor: R$" + saldoDevedor);
         }
     }
 
