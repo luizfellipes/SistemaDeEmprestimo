@@ -63,9 +63,9 @@ public class Emprestimo {
     }
 
     //Metodos Emprestimo
-    public void realizarPagamento(int numeroDeParcelasPagas) {
-        if (numeroDeParcelasPagas >= 0 && this.numeroDeParcelasPagas + numeroDeParcelasPagas <= this.numeroDeParcelas) {
-            this.numeroDeParcelasPagas += numeroDeParcelasPagas;
+    public void realizarPagamento(int numeroDeParcelasPagasDepois) {
+        if (numeroDeParcelasPagasDepois >= 0 && this.numeroDeParcelasPagas + numeroDeParcelasPagasDepois <= this.numeroDeParcelas) {
+            this.numeroDeParcelasPagas += numeroDeParcelasPagasDepois;
             System.out.println(this.numeroDeParcelasPagas + " parcelas pagas.");
         } else {
             System.out.println("Não foi possível realizar o pagamento !");
