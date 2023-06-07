@@ -63,9 +63,9 @@ public class Emprestimo {
     }
 
     //Metodos Emprestimo
-    public void realizarPagamento(int numeroDeParcelasPagas) {
-        if (numeroDeParcelasPagas >= 0 && this.numeroDeParcelasPagas + numeroDeParcelasPagas <= this.numeroDeParcelas) {
-            this.numeroDeParcelasPagas += numeroDeParcelasPagas;
+    public void realizarPagamento(int numeroDeParcelasPagasDepois) {
+        if (numeroDeParcelasPagasDepois >= 0 && this.numeroDeParcelasPagas + numeroDeParcelasPagasDepois <= this.numeroDeParcelas) {
+            this.numeroDeParcelasPagas += numeroDeParcelasPagasDepois;
             System.out.println(this.numeroDeParcelasPagas + " parcelas pagas.");
         } else {
             System.out.println("Não foi possível realizar o pagamento !");
@@ -74,11 +74,11 @@ public class Emprestimo {
 
     public void ValorTotalPago() {
         totalJaPago = numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
-        float valorComJuros = ((2.5f * totalJaPago) / 100) + totalJaPago;
+        float jurosParcelaMaiorQueCinco = ((2.5f * totalJaPago) / 100) + totalJaPago;
         float jurosPessoa = pessoa instanceof PessoaFisica ? (10f * totalJaPago) / 100 : (5 * totalJaPago) / 100;
-        float valorTotalPago = numeroDeParcelasPagas > 5 ? (valorComJuros + jurosPessoa) : totalJaPago + jurosPessoa;
-        float saldoDevedor = numeroDeParcelasPagas > 5 ? ((valorEmprestimo - totalJaPago) * valorComJuros) : (valorEmprestimo - totalJaPago) + jurosPessoa;
-        System.out.println("Valor total pago: R$" + valorTotalPago + "\nSaldo Devedor: R$" + saldoDevedor);
+        float valorFinalPago = numeroDeParcelasPagas > 5 ? (jurosParcelaMaiorQueCinco + jurosPessoa) : totalJaPago + jurosPessoa;
+        float saldoDevedor = numeroDeParcelasPagas > 5 ? ((valorEmprestimo - totalJaPago) * jurosParcelaMaiorQueCinco) : (valorEmprestimo - totalJaPago) + jurosPessoa;
+        System.out.println("Valor total pago: R$" + valorFinalPago + "\nSaldo Devedor: R$" + saldoDevedor);
     }
 
     public void verificarQuitado() {
