@@ -10,35 +10,44 @@ public class TesteEmprestimo {
     private final Pessoa pessoa = new PessoaFisica("Fulano", "123456789", "65161651515", "a16sf551s6");
 
     @Test
-    public void testarPessoa() {
-        Assertions.assertEquals(pessoa, emprestimo.verificaPessoa(pessoa));
+    public void testePessoa() {
+        emprestimo.verificaPessoa(pessoa);
     }
 
     @Test
-    public void testarValorEmprestimo() throws Exception {
-        Assertions.assertEquals(1000, emprestimo.verificaValorEmprestimo(1000));
+    public void testeValorEmprestimo() throws Exception {
+        emprestimo.verificaValorEmprestimo(1000);
     }
 
     @Test
-    public void testarNumeroParcelas() throws Exception {
-        Assertions.assertEquals(10, emprestimo.verificaNumeroParcelas(10));
+    public void testeNumeroParcelas() throws Exception {
+        emprestimo.verificaNumeroParcelas(10);
     }
 
     @Test
-    public void testarNumeroParcelasPagas() {
-        Assertions.assertEquals(10, emprestimo.verificaNumeroParcelasPagas(10));
+    public void testeNumeroParcelasPagas() {
+        emprestimo.verificaNumeroParcelasPagas(10);
     }
 
     @Test
-    public void testarTipo() {
-        Assertions.assertEquals(Tipo.PESSOAL, emprestimo.verificaTipoDeEmprestimo(Tipo.PESSOAL));
+    public void testeTipo() {
+        emprestimo.verificaTipoDeEmprestimo(null);
     }
 
     @Test
-    public void testarRealizarPagamento() {
-        Assertions.assertEquals(8, emprestimo.realizarPagamento(8));
+    public void testeRealizarPagamento() {
+        emprestimo.realizarPagamento(1000);
     }
 
+    @Test
+    public void testeValorPago() {
+        emprestimo.ValorTotalPago();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testeVerificarQuitado(){
+        emprestimo.verificarQuitado();
+    }
 
 }
 
