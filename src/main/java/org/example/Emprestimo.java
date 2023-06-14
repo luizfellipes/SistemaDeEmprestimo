@@ -8,8 +8,6 @@ public class Emprestimo {
     private Pessoa pessoa;
     private Tipo tipo;
 
-    public Emprestimo() {
-    }
 
     public Emprestimo(float valorEmprestimo, int numeroDeParcelas, int numeroDeParcelasPagas, Pessoa pessoa, Tipo tipo) throws Exception {
         verificaValorEmprestimo(valorEmprestimo);
@@ -57,7 +55,7 @@ public class Emprestimo {
     }
 
     public void verificaNumeroParcelasPagas(int numeroDeParcelasPagas) {
-        if (numeroDeParcelasPagas >= 0 && numeroDeParcelasPagas < numeroDeParcelas) {
+        if (numeroDeParcelasPagas >= 0 && numeroDeParcelasPagas <= numeroDeParcelas) {
             this.numeroDeParcelasPagas = numeroDeParcelasPagas;
         }
     }

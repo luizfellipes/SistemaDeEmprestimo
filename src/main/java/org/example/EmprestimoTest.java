@@ -4,48 +4,52 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-public class TesteEmprestimo {
+public class EmprestimoTest  {
 
-    private final Emprestimo emprestimo = new Emprestimo();
+
     private final Pessoa pessoa = new PessoaFisica("Fulano", "123456789", "65161651515", "a16sf551s6");
+    Emprestimo emprestimo = new Emprestimo(10000, 4, 3, pessoa, Tipo.PESSOAL);
+
+    public EmprestimoTest() throws Exception {
+    }
 
     @Test
-    public void testePessoa() {
+    public void deveVerificarPessoa() {
         emprestimo.verificaPessoa(pessoa);
     }
 
     @Test
-    public void testeValorEmprestimo() throws Exception {
+    public void deveVerificarValorEmprestimo() throws Exception {
         emprestimo.verificaValorEmprestimo(1000);
     }
 
     @Test
-    public void testeNumeroParcelas() throws Exception {
+    public void deveVerificarNumeroParcelas() throws Exception {
         emprestimo.verificaNumeroParcelas(10);
     }
 
     @Test
-    public void testeNumeroParcelasPagas() {
+    public void deveVerificarNumeroParcelasPagas() {
         emprestimo.verificaNumeroParcelasPagas(10);
     }
 
     @Test
-    public void testeTipo() {
+    public void deveVerificarTipo() {
         emprestimo.verificaTipoDeEmprestimo(null);
     }
 
     @Test
-    public void testeRealizarPagamento() {
+    public void deveVerificarRealizarPagamento() {
         emprestimo.realizarPagamento(1);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testeValorPago() {
+    @Test
+    public void deveVerificarValorPago() {
         emprestimo.ValorTotalPago();
     }
 
     @Test
-    public void testeVerificarQuitado() throws Exception {
+    public void deveVerificarVerificarQuitado() throws Exception {
         emprestimo.verificarQuitado();
     }
 
