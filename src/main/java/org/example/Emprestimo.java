@@ -4,7 +4,6 @@ public class Emprestimo {
     private float valorEmprestimo;
     private int numeroDeParcelas;
     private int numeroDeParcelasPagas;
-    private float totalJaPago;
     private Pessoa pessoa;
     private Tipo tipo;
 
@@ -46,6 +45,7 @@ public class Emprestimo {
         }
     }
 
+
     public void verificaNumeroParcelas(int numeroDeParcelas) throws Exception {
         if (numeroDeParcelas > 0) {
             this.numeroDeParcelas = numeroDeParcelas;
@@ -79,7 +79,7 @@ public class Emprestimo {
     }
 
     public void ValorTotalPago() {
-        totalJaPago = numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
+        float totalJaPago = numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
         float jurosPessoa = pessoa.taxaJuros() * totalJaPago / 100;
         float jurosParcelaMaiorQueCinco = (2.5f * totalJaPago / 100) + totalJaPago;
         float valorFinalPago = numeroDeParcelasPagas > 5 ? (jurosParcelaMaiorQueCinco + jurosPessoa) : totalJaPago + jurosPessoa;

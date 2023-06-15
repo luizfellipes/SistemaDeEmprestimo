@@ -1,11 +1,13 @@
 package org.example;
 
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 
 public class EmprestimoTest {
 
     private final Pessoa pessoa = new PessoaFisica("Fulano", "123456789", "65161651515", "a16sf551s6");
-    private final Emprestimo emprestimo = new Emprestimo(10000, 4, 3, pessoa, Tipo.PESSOAL);
+    private final Emprestimo emprestimo = new Emprestimo(10000, 10, 3, pessoa, Tipo.PESSOAL);
 
     public EmprestimoTest() throws Exception {
     }
@@ -13,6 +15,7 @@ public class EmprestimoTest {
     @Test
     public void deveVerificarPessoa() {
         emprestimo.verificaPessoa(pessoa);
+        Assertions.assertThrows(NullPointerException.class, () -> emprestimo.verificaPessoa(null));
     }
 
     @Test
