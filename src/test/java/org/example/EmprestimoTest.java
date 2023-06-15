@@ -1,14 +1,11 @@
 package org.example;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
-public class EmprestimoTest  {
-
+public class EmprestimoTest {
 
     private final Pessoa pessoa = new PessoaFisica("Fulano", "123456789", "65161651515", "a16sf551s6");
-    Emprestimo emprestimo = new Emprestimo(10000, 4, 3, pessoa, Tipo.PESSOAL);
+    private final Emprestimo emprestimo = new Emprestimo(10000, 4, 3, pessoa, Tipo.PESSOAL);
 
     public EmprestimoTest() throws Exception {
     }
