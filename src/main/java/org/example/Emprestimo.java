@@ -45,7 +45,6 @@ public class Emprestimo {
         }
     }
 
-
     public void verificaNumeroParcelas(int numeroDeParcelas) throws Exception {
         if (numeroDeParcelas > 0) {
             this.numeroDeParcelas = numeroDeParcelas;

@@ -1,20 +1,20 @@
 package org.example;
 
 public class PessoaJuridica extends Pessoa {
-    private String CNPJ;
+    private String cnpj;
     private String inscricaoEstadual;
 
-    public PessoaJuridica(String nome, String telefone, String CNPJ, String inscricaoEstadual) {
+    public PessoaJuridica(String nome, String telefone, String cnpj, String inscricaoEstadual) {
         this.nome = nome;
         this.telefone = telefone;
-        validaCnpj(CNPJ);
+        validaCnpj(cnpj);
         this.inscricaoEstadual = inscricaoEstadual;
     }
 
-    public void validaCnpj(String CNPJ) {
-        CNPJ = CNPJ.replaceAll("\\D+", "");
-        if (CNPJ.length() == 14) {
-            this.CNPJ = CNPJ;
+    public void validaCnpj(String cnpj) {
+        cnpj = cnpj.replaceAll("\\D+", "");
+        if (cnpj.length() == 14) {
+            this.cnpj = cnpj;
         } else {
             throw new RuntimeException("Cnpj Invalido");
         }
@@ -30,7 +30,7 @@ public class PessoaJuridica extends Pessoa {
     @Override
     public String toString() {
         return "PessoaJuridica{" +
-                "CNPJ='" + CNPJ + '\'' +
+                "CNPJ='" + cnpj + '\'' +
                 ", inscricaoEstadual='" + inscricaoEstadual + '\'' +
                 ", nome='" + nome + '\'' +
                 ", telefone='" + telefone + '\'' +

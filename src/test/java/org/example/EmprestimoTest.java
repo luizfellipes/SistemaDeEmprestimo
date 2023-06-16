@@ -2,7 +2,7 @@ package org.example;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
+
 
 public class EmprestimoTest {
 
@@ -21,11 +21,13 @@ public class EmprestimoTest {
     @Test
     public void deveVerificarValorEmprestimo() throws Exception {
         emprestimo.verificaValorEmprestimo(1000);
+        Assertions.assertThrows(Exception.class, () -> emprestimo.verificaValorEmprestimo(-1000));
     }
 
     @Test
     public void deveVerificarNumeroParcelas() throws Exception {
         emprestimo.verificaNumeroParcelas(10);
+        Assertions.assertThrows(Exception.class, () -> emprestimo.verificaNumeroParcelas(-10));
     }
 
     @Test

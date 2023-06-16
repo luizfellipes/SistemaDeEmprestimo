@@ -20,6 +20,7 @@ public class PessoaFisica extends Pessoa {
             throw new RuntimeException("Cpf Invalido");
         }
     }
+
     public boolean pessoaExiste() {
         if (campoNulo(cpf) || campoNulo(tituloEleitor)) {
             System.out.println("Pessoa sem dados cadastrados ! \nNão será possível realizar o emprestimo !");
