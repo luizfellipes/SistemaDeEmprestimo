@@ -2,6 +2,7 @@ package org.example;
 
 public class Emprestimo {
     private float valorEmprestimo;
+    private float valorFinalPago;
     private int numeroDeParcelas;
     private int numeroDeParcelasPagas;
     private Pessoa pessoa;
@@ -18,6 +19,18 @@ public class Emprestimo {
 
     public float getValorEmprestimo() {
         return valorEmprestimo;
+    }
+
+    public float getValorFinalPago() {
+        return valorFinalPago;
+    }
+
+    public int getNumeroDeParcelas() {
+        return numeroDeParcelas;
+    }
+
+    public int getNumeroDeParcelasPagas() {
+        return numeroDeParcelasPagas;
     }
 
     public Pessoa getPessoa() {
@@ -81,7 +94,7 @@ public class Emprestimo {
         float totalJaPago = numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
         float jurosPessoa = pessoa.taxaJuros() * totalJaPago / 100;
         float jurosParcelaMaiorQueCinco = (2.5f * totalJaPago / 100) + totalJaPago;
-        float valorFinalPago = numeroDeParcelasPagas > 5 ? (jurosParcelaMaiorQueCinco + jurosPessoa) : totalJaPago + jurosPessoa;
+        valorFinalPago = numeroDeParcelasPagas > 5 ? (jurosParcelaMaiorQueCinco + jurosPessoa) : totalJaPago + jurosPessoa;
         float saldoDevedor = numeroDeParcelasPagas > 5 ? ((valorEmprestimo - jurosParcelaMaiorQueCinco) + jurosPessoa) : (valorEmprestimo - totalJaPago) + jurosPessoa;
         System.out.println("Valor total pago: R$" + valorFinalPago + "\nSaldo Devedor: R$" + saldoDevedor);
     }
