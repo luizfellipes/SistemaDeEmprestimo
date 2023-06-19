@@ -95,7 +95,7 @@ public class Emprestimo {
         float jurosPessoa = pessoa.taxaJuros() * totalJaPago / 100;
         float jurosParcelaMaiorQueCinco = (2.5f * totalJaPago / 100) + totalJaPago;
         valorFinalPago = numeroDeParcelasPagas > 5 ? (jurosParcelaMaiorQueCinco + jurosPessoa) : totalJaPago + jurosPessoa;
-        float saldoDevedor = numeroDeParcelasPagas > 5 ? ((valorEmprestimo - jurosParcelaMaiorQueCinco) + jurosPessoa) : (valorEmprestimo - totalJaPago) + jurosPessoa;
+        float saldoDevedor = numeroDeParcelasPagas > 5 ? (jurosParcelaMaiorQueCinco - valorFinalPago) + jurosPessoa : (valorEmprestimo - valorFinalPago) + jurosPessoa;
         System.out.println("Valor total pago: R$" + valorFinalPago + "\nSaldo Devedor: R$" + saldoDevedor);
     }
 

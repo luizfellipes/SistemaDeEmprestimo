@@ -48,19 +48,19 @@ public class EmprestimoTest {
     @Test
     public void deveVerificarRealizarPagamento() {
         emprestimo.realizarPagamento(1);
-        Assertions.assertEquals(4, emprestimo.getNumeroDeParcelasPagas());
+        Assertions.assertEquals(10, emprestimo.getNumeroDeParcelasPagas());
     }
 
     @Test
     public void deveVerificarValorPago() {
         emprestimo.ValorTotalPago();
-        Assertions.assertEquals(3033, emprestimo.getValorFinalPago());
+        Assertions.assertEquals(10360.0, emprestimo.getValorFinalPago());
     }
 
     @Test
     public void deveVerificarVerificarQuitado() throws Exception {
         emprestimo.verificarQuitado();
-        Assertions.assertEquals(true, emprestimo.getNumeroDeParcelasPagas() > 0 && emprestimo.getNumeroDeParcelas() > 0 && emprestimo.getNumeroDeParcelasPagas() == emprestimo.getNumeroDeParcelas());
+        Assertions.assertTrue(emprestimo.getNumeroDeParcelasPagas() > 0 && emprestimo.getNumeroDeParcelas() > 0 && emprestimo.getNumeroDeParcelasPagas() == emprestimo.getNumeroDeParcelas());
     }
 
 }

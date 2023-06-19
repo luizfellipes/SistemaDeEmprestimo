@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         PessoaFisica pessoa = new PessoaFisica("Fulano", "123456789", "123.456.789-00", "a16sf551s6");
-        Emprestimo emprestimo = new Emprestimo(10000, 4, 4, pessoa, Tipo.PESSOAL);
+        Emprestimo emprestimo = new Emprestimo(10000, 10, 10, pessoa, Tipo.PESSOAL);
         criaEmprestimo(emprestimo);
 
         PessoaJuridica pessoa1 = new PessoaJuridica("Cicrano", "123456780", "12.345.678/0001-90", "s214214");
