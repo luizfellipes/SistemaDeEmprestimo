@@ -21,7 +21,7 @@ public class Main {
         criaEmprestimo(emprestimo2);
 
 
-        buscaEmprestimo(emprestimo2);
+        buscaEmprestimo(emprestimo1);
         System.out.println("\n-----------------------------------------------------");
 
         buscaEmprestimo(10000, Tipo.PESSOAL, "Fulano");
@@ -62,11 +62,8 @@ public class Main {
     }
 
     public static void buscaEmprestimo(Emprestimo emprestimo) {
-        for (Emprestimo emprestimos : listEmprestimo) {
-            if (emprestimos.equals(emprestimo)) {
-                System.out.println(emprestimo);
-            }
-        }
+        listEmprestimo.forEach(Emprestimo -> listEmprestimo.equals(emprestimo));
+        System.out.println(emprestimo);
     }
 
     //Busca o maior valor de emprestimo feito
