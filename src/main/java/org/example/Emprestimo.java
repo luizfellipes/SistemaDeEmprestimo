@@ -90,7 +90,7 @@ public class Emprestimo {
         }
     }
 
-    public void ValorTotalPago() {
+    public void valorTotalPago() {
         float totalJaPago = numeroDeParcelasPagas * (valorEmprestimo / numeroDeParcelas);
         float jurosPessoa = pessoa.taxaJuros() * totalJaPago / 100;
         float jurosParcelaMaiorQueCinco = (2.5f * totalJaPago / 100) + totalJaPago;

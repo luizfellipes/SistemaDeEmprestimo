@@ -45,22 +45,24 @@ public class Main {
         listEmprestimo.add(emprestimo);
     }
 
+    //Remove um emprestimo da lista
     public static void removerEmprestimo(Emprestimo emprestimo) {
         listEmprestimo.remove(emprestimo);
     }
 
+    //busca o emprestimo por parametros
     public static void buscaEmprestimo(float valorEmprestimo, Tipo tipo, String pessoa) throws Exception {
         for (Emprestimo emprestimo : listEmprestimo) {
             if (emprestimo.getPessoa().getNome().equals(pessoa) && emprestimo.getValorEmprestimo() == valorEmprestimo && emprestimo.getTipo() == tipo) {
                 System.out.println(emprestimo);
                 emprestimo.realizarPagamento(1);
-                emprestimo.ValorTotalPago();
+                emprestimo.valorTotalPago();
                 emprestimo.verificarQuitado();
-                return;
             }
         }
     }
 
+    //Busca o emprestimo por objeto
     public static void buscaEmprestimo(Emprestimo emprestimo) {
         listEmprestimo.forEach(Emprestimo -> listEmprestimo.equals(emprestimo));
         System.out.println(emprestimo);
